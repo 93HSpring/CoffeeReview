@@ -23,7 +23,7 @@
 	<div class="btn-group w-100 mb-2">
 		<a class="btn btn-info" href="getBoardList.do?cafe=Starbucks" style="width:200px;">스타벅스</a>
 		<a class="btn btn-info" href="getBoardList.do?cafe=Coffeebean" style="width:200px;">커피빈</a>
-		<a class="btn btn-info" href="getBoardList.do?cafe=Twosome" data-filter="twosome" style="width:200px;">투썸</a>
+		<a class="btn btn-info" href="getBoardList.do?cafe=Twosome" style="width:200px;">투썸</a>
 	</div>
 </div>
 <!-- 카페 선택 부분 끝 -->
@@ -65,7 +65,8 @@
 				<c:forEach items="${boardList }" var="board">
 					<div class="col-sm-2">
 						<a href="getBoardList.do?cafe=${board.cname }">
-							<img alt="/resources/image/${board.id }.png" src="/resources/image/${board.cname }/${board.id }.jpg">
+							<img src="http://localhost:8090/coffeereview/data/image/${board.cname }/${board.id }.jpg">
+							<!-- <img src="${pageContext.request.contextPath}/resources/image/${board.cname }/${board.id }.jpg"> -->
 						</a>
 						<div>
 							<span>커피</span>
