@@ -14,6 +14,16 @@
 	<hr>
 		<a href="getBoardList.do">글 목록 바로가기</a><br>
 	<hr>
+	<form action="signup.jsp" method="post">
+		<table>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="회원가입"/>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
 </center>
 </body>
 </html>

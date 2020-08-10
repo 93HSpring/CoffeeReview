@@ -15,6 +15,7 @@ import com.hspring.coffeereview.biz.board.BoardVO;
 public class BoardDAO {
    
    @PersistenceContext
+   //(unitName = "cafes")
    private EntityManager em;
    
    public void insertBoard(BoardVO vo) {

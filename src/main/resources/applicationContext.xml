@@ -31,15 +31,25 @@
 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 	</bean>
 	
+	<!-- EntityManager For CAFES -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"></property>
+		<property name="persistenceUnitName" value="coffeeboard" />
+		
 	</bean>
+
 	
 	<!-- Transaction 설정 -->
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+		<!-- <property name="entityManagerFactoryUser" ref="entityManagerFactory"></property> -->
 	</bean>
+	
+	<bean id="txManagerUser" class="org.springframework.orm.jpa.JpaTransactionManager">
+		
+	</bean>
+	
 	
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
@@ -49,7 +59,7 @@
 	</tx:advice>
 	
 	<aop:config>
-		<aop:pointcut id="allPointcut" expression="execution(* com.springbook.biz..*Impl.*(..))" />
+		<aop:pointcut id="allPointcut" expression="execution(* com.hspring.coffeereview.biz..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="allPointcut" advice-ref="txAdvice" />
 	</aop:config>
 </beans>
