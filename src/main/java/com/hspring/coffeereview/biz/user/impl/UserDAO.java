@@ -26,13 +26,19 @@ public class UserDAO {
 	public void insertUser(UserVO vo) {
 		
 		System.out.println("===> JPA로 insertUser() 처리");
+	 
+		if(em.find(UserVO.class, vo.getId()) == null) {
+			em.persist(vo);
+			System.out.println("===> JPA로 insertUser() 처리 완료");
+		} else {
+			System.out.println("이미 가입된 아이디입니다.");
+		}
 		/*
 		em.createQuery("insert into users(id, pw, uname, sex, uphonenum, uemail, uadr) values(?,?,?,?,?,?,?)")
 		.setParameter(1, vo.getId()).setParameter(2, vo.getPw()).setParameter(3, vo.getUname()).setParameter(4, vo.getSex()).setParameter(5, vo.getUphonenum())
 		.setParameter(6, vo.getUemail()).setParameter(7, vo.getUadr()).executeUpdate();
 		*/
-		em.persist(vo);
-		System.out.println("===> JPA로 insertUser() 처리 완료");
+		
 	}
 	
 	// ȸ�� ����

@@ -7,11 +7,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>회원가입</title>
+
+<script>
+	function checkForm(){
+		if(document.insert.id.value == ""){
+			alert("아이디를 입력하세요");
+			document.insert.id.focus();
+			return false;
+		}
+		
+		if(document.insert.pw.value == ""){
+			alert("비밀번호를 입력하세요");
+			document.insert.id.focus();
+			return false;
+		} else if(document.insert.pw.value != document.insert.pwc.value){
+			alert("암호가 일치하지 않습니다. 다시 입력하세요");
+			document.insert.pw.value = "";
+			document.insert.pwc.value = "";
+			document.insert.pw.focus();
+			return false;
+		}
+		
+		document.insert.action = "insertUser.do";
+		//document.insert.submit();
+	}
+	
+	
+
+</script>
+
 </head>
 <body>
 <center>
 
-<form action="insertUser.do" method="post">
+<form name="insert" onsubmit="return checkForm()" method="post">
 <table border="1" cellpadding="0" cellspacing="0">
 	
 	<tr>
@@ -21,8 +50,14 @@
 	
 	<tr>
 		<td bgcolor="orange">비밀번호</td><td align="left">
-		<input type="text" name="pw" size="10"></td>
+		<input type="password" name="pw" size="10"></td>
 	</tr>
+	
+	<tr>
+		<td bgcolor="orange">비밀번호 확인</td><td align="left">
+		<input type="password" name="pwc" size="10"></td>
+	</tr>
+	
 	
 	<tr>
 		<td bgcolor="orange">이름</td><td align="left">
