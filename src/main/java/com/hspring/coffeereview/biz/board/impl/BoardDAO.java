@@ -42,7 +42,7 @@ public class BoardDAO {
       System.out.println("===> JPA로 getBoardList() 처리");
       
       TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cname = :cafename order by b.savg desc", BoardVO.class);
-      query.setParameter("cafename", vo.getId());
+      query.setParameter("cafename", vo.getCname());
       
       return query.getResultList();
    }

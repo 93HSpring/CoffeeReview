@@ -74,7 +74,7 @@ public class BoardController {
 		System.out.println("카페 목록 처리");
 		
 		BoardVO boardVO = new BoardVO();
-		boardVO.setId(cafeName);
+		boardVO.setCname(cafeName);
 		
 		// Null Check
 		if (vo.getSearchCondition() == null)
