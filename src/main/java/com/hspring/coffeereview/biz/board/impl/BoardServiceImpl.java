@@ -33,4 +33,12 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> getBoardList(BoardVO vo) {
 		return boardDAO.getBoardList(vo);
 	}
+	
+	public int selectBoardCnt(String cName) {
+		return boardDAO.selectBoardCnt(cName);
+	}
+	
+	public List<BoardVO> selectListPaging(BoardVO vo) {
+		return boardDAO.selectListPaging(vo);
+	}
 }

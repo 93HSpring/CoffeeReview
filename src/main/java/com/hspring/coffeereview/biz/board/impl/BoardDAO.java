@@ -46,4 +46,18 @@ public class BoardDAO {
       
       return query.getResultList();
    }
+   
+   public int selectBoardCnt(String cName) {
+	   TypedQuery<Number> query = em.createQuery("select count(*) from BoardVO b where b.cname = :cafename", Number.class);
+	   query.setParameter("cafename", cName);
+	
+	   return (query.getSingleResult()).intValue();
+   }
+   
+   public List<BoardVO> selectListPaging(BoardVO vo) {
+	   TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cname = :cafename order by b.savg desc", BoardVO.class);
+	   query.setParameter("cafename", vo.getCname());
+	   
+	   return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
+   }
 }

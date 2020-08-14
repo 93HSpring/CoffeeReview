@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hspring.coffeereview.biz.board.BoardService;
 import com.hspring.coffeereview.biz.board.BoardVO;
+import com.hspring.coffeereview.biz.common.Pagination;
 
 @Controller
 public class BoardController {
@@ -70,11 +71,25 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/getBoardList.do")
-	public String getBoardList(@RequestParam(value="cafe", defaultValue="starbucks", required=false) String cafeName, BoardVO vo, Model model) {
+	public String getBoardList(@RequestParam(value="cafe", defaultValue="starbucks", required=false) String cafeName, @RequestParam(value="page", defaultValue="1") int page, BoardVO vo, Model model) {
 		System.out.println("카페 목록 처리");
 		
-		BoardVO boardVO = new BoardVO();
-		boardVO.setCname(cafeName);
+		// 카페이름에 해당하는 전체 메뉴 조회
+		//BoardVO boardVO = new BoardVO();
+		//boardVO.setCname(cafeName);
+		// 카페이름에 해당하는 전체 메뉴 조회하고 전달
+		// model.addAttribute("boardList", boardService.getBoardList(boardVO));
+		
+		// 페이징
+		// 총 게시물 수
+		int listCnt = boardService.selectBoardCnt(cafeName);
+		
+		// 생성인자로 총 게시물 수, 현재 페이지를 전달
+		Pagination pagination = new Pagination(listCnt, page);
+		
+		vo.setCname(cafeName);
+		vo.setStartIndex(pagination.getStartIndex());
+		vo.setCntPerPage(pagination.getPageSize());
 		
 		// Null Check
 		if (vo.getSearchCondition() == null)
@@ -86,7 +101,9 @@ public class BoardController {
 			vo.setSearchKeyword("");
 		}
 		
-		model.addAttribute("boardList", boardService.getBoardList(boardVO));
+		model.addAttribute("boardList", boardService.selectListPaging(vo));
+		model.addAttribute("listCnt", listCnt);
+		model.addAttribute("pagination", pagination);
 		
 		return "getBoardList.jsp";
 	}

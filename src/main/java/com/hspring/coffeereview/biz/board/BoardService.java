@@ -13,4 +13,8 @@ public interface BoardService {
 	BoardVO getBoard(BoardVO vo);
 
 	List<BoardVO> getBoardList(BoardVO vo);
+	
+	int selectBoardCnt(String cName);
+	
+	public List<BoardVO> selectListPaging(BoardVO vo);
 }

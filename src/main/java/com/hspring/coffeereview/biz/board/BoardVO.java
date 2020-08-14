@@ -25,6 +25,8 @@ public class BoardVO {
 	private String sodium;
 	private String caffeine;
 	private String star;
+	private int startIndex;
+	private int cntPerPage;
 	private BigDecimal savg;
 	@Transient // JPA
 	private String searchCondition;
@@ -129,12 +131,28 @@ public class BoardVO {
 		this.uploadFile = uploadFile;
 	}
 
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+
+	public int getCntPerPage() {
+		return cntPerPage;
+	}
+
+	public void setCntPerPage(int cntPerPage) {
+		this.cntPerPage = cntPerPage;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVO [id=" + id + ", name=" + name + ", cname=" + cname + ", kcal=" + kcal + ", sugars=" + sugars
-				+ ", sodium=" + sodium + ", caffeine=" + caffeine + ", star=" + star + ", savg=" + savg
-				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", uploadFile="
-				+ uploadFile + "]";
+				+ ", sodium=" + sodium + ", caffeine=" + caffeine + ", star=" + star + ", startIndex=" + startIndex
+				+ ", cntPerPage=" + cntPerPage + ", savg=" + savg + ", searchCondition=" + searchCondition
+				+ ", searchKeyword=" + searchKeyword + ", uploadFile=" + uploadFile + "]";
 	}
 
 }
