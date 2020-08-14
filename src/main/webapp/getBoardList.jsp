@@ -390,8 +390,6 @@ $.urlParam = function(name){
 
 $(document).ready(function() {
 /** add active class and stay opened when selected */
- * 
- */
 var url = window.location;
 
 console.log('1 : ' + $.urlParam('cafe'));
