@@ -14,6 +14,17 @@
 	<hr>
 		<a href="getBoardList.do">글 목록 바로가기</a><br>
 	<hr>
+	
+	<hr>
+		<a href="login.do">네이버 로그인 바로가기</a><br>
+	<hr>
+	
+	<hr>
+		<a href="logout.do">로그아웃 하기</a><br>
+	<hr>
+	
+	
+	
 	<form action="signup.jsp" method="post">
 		<table>
 			<tr>

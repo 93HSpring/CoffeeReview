@@ -17,6 +17,8 @@
 	<!-- AOP 관련 어노테이션들을 인식하고 용도에 맞게 처리 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
+	
+	
 	<!-- DataSource 설정 -->
 	<!-- <context:property-placeholder location="classpath:config/database.properties" /> -->
 	
@@ -50,7 +52,6 @@
 		
 	</bean>
 	
-	
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
 			<tx:method name="get*" read-only="true" />
@@ -62,4 +63,5 @@
 		<aop:pointcut id="allPointcut" expression="execution(* com.hspring.coffeereview.biz..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="allPointcut" advice-ref="txAdvice" />
 	</aop:config>
+
 </beans>
