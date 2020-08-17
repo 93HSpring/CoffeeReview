@@ -174,6 +174,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <!-- CAFES 메뉴 시작 -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-coffee"></i>
@@ -182,27 +183,36 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <!-- CAFE 목록 시작 -->
             <ul class="nav nav-treeview">
+				<!-- STARBUCKS -->
               <li class="nav-item">
-                <a href="getBoardList.do?cafe=STARBUCKS&page=1" class="nav-link">
+              	<!-- 현재 페이지를 받아와 주소에 반영 -->
+              	<!-- 아무런 입력이 없으면 1 페이지로 가도록 함 BoardController의 getBoardList의 page 매개변수 참고 -->
+                <a href="getBoardList.do?cafe=STARBUCKS&page=${ pagination.curPage}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>STARBUCKS</p>
                 </a>
               </li>
+              <!-- COFFEEBEAN -->
               <li class="nav-item">
-                <a href="getBoardList.do?cafe=COFFEEBEAN&page=1" class="nav-link">
+                <a href="getBoardList.do?cafe=COFFEEBEAN&page=${ pagination.curPage}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>COFFEEBEAN</p>
                 </a>
               </li>
+              <!-- TWOSOME -->
               <li class="nav-item">
-                <a href="getBoardList.do?cafe=TWOSOME&page=1" class="nav-link">
+                <a href="getBoardList.do?cafe=TWOSOME&page=${ pagination.curPage}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>TWOSOME</p>
                   </a>
               </li>
             </ul>
+            <!-- CAFE 목록 끝 -->
           </li>
+          <!-- CAFES 메뉴 끝 -->
+          
           <!-- 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -234,6 +244,7 @@
             </ul>
           </li>
            -->
+           
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -297,57 +308,61 @@
 			</div>
 			<!-- 카페 바디 부분 끝 -->	
 			<!-- 카페 음료 끝 -->
+			
+			<!-- 페이징 부분 -->
+			<div class="card-footer">
+				<nav aria-label="Contancts Page Navigation">
+					<ul class="pagination justify-content-center m-0">
+						<c:if test="${pagination.curRange ne 1 }">
+				     		<li class="page-item">
+				        		<a href="#" class="page-link" onClick="fn_paging(1)">
+				        			처음
+								</a> 
+				        	</li>
+				        </c:if>
+				        <c:if test="${pagination.curPage ne 1}">
+				        	<li class="page-item previous">
+				            	<a href="#" class="page-link" onClick="fn_paging('${pagination.prevPage }')">이전</a>
+				            </li> 
+				        </c:if>
+				        <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
+				        	<c:choose>
+				            	<c:when test="${pageNum eq  pagination.curPage}">
+				            		<li class="page-item active">
+					                	<span style="font-weight: bold;">
+					                		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }
+					                		</a>
+					                	</span>
+				                	</li>
+				                </c:when>
+				                <c:otherwise>
+				                	<li class="page-item">
+				                		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+				               		</li> 
+				                </c:otherwise>
+				            </c:choose>
+				        </c:forEach>
+				        <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+				        	<li class="page-item next">
+				        		<a href="#" class="page-link" onClick="fn_paging('${pagination.nextPage }')">다음</a>
+				        	</li> 
+				        </c:if>
+				        <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+				        	<li class="page-item">
+				        	<a href="#" class="page-link" onClick="fn_paging('${pagination.pageCnt }')">끝</a>
+				        	</li> 
+				        </c:if>
+			        </ul>
+				</nav>
+			</div>
+			<!-- 페이징 부분 끝 -->
 		</div>
 	</div>
-	<!-- 페이징 부분 -->
-	 <div class="col-sm-12 col-md-7">
-	 	<div class="dataTables_paginate paging_simple_numbers">
-		 	<ul class="pagination">
-		     	<c:if test="${pagination.curRange ne 1 }">
-		     		<li class="paginate_button page-item previous">
-		        		<a href="#" data-dt-idx="0" tabindex="0" class="page-link" onClick="fn_paging(1)">First</a> 
-		        	</li>
-		        </c:if>
-		        <c:if test="${pagination.curPage ne 1}">
-		        	<li class="paginate_button page-item previous">
-		            	<a href="#" data-dt-idx="0" tabindex="0" class="page-link" onClick="fn_paging('${pagination.prevPage }')">Prev</a>
-		            </li> 
-		        </c:if>
-		        <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
-		        	<c:choose>
-		            	<c:when test="${pageNum eq  pagination.curPage}">
-		            		<li class="paginate_button page-item active">
-			                	<span style="font-weight: bold;">
-			                		<a href="#" data-dt-idx="${pageNum }" tabindex="0" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }
-			                		</a>
-			                	</span>
-		                	</li>
-		                </c:when>
-		                <c:otherwise>
-		                	<li class="paginate_button page-item">
-		                		<a href="#" data-dt-idx="${pageNum }" tabindex="0" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }</a>
-		               		</li> 
-		                </c:otherwise>
-		            </c:choose>
-		        </c:forEach>
-		        <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-		        	<li class="paginate_button page-item next">
-		        		<a href="#" data-dt-idx="${pagination.nextPage }" tabindex="0" class="page-link" onClick="fn_paging('${pagination.nextPage }')">Next</a>
-		        	</li> 
-		        </c:if>
-		        <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
-		        	<li class="paginate_button page-item next">
-		        	<a href="#" data-dt-idx="${pagination.pageCnt }" tabindex="0" class="page-link" onClick="fn_paging('${pagination.pageCnt }')">End</a>
-		        	</li> 
-		        </c:if>
-	        </ul>
-		</div>
-	</div>
-                
-    <div>
-       	총 게시글 수 : ${pagination.listCnt } / 총 페이지 수 : ${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 : ${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }
-	</div>
-	<!-- 페이징 부분 끝 -->
+    
+    <!-- 페이징 정보 부분 -->
+	       	<!-- 현재 페이지 : ${pagination.curPage } / 총 페이지 : ${pagination.pageCnt } / 총 게시글 : ${pagination.listCnt } -->
+	       	<!-- / 현재 블럭 : ${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt } -->
+	<!-- 페이징 정보 부분 끝 -->
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -382,7 +397,8 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<script>
+<!-- Sidebar active를 위한 js -->
+<script type="text/javascript">
 $.urlParam = function(name){
     var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
     return results[1] || 0;
@@ -392,27 +408,18 @@ $(document).ready(function() {
 /** add active class and stay opened when selected */
 var url = window.location;
 
-console.log('1 : ' + $.urlParam('cafe'));
-console.log('window : ' + window.location.href);
-
 // for sidebar menu entirely but not cover treeview
 $('ul.nav-sidebar a').filter(function() {
-	console.log('2 : ' + $.urlParam('cafe'));
-	console.log('window : ' + window.location.href);
-	console.log('this : ' + this.href);
 return this.href == url;
 }).addClass('active');
 
 // for treeview
 $('ul.nav-treeview a').filter(function() {
-	console.log('3 : ' + $.urlParam('cafe'));
-	console.log('window : ' + window.location.href);
-	console.log('this : ' + this.href);
 return this.href == url;
 }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 })
-
 </script>
+<!-- Paging을 위한 js -->
 <script type="text/javascript">
 	function fn_paging(curPage) {
 		location.href = "/coffeereview/getBoardList.do?cafe=${ param.cafe}&page=" + curPage;
