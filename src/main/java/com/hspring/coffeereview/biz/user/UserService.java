@@ -10,5 +10,7 @@ public interface UserService {
 	
 	// 회원 정보 확인
 	UserVO getUser(UserVO vo);
+	
+	boolean checkUser(String name);
 
 }

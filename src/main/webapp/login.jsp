@@ -1,37 +1,66 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<title>NAVER LOGIN TEST</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body>
-<h1>Login Form</h1>
-<hr>
-<br>
-<center>
-	<c:choose>
-		<c:when test="${sessionId != null}">
-			<h2> 네이버 아이디 로그인 성공하셨습니다!! </h2>
-			<h3>'${sessionId}' 님 환영합니다! </h3>
-			<h3><a href="logout">로그아웃</a></h3>
-		</c:when>
-		<c:otherwise>
-			<form action="login.userdo" method="post" name="frm" style="width:470px;">
-				<h2>로그인</h2>
-				<input type="text" name="id" id="id" class="w3-input w3-border" placeholder="아이디" value="${id}"> <br>
-				<input type="password" id="pwd" name="pwd" class="w3-input w3-border" placeholder="비밀번호" > <br>
-				<input type="submit" value="로그인" onclick="#"> <br>
-			</form>
-			<br>
-			
-			<!-- 네이버 로그인 창으로 이동 -->
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="index.jsp"><b>CoffeeReview</b>*^^*</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <div class="social-auth-links text-center mb-3">
+        <!-- 네이버 로그인 창으로 이동 -->
 			<div id="naver_id_login" style="text-align:center"><a href="${url}">
 			<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
-			<br>
-		</c:otherwise>
-	</c:choose>
-</center>
+        <!-- 
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i> Sign in using Naver
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
+         -->
+      </div>
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+      </p>
+      <p class="mb-0">
+        <a href="register.html" class="text-center">Register a new membership</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
 </body>
 </html>

@@ -53,5 +53,11 @@ public class UserDAO {
 		System.out.println("===> JPA로 getUser() 처리");
 		return vo;
 	}
+	
+	// 이미 가입된 회원인지 확인
+	public Boolean checkUser(String name) {
+		return em.find(UserVO.class, name) == null ? false : true;
+	}
+
 
 }
