@@ -17,7 +17,7 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css?ver=2">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Ionicons -->
@@ -286,8 +286,8 @@
 				<div class="row align-items-stretch">
 					<c:forEach items="${boardList }" var="board">
 						<div class="col-6 col-sm-3 col-md-2 align-items-stretch">
-							<div OnClick="location.href ='getBoardList.do?cafe=${board.cname }'" class="card bg-light" style="cursor:pointer; border-top-left-radius:19px; border-top-right-radius:19px;">
-								<img class="card-img-top" src="http://localhost:8090/coffeereview/data/image/${board.cname }/${board.name }.jpg" alt="${board.name }" style="width:100%; height:auto; border-top-left-radius:19px; border-top-right-radius:19px; padding-bottom:6px;">
+							<div OnClick="location.href ='getBoardList.do?cafe=${board.cname }&page=${ pagination.curPage}'" class="card bg-light" style="cursor:pointer; border-top-left-radius:19px; border-top-right-radius:19px;">
+								<img class="card-img-top" src="data/image/${board.cname }/${board.name }.jpg" alt="${board.name }" style="width:100%; height:auto; border-top-left-radius:19px; border-top-right-radius:19px; padding-bottom:6px;">
 								<div class="card-body p-0" style="height:55px;">
 									<div style="height:30%; font-size:12px; font-weight:bold; color:red; align-items:center;" class="text-center">
 										커피
@@ -298,7 +298,7 @@
 								</div>
 								<div class="card-footer p-0" style="height:40px; display:table;">
 									<div class="text-center" style="height:20px; font-size:20px; display:table-cell; vertical-align: middel; padding-top:5px;">
-										<i class="far ion-android-star"></i>  ${board.savg }
+										<i class="fas fa-star" style="color:#FFC31E;"></i>  ${board.savg }
 									</div>							
 								</div>							
 							</div>
@@ -315,41 +315,48 @@
 					<ul class="pagination justify-content-center m-0">
 						<c:if test="${pagination.curRange ne 1 }">
 				     		<li class="page-item">
-				        		<a href="#" class="page-link" onClick="fn_paging(1)">
-				        			처음
+				        		<a href="#" class="page-link d-flex" style="height:100%; align-items:center;" onClick="fn_paging(1)">
+									<i class="fas fa-angle-double-left fa-sm" ></i>
 								</a> 
 				        	</li>
 				        </c:if>
 				        <c:if test="${pagination.curPage ne 1}">
 				        	<li class="page-item previous">
-				            	<a href="#" class="page-link" onClick="fn_paging('${pagination.prevPage }')">이전</a>
+				            	<a href="#" class="page-link d-flex" style="height:100%; align-items:center;" onClick="fn_paging('${pagination.prevPage }')">
+				            		<i class="fas fa-angle-left fa-sm"></i>
+								</a>
 				            </li> 
 				        </c:if>
 				        <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
 				        	<c:choose>
 				            	<c:when test="${pageNum eq  pagination.curPage}">
 				            		<li class="page-item active">
-					                	<span style="font-weight: bold;">
-					                		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }
-					                		</a>
-					                	</span>
+				                		<a href="#" class="page-link d-flex" onClick="fn_paging('${pageNum }')" style="height:100%; align-items:center; font-weight: bold;">
+				                			${pageNum }
+				                		</a>
 				                	</li>
 				                </c:when>
 				                <c:otherwise>
 				                	<li class="page-item">
-				                		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+			                			<a href="#" class="page-link d-flex" onClick="fn_paging('${pageNum }')" style="height:100%; align-items:center; font-weight: bold;">
+			                				${pageNum }
+			                			</a>
 				               		</li> 
 				                </c:otherwise>
 				            </c:choose>
 				        </c:forEach>
 				        <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-				        	<li class="page-item next">
-				        		<a href="#" class="page-link" onClick="fn_paging('${pagination.nextPage }')">다음</a>
+				        	<li class="page-item">
+				        		<a href="#" class="page-link d-flex" onClick="fn_paging('${pagination.nextPage }')" style="height:100%; align-items:center;">
+				        			<i class="fas fa-angle-right fa-sm"></i>
+				        		</a>
 				        	</li> 
 				        </c:if>
 				        <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
 				        	<li class="page-item">
-				        	<a href="#" class="page-link" onClick="fn_paging('${pagination.pageCnt }')">끝</a>
+				        	 <a href="#" class="page-link d-flex" onClick="fn_paging('${pagination.pageCnt }')" style="height:100%; align-items:center;">
+				        		<i class="fas fa-angle-double-right fa-sm"></i>
+				        	</a>
 				        	</li> 
 				        </c:if>
 			        </ul>
@@ -360,8 +367,10 @@
 	</div>
     
     <!-- 페이징 정보 부분 -->
-	       	<!-- 현재 페이지 : ${pagination.curPage } / 총 페이지 : ${pagination.pageCnt } / 총 게시글 : ${pagination.listCnt } -->
+    <div>
+	       	현재 페이지 : ${pagination.curPage } / 총 페이지 : ${pagination.pageCnt } / 총 게시글 : ${pagination.listCnt }
 	       	<!-- / 현재 블럭 : ${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt } -->
+	</div>
 	<!-- 페이징 정보 부분 끝 -->
     <!-- /.content -->
   </div>

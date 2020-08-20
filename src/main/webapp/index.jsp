@@ -13,7 +13,7 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css?ver=2">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -354,10 +354,6 @@
 $(document).ready(function() {
 /** add active class and stay opened when selected */
 var url = window.location;
-var query = location.search.substring(1);
-var pairs = query.split("&");
-
-var pos = pairs[0].indexOf('=');
 
 // for sidebar menu entirely but not cover treeview
 $('ul.nav-sidebar a').filter(function() {

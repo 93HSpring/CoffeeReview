@@ -70,7 +70,7 @@ public class BoardController {
 	    return retEntity;
 	}
 	
-	@RequestMapping("/getBoardList.do")
+	@RequestMapping("/getBoardList")
 	public String getBoardList(@RequestParam(value="cafe", defaultValue="starbucks", required=false) String cafeName, @RequestParam(value="page", defaultValue="1") int page, BoardVO vo, Model model) {
 		System.out.println("카페 목록 처리");
 		
