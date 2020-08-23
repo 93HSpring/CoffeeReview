@@ -75,6 +75,7 @@ public class BoardController {
 	public String getBoardList(@RequestParam(value="cafe", defaultValue="STARBUCKS", required=false) String cname, 
 							   @RequestParam(value="page", defaultValue="1") int page,
 							   @RequestParam(value="keyword", defaultValue="") String keyword,
+							   @RequestParam(value="sort", defaultValue="star") String sort,
 							   BoardVO vo, Model model) {
 		System.out.println("카페 목록 처리");
 		
@@ -90,8 +91,23 @@ public class BoardController {
 		
 		vo.setCname(cname);
 		
-		if (keyword.isEmpty())
-		{
+		if (sort.equals("star")) {
+			vo.setMenuSort("savg");
+		}
+		else if (sort.equals("caffeine")) {
+			vo.setMenuSort("caffeine");
+		}
+		else if (sort.equals("kcal")) {
+			vo.setMenuSort("kcal");
+		}
+		else if (sort.equals("sodium")) {
+			vo.setMenuSort("sodium");
+		}
+		else if (sort.equals("sugars")) {
+			vo.setMenuSort("sugars");
+		}
+		
+		if (keyword.isEmpty()) {
 			// 총 게시물
 			listCnt = boardService.selectCafeBoardCnt(vo);
 			
@@ -103,13 +119,13 @@ public class BoardController {
 			model.addAttribute("boardList", boardService.selectCafeListPaging(vo));
 			model.addAttribute("listCnt", listCnt);
 			model.addAttribute("pagination", pagination);
+			//model.addAttribute("sort", sort);
 			model.addAttribute("keyword", keyword);
-			model.addAttribute("cafename", cname);
+			//model.addAttribute("cafename", cname);
 			
 			return "getBoardList.jsp";
 		}
-		else
-		{
+		else {
 			// 검색
 			vo.setSearchKeyword(keyword);
 			listCnt = boardService.selectMenuBoardCnt(vo);
@@ -124,8 +140,9 @@ public class BoardController {
 			model.addAttribute("boardList", boardList);
 			model.addAttribute("listCnt", listCnt);
 			model.addAttribute("pagination", pagination);
+			//model.addAttribute("sort", sort);
 			model.addAttribute("keyword", keyword);
-			model.addAttribute("cafename", cname);
+			//model.addAttribute("cafename", cname);
 			
 			return "getBoardList.jsp";
 		}

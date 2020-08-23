@@ -25,9 +25,13 @@ public class BoardVO {
 	private String sodium;
 	private String caffeine;
 	private String star;
-	private int startIndex;
-	private int cntPerPage;
 	private BigDecimal savg;
+	@Transient // JPA
+	private String menuSort;
+	@Transient // JPA
+	private int startIndex;
+	@Transient // JPA
+	private int cntPerPage;
 	@Transient // JPA
 	private String searchCondition;
 	@Transient // JPA
@@ -106,6 +110,14 @@ public class BoardVO {
 	public void setSavg(BigDecimal savg) {
 		this.savg = savg;
 	}
+	
+	public String getMenuSort() {
+		return menuSort;
+	}
+
+	public void setMenuSort(String menuSort) {
+		this.menuSort = menuSort;
+	}
 
 	public String getSearchCondition() {
 		return searchCondition;
@@ -152,7 +164,7 @@ public class BoardVO {
 		return "BoardVO [id=" + id + ", name=" + name + ", cname=" + cname + ", kcal=" + kcal + ", sugars=" + sugars
 				+ ", sodium=" + sodium + ", caffeine=" + caffeine + ", star=" + star + ", startIndex=" + startIndex
 				+ ", cntPerPage=" + cntPerPage + ", savg=" + savg + ", searchCondition=" + searchCondition
-				+ ", searchKeyword=" + searchKeyword + ", uploadFile=" + uploadFile + "]";
+				+ ", searchKeyword=" + searchKeyword + ", uploadFile=" + uploadFile + ", menuSort=" + menuSort + "]";
 	}
 
 }

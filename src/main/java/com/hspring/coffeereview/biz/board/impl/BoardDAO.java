@@ -54,8 +54,9 @@ public class BoardDAO {
    }
    
    public List<BoardVO> selectCafeListPaging(BoardVO vo) {
-	   TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cname = :cafename order by b.savg desc", BoardVO.class);
+	   TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cname = :cafename order by b." + vo.getMenuSort() + "+0 desc", BoardVO.class);
 	   query.setParameter("cafename", vo.getCname());
+	   //query.setParameter("menuSort", vo.getMenuSort());
 	   return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
    }
    
@@ -66,8 +67,9 @@ public class BoardDAO {
    }
    
    public List<BoardVO> selectMenuListPaging(BoardVO vo) {
-	   TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.name LIKE '%'||:keyword||'%' order by b.savg desc", BoardVO.class);
+	   TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.name LIKE '%'||:keyword||'%' order by b." + vo.getMenuSort() + "+0 desc", BoardVO.class);
 	   query.setParameter("keyword", vo.getSearchKeyword());
+	   //query.setParameter("menuSort", vo.getMenuSort());
 	   return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
    }
 }

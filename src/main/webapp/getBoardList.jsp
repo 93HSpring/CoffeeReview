@@ -234,7 +234,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
-              <li class="breadcrumb-item active">${ param.cafe}</li>
+              <li class="breadcrumb-item active">${param.cafe}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -247,8 +247,32 @@
     <div class="content">
 		<div class="card card-solid">
 			<!-- 카페 음료 -->
-			
 			<!-- 카페 헤더 부분 -->
+			<!-- 정렬 부분 -->
+			<div class="card-header text-muted boader-bottom-0">
+				<div class="input-group-prepend float-sm-right">
+					<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"">정렬</button>
+					<div class="dropdown-menu">
+					<c:choose>
+		            	<c:when test="${empty keyword}">
+		            		<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}">별점 순</a>
+							<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&sort=caffeine">카페인 순</a>
+							<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&sort=kcal">칼로리 순</a>
+							<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&sort=sodium">나트륨 순</a>
+							<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&sort=sugars">당분 순</a>
+		                </c:when>
+		                <c:otherwise>
+		                	<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&keyword=${param.keyword}">별점 순</a>
+		                	<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&keyword=${param.keyword}&sort=caffeine">카페인 순</a>
+							<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&keyword=${param.keyword}&sort=kcal">칼로리 순</a>
+							<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&keyword=${param.keyword}&sort=sodium">나트륨 순</a>
+							<a class="dropdown-item" href="getBoardList?cafe=${param.cafe}&keyword=${param.keyword}&sort=sugars">당분 순</a>
+		                </c:otherwise>
+	            	</c:choose>
+					</div>
+				</div>
+			</div>
+			<!-- 정렬 부분 끝 -->
 			<!-- 카페 헤더 부분 끝 -->
 			
 			<!-- 카페 바디 부분 -->
@@ -256,20 +280,20 @@
 				<div class="row align-items-stretch">
 					<c:forEach items="${boardList }" var="board">
 						<div class="col-6 col-sm-3 col-md-2 align-items-stretch">
-							<div OnClick="location.href ='getBoardList?cafe=${board.cname }&page=${ pagination.curPage}'" class="card bg-light" style="cursor:pointer; border-top-left-radius:19px; border-top-right-radius:19px;">
+							<div OnClick="location.href ='getBoardList?cafe=${board.cname}&page=${ pagination.curPage}'" class="card bg-light" style="cursor:pointer; border-top-left-radius:19px; border-top-right-radius:19px;">
 								<c:choose>
-				            	<c:when test="${not empty keyword}">
-				            		<div class="ribbon-wrapper ribbon-lg">
-				            			<div class="ribbon bg-warning test-xl">
-				            				${board.cname }
-				            			</div>
-				            		</div>
-				            			<img class="card-img-top" src="data/image/${board.cname }/${board.name }.jpg" alt="${board.name }" style="width:100%; height:auto; border-top-left-radius:19px; border-top-right-radius:19px; padding-bottom:6px;">		   
-				                </c:when>
-				                <c:otherwise>
-				                	<img class="card-img-top" src="data/image/${board.cname }/${board.name }.jpg" alt="${board.name }" style="width:100%; height:auto; border-top-left-radius:19px; border-top-right-radius:19px; padding-bottom:6px;">
-				                </c:otherwise>
-				            </c:choose>
+					            	<c:when test="${not empty keyword}">
+					            		<div class="ribbon-wrapper ribbon-lg">
+					            			<div class="ribbon bg-warning test-xl">
+					            				${board.cname }
+					            			</div>
+					            		</div>
+					            			<img class="card-img-top" src="data/image/${board.cname }/${board.name }.jpg" alt="${board.name }" style="width:100%; height:auto; border-top-left-radius:19px; border-top-right-radius:19px; padding-bottom:6px;">		   
+					                </c:when>
+					                <c:otherwise>
+					                	<img class="card-img-top" src="data/image/${board.cname }/${board.name }.jpg" alt="${board.name }" style="width:100%; height:auto; border-top-left-radius:19px; border-top-right-radius:19px; padding-bottom:6px;">
+					                </c:otherwise>
+				            	</c:choose>
 								
 								<div class="card-body p-0" style="height:55px;">
 									<div style="height:30%; font-size:12px; font-weight:bold; color:red; align-items:center;" class="text-center">
@@ -397,14 +421,41 @@ $(document).ready(function() {
 
 	// for sidebar menu entirely but not cover treeview
 	$('ul.nav-sidebar a').filter(function() {
-		return $(this).attr('id') == "${ cafename}";
+		return $(this).attr('id') == "${param.cafe}";
 	}).addClass('active');
 
 	// for treeview
 	$('ul.nav-treeview a').filter(function() {
-		return $(this).attr('id') == "${ cafename}";
+		return $(this).attr('id') == "${param.cafe}";
 	}).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 })
+
+function fn_paging(curPage) {
+	var keyword_param = getParam("keyword");
+	var sort_param = getParam("sort");
+	
+	if (!keyword_param) {
+		if (sort_param) {
+			location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&sort=${param.sort}&page=" + curPage;
+		}
+		else {
+			location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&page=" + curPage;
+		}
+	}
+	else if (!sort_param) {
+		if (keyword_param) {
+			location.href = "/coffeereview/getBoardList?cafe=All&keyword=${param.keyword}&page=" + curPage;
+		}
+		else {
+			location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&page=" + curPage;
+		}
+	}
+	else if (sort_param) {
+		if (keyword_param) {
+			location.href = "/coffeereview/getBoardList?cafe=All&keyword=${param.keyword}&sort=${param.sort}&page=" + curPage;
+		}
+	}
+}
 
 function getParam(sname) {
     var params = location.search.substr(location.search.indexOf("?") + 1);
@@ -420,17 +471,6 @@ function getParam(sname) {
     }
     
     return sval;
-}
-
-function fn_paging(curPage) {
-	var param = getParam("keyword");
-	
-	if (!param) {
-		location.href = "/coffeereview/getBoardList?cafe=${ param.cafe}&page=" + curPage;
-	}
-	else {
-		location.href = "/coffeereview/getBoardList?cafe=All&keyword=${ param.keyword}&page=" + curPage;
-	}
 }
 </script>
 <!-- TEST를 위한 js -->
