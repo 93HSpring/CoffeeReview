@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
 		userDAO.deleteUser(vo);
 	}
 	
-	public boolean checkUser(String name) {
-		return userDAO.checkUser(name);
+	public boolean checkUser(String id) {
+		return userDAO.checkUser(id);
 	}
 }

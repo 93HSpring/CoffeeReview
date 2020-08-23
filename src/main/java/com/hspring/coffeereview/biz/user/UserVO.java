@@ -10,14 +10,22 @@ import javax.persistence.Table;
 @Table(name="USERS")
 public class UserVO {
 	
+	/**
+	 * apiResult json 구조 {"resultcode":"00", "message":"success",
+	 * "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
+	 **/
+
+	
 	@Id
 	private String id;
-	private String pw;
-	private String uname;
-	private String sex; 
-	private String uphonenum;
-	private String uemail;
-	private String uadr;
+	//private String pw;
+	private String name;
+	private String nickname; // 
+	private String age; //
+	private String gender; 
+	private String phonenum;
+	private String email;
+	private String address;
 	
 	public String getId() {
 		return id;
@@ -25,48 +33,53 @@ public class UserVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPw() {
-		return pw;
+	public String getName() {
+		return name;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getUname() {
-		return uname;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
-	public String getSex() {
-		return sex;
+	public String getAge() {
+		return age;
 	}
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setAge(String age) {
+		this.age = age;
 	}
-	public String getUphonenum() {
-		return uphonenum;
+	public String getGender() {
+		return gender;
 	}
-	public void setUphonenum(String uphonenum) {
-		this.uphonenum = uphonenum;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public String getUemail() {
-		return uemail;
+	public String getPhonenum() {
+		return phonenum;
 	}
-	public void setUemail(String uemail) {
-		this.uemail = uemail;
+	public void setPhonenum(String phonenum) {
+		this.phonenum = phonenum;
 	}
-	public String getUadr() {
-		return uadr;
+	public String getEmail() {
+		return email;
 	}
-	public void setUadr(String uadr) {
-		this.uadr = uadr;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", pw=" + pw + ", uname=" + uname + ", sex=" + sex + ", uphonenum=" + uphonenum
-				+ ", uemail=" + uemail + ", uadr=" + uadr + "]";
+		return "UserVO [id=" + id + ", name=" + name + ", nickname=" + nickname + ", age=" + age + ", gender=" + gender
+				+ ", phonenum=" + phonenum + ", email=" + email + ", address=" + address + "]";
 	}
-	
 	
 }

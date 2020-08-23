@@ -153,7 +153,7 @@
     </a> <!-- Sidebar -->
 		<div class="sidebar">
 			<c:choose>
-				<c:when test="${name eq null }">
+				<c:when test="${sessionId eq null }">
 					<!-- Sidebar user panel (optional) (session is empty) -->
 					<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 						<div class="image">
@@ -174,7 +174,7 @@
 								class="img-circle elevation-2" alt="User Image">
 						</div>
 						<div class="info">
-							<a href="login" class="d-block">${name }님</a>
+							<a href="userinfo" class="d-block">${sessionName }님</a> <!-- 회원정보로 가는 곳 -->
 						</div>
 						<div class="info">
 							<a href="logout" class="d-block" style="height:100%; display:flex; align-items:center;"> <i class="fas fa-sign-out-alt"></i>

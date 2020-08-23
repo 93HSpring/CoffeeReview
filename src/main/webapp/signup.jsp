@@ -21,7 +21,7 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href=" index2.html"><b>Admin</b>LTE</a>
+    <a href=" index.jsp"><b>CoffeeReview</b>*^^*</a>
   </div>
 
   <div class="card">
@@ -29,13 +29,13 @@
       <p class="login-box-msg">Register a new membership</p>
 
       <div class="social-auth-links text-center">
-        <a href="signup" class="btn btn-block btn-primary">
+        <a href="${url}" class="btn btn-block btn-primary" method="post">
           <i class="fab fa-facebook mr-2"></i>
           Sign up using Naver
         </a>
       </div>
 
-      <a href="login.html" class="text-center">I already have a membership</a>
+      <a href=login class="text-center">I already have a membership</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
