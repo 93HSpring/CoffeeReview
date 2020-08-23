@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,18 +45,18 @@ public class BoardController {
 										@PathVariable("type") String type,
 										@PathVariable("id") String id,
 										@PathVariable("suffix") String suffix, HttpServletRequest request) throws Exception {
-		System.out.println("데이터 처리");
+		//System.out.println("데이터 처리");
 		InputStream in = null;
 		String basePath = request.getSession().getServletContext().getRealPath("resources");
 		
-		System.out.println(System.getProperty("user.dir"));
-		System.out.println("BasePath : " + basePath);
+		//System.out.println(System.getProperty("user.dir"));
+		//System.out.println("BasePath : " + basePath);
 		
 	    ResponseEntity<byte[]> retEntity = null;
 	    
 	    try {
 	        String filePath = basePath + "/" + type + "/" + cname + "/" + id + "." + suffix;
-	        System.out.println("filePath : " + filePath);
+	        //System.out.println("filePath : " + filePath);
 	        in = new FileInputStream(new File(filePath));
 	        final HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(MediaType.IMAGE_JPEG);
@@ -71,7 +72,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/getBoardList")
-	public String getBoardList(@RequestParam(value="cafe", defaultValue="starbucks", required=false) String cafeName, @RequestParam(value="page", defaultValue="1") int page, BoardVO vo, Model model) {
+	public String getBoardList(@RequestParam(value="cafe", defaultValue="STARBUCKS", required=false) String cname, 
+							   @RequestParam(value="page", defaultValue="1") int page,
+							   @RequestParam(value="keyword", defaultValue="") String keyword,
+							   BoardVO vo, Model model) {
 		System.out.println("카페 목록 처리");
 		
 		// 카페이름에 해당하는 전체 메뉴 조회
@@ -81,30 +85,49 @@ public class BoardController {
 		// model.addAttribute("boardList", boardService.getBoardList(boardVO));
 		
 		// 페이징
-		// 총 게시물 수
-		int listCnt = boardService.selectBoardCnt(cafeName);
+		int listCnt;
+		Pagination pagination;
 		
-		// 생성인자로 총 게시물 수, 현재 페이지를 전달
-		Pagination pagination = new Pagination(listCnt, page);
+		vo.setCname(cname);
 		
-		vo.setCname(cafeName);
-		vo.setStartIndex(pagination.getStartIndex());
-		vo.setCntPerPage(pagination.getPageSize());
-		
-		// Null Check
-		if (vo.getSearchCondition() == null)
+		if (keyword.isEmpty())
 		{
-			vo.setSearchCondition("TITLE");
+			// 총 게시물
+			listCnt = boardService.selectCafeBoardCnt(vo);
+			
+			// 생성인자로 총 게시물 수, 현재 페이지를 전달
+			pagination = new Pagination(listCnt, page);
+			vo.setStartIndex(pagination.getStartIndex());
+			vo.setCntPerPage(pagination.getPageSize());
+			
+			model.addAttribute("boardList", boardService.selectCafeListPaging(vo));
+			model.addAttribute("listCnt", listCnt);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("cafename", cname);
+			
+			return "getBoardList.jsp";
 		}
-		if (vo.getSearchKeyword() == null)
+		else
 		{
-			vo.setSearchKeyword("");
+			// 검색
+			vo.setSearchKeyword(keyword);
+			listCnt = boardService.selectMenuBoardCnt(vo);
+			
+			// 생성인자로 총 게시물 수, 현재 페이지를 전달
+			pagination = new Pagination(listCnt, page);
+			vo.setStartIndex(pagination.getStartIndex());
+			vo.setCntPerPage(pagination.getPageSize());
+			
+			List<BoardVO> boardList = boardService.selectMenuListPaging(vo);
+			
+			model.addAttribute("boardList", boardList);
+			model.addAttribute("listCnt", listCnt);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("cafename", cname);
+			
+			return "getBoardList.jsp";
 		}
-		
-		model.addAttribute("boardList", boardService.selectListPaging(vo));
-		model.addAttribute("listCnt", listCnt);
-		model.addAttribute("pagination", pagination);
-		
-		return "getBoardList.jsp";
 	}
 }

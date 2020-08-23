@@ -47,17 +47,27 @@ public class BoardDAO {
       return query.getResultList();
    }
    
-   public int selectBoardCnt(String cName) {
+   public int selectCafeBoardCnt(BoardVO vo) {
 	   TypedQuery<Number> query = em.createQuery("select count(*) from BoardVO b where b.cname = :cafename", Number.class);
-	   query.setParameter("cafename", cName);
-	
+	   query.setParameter("cafename", vo.getCname());	
 	   return (query.getSingleResult()).intValue();
    }
    
-   public List<BoardVO> selectListPaging(BoardVO vo) {
+   public List<BoardVO> selectCafeListPaging(BoardVO vo) {
 	   TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cname = :cafename order by b.savg desc", BoardVO.class);
 	   query.setParameter("cafename", vo.getCname());
-	   
+	   return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
+   }
+   
+   public int selectMenuBoardCnt(BoardVO vo) {
+	   TypedQuery<Number> query = em.createQuery("select count(*) from BoardVO b where b.name LIKE '%'||:keyword||'%'", Number.class);
+	   query.setParameter("keyword", vo.getSearchKeyword());
+	   return (query.getSingleResult()).intValue();
+   }
+   
+   public List<BoardVO> selectMenuListPaging(BoardVO vo) {
+	   TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.name LIKE '%'||:keyword||'%' order by b.savg desc", BoardVO.class);
+	   query.setParameter("keyword", vo.getSearchKeyword());
 	   return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
    }
 }

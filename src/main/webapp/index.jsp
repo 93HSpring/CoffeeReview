@@ -168,6 +168,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <!-- CAFES 메뉴 시작 -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-coffee"></i>
@@ -176,56 +177,35 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <!-- CAFE 목록 시작 -->
             <ul class="nav nav-treeview">
+				<!-- STARBUCKS -->
               <li class="nav-item">
-                <a href="getBoardList.do?cafe=STARBUCKS&page=1" class="nav-link ">
+              	<!-- 현재 페이지를 받아와 주소에 반영 -->
+              	<!-- 아무런 입력이 없으면 1 페이지로 가도록 함 BoardController의 getBoardList의 page 매개변수 참고 -->
+                <a href="getBoardList?cafe=STARBUCKS" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>STARBUCKS</p>
                 </a>
               </li>
+              <!-- COFFEEBEAN -->
               <li class="nav-item">
-                <a href="getBoardList.do?cafe=COFFEEBEAN&page=1" class="nav-link">
+                <a href="getBoardList?cafe=COFFEEBEAN" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>COFFEEBEAN</p>
                 </a>
               </li>
+              <!-- TWOSOME -->
               <li class="nav-item">
-                <a href="getBoardList.do?cafe=TWOSOME&page=1" class="nav-link">
+                <a href="getBoardList?cafe=TWOSOME" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>TWOSOME</p>
                   </a>
               </li>
             </ul>
+            <!-- CAFE 목록 끝 -->
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>STARBUCKS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>COFFEEBEAN</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>TWOSOME</p>
-                  </a>
-              </li>
-            </ul>
-          </li>
+          <!-- CAFES 메뉴 끝 -->
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
