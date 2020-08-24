@@ -6,6 +6,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 // VO (Value Object)
+/**
+* @packageName	: com.hspring.coffeereview.biz.user
+* @fileName		: UserVO.java
+* @author		: Goonoo Jang
+* @date			: 2020.08.24
+* @description	: User의 데이터를 담는 클래스
+* ===========================================================
+* DATE              AUTHOR             NOTE
+* -----------------------------------------------------------
+* 2020.08.24        Goonoo Jang       최초 생성
+*/
 @Entity
 @Table(name="USERS")
 public class UserVO {
@@ -18,7 +29,6 @@ public class UserVO {
 	
 	@Id
 	private String id;
-	//private String pw;
 	private String name;
 	private String nickname; // 
 	private String age; //

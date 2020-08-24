@@ -14,6 +14,18 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 
+
+/**
+* @packageName	: com.hspring.coffeereview.view.user
+* @fileName		: NaverLoginBO.java
+* @author		: Goonoo Jang
+* @date			: 2020.08.24
+* @description	: 네이버 아이디 로그인 API를 위한 데이터 객체를 생성한다
+* ===========================================================
+* DATE              AUTHOR             NOTE
+* -----------------------------------------------------------
+* 2020.08.24        Goonoo Jang       최초 생성
+*/
 public class NaverLoginBO {
 	/* 인증 요청문을 구성하는 파라미터 */
 	// client_id: 애플리케이션 등록 후 발급받은 클라이언트 아이디
@@ -29,6 +41,13 @@ public class NaverLoginBO {
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
 
 	/* 네이버 아이디로 인증 URL 생성 Method */
+	/**
+	 * @methodName	: getAuthorizationUrl
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param session
+	 * @return
+	 */
 	public String getAuthorizationUrl(HttpSession session) {
 		/* 세션 유효성 검증을 위하여 난수를 생성 */
 		String state = generateRandomString();
@@ -42,6 +61,16 @@ public class NaverLoginBO {
 	}
 
 	/* 네이버아이디로 Callback 처리 및 AccessToken 획득 Method */
+	/**
+	 * @methodName	: getAccessToken
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param session
+	 * @param code
+	 * @param state
+	 * @return
+	 * @throws IOException
+	 */
 	public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException {
 		/* Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인 */
 		String sessionState = getSession(session);
@@ -56,21 +85,49 @@ public class NaverLoginBO {
 	}
 
 	/* 세션 유효성 검증을 위한 난수 생성기 */
+	/**
+	 * @methodName	: generateRandomString
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @return
+	 */
 	private String generateRandomString() {
 		return UUID.randomUUID().toString();
 	}
 
 	/* http session에 데이터 저장 */
+	/**
+	 * @methodName	: setSession
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param session
+	 * @param state
+	 */
 	private void setSession(HttpSession session, String state) {
 		session.setAttribute(SESSION_STATE, state);
 	}
 
 	/* http session에서 데이터 가져오기 */
+	/**
+	 * @methodName	: getSession
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param session
+	 * @return
+	 */
 	private String getSession(HttpSession session) {
 		return (String) session.getAttribute(SESSION_STATE);
 	}
 
 	/* Access Token을 이용하여 네이버 사용자 프로필 API를 호출 */
+	/**
+	 * @methodName	: getUserProfile
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param oauthToken
+	 * @return
+	 * @throws IOException
+	 */
 	public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException {
 		OAuth20Service oauthService = new ServiceBuilder().apiKey(CLIENT_ID).apiSecret(CLIENT_SECRET)
 				.callback(REDIRECT_URI).build(NaverLoginApi.instance());

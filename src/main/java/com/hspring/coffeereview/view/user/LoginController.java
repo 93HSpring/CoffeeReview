@@ -1,10 +1,6 @@
 package com.hspring.coffeereview.view.user;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +18,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.hspring.coffeereview.biz.user.UserService;
 
+/**
+* @packageName    : com.hspring.coffeereview.view.user
+* @fileName        : LoginController.java
+* @author        : Goonoo Jang
+* @date            : 2020.08.24
+* @description            :
+* ===========================================================
+* DATE              AUTHOR             NOTE
+* -----------------------------------------------------------
+* 2020.08.24        Goonoo Jang       최초 생성
+*/
 @Controller
 public class LoginController {
 	/* NaverLoginBO */
@@ -37,6 +44,12 @@ public class LoginController {
 	}
 
 	// 로그인 첫 화면 요청 메소드
+	/**
+	 * @methodName	: login
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @{tags}
+	 */
 	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(Model model, HttpSession session) {
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -49,6 +62,12 @@ public class LoginController {
 		return "login.jsp";
 	}
 	
+	/**
+	 * @methodName	: loginForSignup
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @{tags}
+	 */
 	@RequestMapping(value = "/loginForSignup", method = { RequestMethod.GET, RequestMethod.POST })
 	public String loginForSignup(Model model, HttpSession session) {
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -63,8 +82,12 @@ public class LoginController {
 
 	// 네이버 로그인 성공시 callback호출 메소드
 	
-	// http://localhost:8090/coffeereview/callback.do?code=PyIT5IRDAg4Qk1LdDj&state=9af7cc46-0197-4ddf-a0ca-85ceee9b4d34 이거 가리기
-	
+	/**
+	 * @methodName	: callback
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @{tags}
+	 */
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, RedirectAttributes redirect)
 			throws IOException, ParseException {
@@ -107,47 +130,23 @@ public class LoginController {
 			redirect.addFlashAttribute("age", (String) response_obj.get("age"));
 			redirect.addFlashAttribute("gender", (String) response_obj.get("gender"));
 			redirect.addFlashAttribute("email", (String) response_obj.get("email"));
-			/*
-			Map<String, String> userInfo = new HashMap<String, String>();
-			userInfo.put("name", name);
-			userInfo.put("id", id);
-			userInfo.put("nickname", (String) response_obj.get("nickname"));
-			userInfo.put("age", (String) response_obj.get("age"));
-			userInfo.put("gender", (String) response_obj.get("gender"));
-			userInfo.put("email", (String) response_obj.get("email"));
-			redirect.addFlashAttribute("userInfo", userInfo);
-			*/
+			// redirect는 HashMap<String, String>형식으로 전달
+			
 			return "redirect:signup";
 		}
-		
-		
-		/*
-		if(userService.checkUser(id)) { // 가입되어있는 회원
-			// 4.파싱 닉네임 세션으로 저장
-			session.setAttribute("sessionId", id); // 세션 생성
-			model.addAttribute("result", apiResult);
-			model.addAttribute("id", id);
-			return "index.jsp"; 
-		} else { // 가입되지 않은 회원 
-			// 회원가입 시키기
-			model.addAttribute("id", id); // 네이버 로그인 된 정보를 model에 담는다
-			model.addAttribute("name", name);
-			model.addAttribute("gender", (String) response_obj.get("gender"));
-			model.addAttribute("email", (String) response_obj.get("email"));
-			
-			
-				// id pw uname sex uphonenum uemail uadr
-			 
-			
-			
-			return "signup.jsp";
-		}
-		*/
-		
 		
 	}
 
 	// 로그아웃
+
+	/**
+	 * @methodName	: logout
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session) throws IOException {
 		System.out.println("여기는 logout");
@@ -155,19 +154,4 @@ public class LoginController {
 		return "redirect:index.jsp";
 	}
 
-	/*
-	 * @RequestMapping(value="/login.do", method=RequestMethod.GET) public String
-	 * loginView(UserVO vo) { System.out.println("�α��� ȭ������ �̵�");
-	 * vo.setId("test"); //vo.setPassword("test123"); return "login.jsp"; }
-	 * 
-	 * 
-	 * @RequestMapping(value="/login.do", method=RequestMethod.POST) public String
-	 * login(UserVO vo, UserDAO userDAO, HttpSession session) { if(vo.getId() ==
-	 * null || vo.getId().equals("")) { throw new
-	 * IllegalArgumentException("���̵�� �ݵ�� �Է��ؾ� �մϴ�."); }
-	 * 
-	 * UserVO user = userDAO.getUser(vo); if(user != null) {
-	 * //session.setAttribute("userName", user.getName()); return "getBoardList.do";
-	 * } else return "login.jsp"; }
-	 */
 }

@@ -15,20 +15,22 @@ public class UserServiceImpl implements UserService{
 		this.userDAO = userDAO;
 	}
 	
+	// 회원 정보 확인
 	public UserVO getUser(UserVO vo) {
 		return userDAO.getUser(vo);
 	}
 	
-	// ȸ�� ���
+	// 회원 생성
 	public void insertUser(UserVO vo) {
 		userDAO.insertUser(vo);
 	}
 	
-	// ȸ�� ����
+	// 회원 탈퇴
 	public void deleteUser(UserVO vo) {
 		userDAO.deleteUser(vo);
 	}
 	
+	// 회원 가입여부 확인
 	public boolean checkUser(String id) {
 		return userDAO.checkUser(id);
 	}

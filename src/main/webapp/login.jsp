@@ -32,14 +32,6 @@
         <!-- 네이버 로그인 창으로 이동 -->
 			<div id="naver_id_login" style="text-align:center"><a href="${url}">
 			<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
-        <!-- 
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Naver
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-         -->
       </div>
       <!-- /.social-auth-links -->
 

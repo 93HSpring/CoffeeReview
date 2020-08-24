@@ -8,21 +8,30 @@ import org.springframework.stereotype.Repository;
 import com.hspring.coffeereview.biz.user.UserVO;
 
 // DAO (Data Access Object)
+/**
+* @packageName	: com.hspring.coffeereview.biz.user.impl
+* @fileName		: UserDAO.java
+* @author		: Goonoo Jang
+* @date			: 2020.08.24
+* @description	: User 데이터를 DB에서 받아오는 클래스
+* ===========================================================
+* DATE              AUTHOR             NOTE
+* -----------------------------------------------------------
+* 2020.08.24        Goonoo Jang       최초 생성
+*/
 @Repository("userDAO")
 public class UserDAO {
-
-	/*
-	// SQL ��ɾ��
-	private final String USER_GET = "select * from users where id=? and password=?";
-	private final String USER_INSERT = "insert into users(id, pw, uname, sex, uphonenum, uemail, uadr) values(?,?,?,?,?,?,?)";
-	private final String USER_DELETE = "delete users where id=?";
-	*/
 	
 	@PersistenceContext
-	//(unitName = "users")
 	private EntityManager em;
 	
 	// 회원 생성
+	/**
+	 * @methodName	: insertUser
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param vo
+	 */
 	public void insertUser(UserVO vo) {
 		
 		System.out.println("===> JPA로 insertUser() 처리");
@@ -33,28 +42,43 @@ public class UserDAO {
 		} else {
 			System.out.println("이미 가입된 아이디입니다.");
 		}
-		/*
-		em.createQuery("insert into users(id, pw, uname, sex, uphonenum, uemail, uadr) values(?,?,?,?,?,?,?)")
-		.setParameter(1, vo.getId()).setParameter(2, vo.getPw()).setParameter(3, vo.getUname()).setParameter(4, vo.getSex()).setParameter(5, vo.getUphonenum())
-		.setParameter(6, vo.getUemail()).setParameter(7, vo.getUadr()).executeUpdate();
-		*/
 		
 	}
 	
-	// ȸ�� ����
+	// 회원 삭제
+	/**
+	 * @methodName	: deleteUser
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param vo
+	 */
 	void deleteUser(UserVO vo) {
 		System.out.println("===> JPA로 deleteUser() 처리 ");
 		em.remove(em.find(UserVO.class, vo.getId()));
 		
 	}
 	
-	// ȸ�� ��ȸ
+	// 회원 조회
+	/**
+	 * @methodName	: getUser
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param vo
+	 * @return
+	 */
 	public UserVO getUser(UserVO vo) {
 		System.out.println("===> JPA로 getUser() 처리");
 		return vo;
 	}
 	
 	// 이미 가입된 회원인지 확인
+	/**
+	 * @methodName	: checkUser
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.08.24
+	 * @param name
+	 * @return
+	 */
 	public Boolean checkUser(String name) {
 		return em.find(UserVO.class, name) == null ? false : true;
 	}
