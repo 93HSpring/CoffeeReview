@@ -3,6 +3,8 @@ package com.hspring.coffeereview.view.user;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +64,10 @@ public class UserController {
 		//vo.setAddress(userInfo.get("address"));
 		// 주소와 전화번호는 네아로에서 받을 수 없으므로 빈칸
 		
+		// 네아로API를 통해 받은 회원정보를 보내서 추가정보 입력시킨 후 가입시키기
+		// getInfo.jsp 이런거
+		
+		// register.html 참고하기
 		
 		userService.insertUser(vo);
 		
@@ -80,6 +86,34 @@ public class UserController {
 		return "signupSuccess.jsp";
 	}
 	
-	
+	//@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
+	//public String userInfo(HttpSession session) throws IOException{
+		
+		
+		
+		
+		
+		
+		//return "userinfo.jsp";
+		
+		/*
+		 @RequestMapping(value="/login.do", method=RequestMethod.POST)
+	public String login(UserVO vo, UserDAO userDAO, HttpSession session) {
+		if(vo.getId() == null || vo.getId().equals("")) {
+			throw new IllegalArgumentException("���̵�� �ݵ�� �Է��ؾ� �մϴ�.");
+		}
+		
+		UserVO user = userDAO.getUser(vo); 
+		if(user != null) {
+			session.setAttribute("userName", user.getName());
+			return "getBoardList.do";
+		}
+		else return "login.jsp";
+	}
+		 */
+		
+		
+		
+	//}
 	
 }

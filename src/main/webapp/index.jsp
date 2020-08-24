@@ -177,7 +177,7 @@
 							<a href="userinfo" class="d-block">${sessionName }님</a> <!-- 회원정보로 가는 곳 -->
 						</div>
 						<div class="info">
-							<a href="logout" class="d-block" style="height:100%; display:flex; align-items:center;"> <i class="fas fa-sign-out-alt"></i>
+							<a href="logout" class="d-flex" style="height:100%; align-items:center;"> <i class="fas fa-sign-out-alt"></i>
 							</a>
 						</div>
 

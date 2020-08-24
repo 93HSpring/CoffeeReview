@@ -62,6 +62,9 @@ public class LoginController {
 	}
 
 	// 네이버 로그인 성공시 callback호출 메소드
+	
+	// http://localhost:8090/coffeereview/callback.do?code=PyIT5IRDAg4Qk1LdDj&state=9af7cc46-0197-4ddf-a0ca-85ceee9b4d34 이거 가리기
+	
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, RedirectAttributes redirect)
 			throws IOException, ParseException {
