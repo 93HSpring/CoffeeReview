@@ -1,5 +1,17 @@
 package com.hspring.coffeereview.biz.common;
 
+/**
+* @packageName   : com.hspring.coffeereview.biz.common
+* @fileName      : Pagination.java
+* @author        : SeongPyo Jo
+* @date          : 2020.08.24
+* @description   : getBoardList의 Paging처리를 위한 클래스
+* ===========================================================
+* DATE              AUTHOR             NOTE
+* -----------------------------------------------------------
+* 2020.08.24        SeongPyo Jo       최초 생성
+*/
+
 public class Pagination {
 
 	/** 한 페이지당 게시글 수 **/
@@ -126,6 +138,15 @@ public class Pagination {
 				+ ", nextPage=" + nextPage + "]";
 	}
 
+	
+	
+	/**
+	* @constructor : Pagination
+	* @author      : SeongPyo Jo
+	* @date        : 2020.08.24
+	* @param listCnt
+	* @param curPage
+	*/
 	public Pagination(int listCnt, int curPage) {
 
 		/**
@@ -157,6 +178,14 @@ public class Pagination {
 		this.rangeCnt = (int) Math.ceil(pageCnt * 1.0 / rangeSize);
 	}
 
+	
+	/**
+	* @methodName  : rangeSetting
+	* @author      : SeongPyo Jo
+	* @date        : 2020.08.24
+	* @param curPage
+	* @return void
+	*/
 	public void rangeSetting(int curPage) {
 
 		setCurRange(curPage);

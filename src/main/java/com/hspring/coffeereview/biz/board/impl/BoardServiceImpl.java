@@ -8,23 +8,23 @@ import org.springframework.stereotype.Service;
 import com.hspring.coffeereview.biz.board.BoardService;
 import com.hspring.coffeereview.biz.board.BoardVO;
 
+/**
+* @packageName   : com.hspring.coffeereview.biz.board.impl
+* @fileName      : BoardServiceImpl.java
+* @author        : SeongPyo Jo
+* @date          : 2020.08.24
+* @description   : BoardService Interface를 상속받아 다양한 Database와 연동하여 query를 수행하기 위한 class 
+* ===========================================================
+* DATE              AUTHOR             NOTE
+* -----------------------------------------------------------
+* 2020.08.24        SeongPyo Jo       최초 생성
+*/
+
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	// JPA
 	@Autowired
 	private BoardDAO boardDAO;
-		
-	public void insertBoard(BoardVO vo) {
-		boardDAO.insertBoard(vo);
-	}
-		
-	public void updateBoard(BoardVO vo) {
-		boardDAO.updateBoard(vo);
-	}
-		
-	public void deleteBoard(BoardVO vo) {
-		boardDAO.deleteBoard(vo);
-	}
 		
 	public BoardVO getBoard(BoardVO vo) {
 		return boardDAO.getBoard(vo);

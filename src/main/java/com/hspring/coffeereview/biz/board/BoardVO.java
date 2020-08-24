@@ -10,7 +10,18 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
-// Value Object
+/**
+* @packageName   : com.hspring.coffeereview.biz.board
+* @fileName      : BoardVO.java
+* @author        : SeongPyo Jo
+* @date          : 2020.08.24
+* @description   : Database와 value를 위한 VO class
+* ===========================================================
+* DATE              AUTHOR             NOTE
+* -----------------------------------------------------------
+* 2020.08.24        SeongPyo Jo       최초 생성
+*/
+
 @Entity // JPA
 @Table(name = "CAFES")
 public class BoardVO {

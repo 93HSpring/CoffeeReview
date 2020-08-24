@@ -27,11 +27,29 @@ import com.hspring.coffeereview.biz.board.BoardService;
 import com.hspring.coffeereview.biz.board.BoardVO;
 import com.hspring.coffeereview.biz.common.Pagination;
 
+/**
+* @packageName   : com.hspring.coffeereview.view.board
+* @fileName      : BoardController.java
+* @author        : SeongPyo Jo
+* @date          : 2020.08.24
+* @description   : 게시판 기능을 컨트롤하는 Controller class
+* ===========================================================
+* DATE              AUTHOR             NOTE
+* -----------------------------------------------------------
+* 2020.08.24        SeongPyo Jo       최초 생성
+*/
+
 @Controller
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	/**
+	* @methodName  : searchConditionMap
+	* @author      : SeongPyo Jo
+	* @date        : 2020.08.24
+	* @return Map<String,String>
+	*/
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new HashMap<String, String>();
@@ -40,17 +58,25 @@ public class BoardController {
 		return conditionMap;
 	}
 	
+	/**
+	* @methodName  : image
+	* @author      : SeongPyo Jo
+	* @date        : 2020.08.24
+	* @param cname
+	* @param type
+	* @param id
+	* @param suffix
+	* @param request
+	* @return ResponseEntity<byte[]>
+	* @throws Exception
+	*/
 	@RequestMapping(value = "/data/{type}/{cname}/{id}.{suffix}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> image(@PathVariable("cname") String cname,
 										@PathVariable("type") String type,
 										@PathVariable("id") String id,
 										@PathVariable("suffix") String suffix, HttpServletRequest request) throws Exception {
-		//System.out.println("데이터 처리");
 		InputStream in = null;
 		String basePath = request.getSession().getServletContext().getRealPath("resources");
-		
-		//System.out.println(System.getProperty("user.dir"));
-		//System.out.println("BasePath : " + basePath);
 		
 	    ResponseEntity<byte[]> retEntity = null;
 	    
@@ -71,6 +97,18 @@ public class BoardController {
 	    return retEntity;
 	}
 	
+	/**
+	* @methodName  : getBoardList
+	* @author      : SeongPyo Jo
+	* @date        : 2020.08.24
+	* @param cname
+	* @param page
+	* @param keyword
+	* @param sort
+	* @param vo
+	* @param model
+	* @return String
+	*/
 	@RequestMapping("/getBoardList")
 	public String getBoardList(@RequestParam(value="cafe", defaultValue="STARBUCKS", required=false) String cname, 
 							   @RequestParam(value="page", defaultValue="1") int page,
@@ -79,18 +117,14 @@ public class BoardController {
 							   BoardVO vo, Model model) {
 		System.out.println("카페 목록 처리");
 		
-		// 카페이름에 해당하는 전체 메뉴 조회
-		//BoardVO boardVO = new BoardVO();
-		//boardVO.setCname(cafeName);
-		// 카페이름에 해당하는 전체 메뉴 조회하고 전달
-		// model.addAttribute("boardList", boardService.getBoardList(boardVO));
-		
 		// 페이징
 		int listCnt;
 		Pagination pagination;
 		
+		// 카페 이름
 		vo.setCname(cname);
 		
+		// 정렬
 		if (sort.equals("star")) {
 			vo.setMenuSort("savg");
 		}
@@ -107,6 +141,7 @@ public class BoardController {
 			vo.setMenuSort("sugars");
 		}
 		
+		// 검색 키워드가 없다면
 		if (keyword.isEmpty()) {
 			// 총 게시물
 			listCnt = boardService.selectCafeBoardCnt(vo);
@@ -119,13 +154,11 @@ public class BoardController {
 			model.addAttribute("boardList", boardService.selectCafeListPaging(vo));
 			model.addAttribute("listCnt", listCnt);
 			model.addAttribute("pagination", pagination);
-			//model.addAttribute("sort", sort);
 			model.addAttribute("keyword", keyword);
-			//model.addAttribute("cafename", cname);
 			
 			return "getBoardList.jsp";
 		}
-		else {
+		else { // 검색 키워드가 있다면 
 			// 검색
 			vo.setSearchKeyword(keyword);
 			listCnt = boardService.selectMenuBoardCnt(vo);
@@ -140,9 +173,7 @@ public class BoardController {
 			model.addAttribute("boardList", boardList);
 			model.addAttribute("listCnt", listCnt);
 			model.addAttribute("pagination", pagination);
-			//model.addAttribute("sort", sort);
 			model.addAttribute("keyword", keyword);
-			//model.addAttribute("cafename", cname);
 			
 			return "getBoardList.jsp";
 		}
