@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -60,6 +61,7 @@ public class UserController {
 		return "index.jsp";
 	}
 	
+	
 	/**
 	 * @methodName	: signupUser
 	 * @author		: Goonoo Jang
@@ -69,6 +71,7 @@ public class UserController {
 	 * @return
 	 * @throws IOException
 	 */
+	/*
 	@RequestMapping(value = "/signup", method = { RequestMethod.GET, RequestMethod.POST })
 	public String signupUser(Model model, HashMap<String, String> userInfo) throws IOException{
 
@@ -86,6 +89,18 @@ public class UserController {
 		
 		return "signupSuccess.jsp";
 	}
+	
+	*/
+	
+	// 20200901 redirect가 아닌 signup.jsp로 구현, method = post
+	@RequestMapping(value = "/signup", method = {RequestMethod.GET, RequestMethod.POST} )
+	public String signupUser(@ModelAttribute UserVO vo) throws IOException{
+		
+		userService.insertUser(vo);
+		
+		return "signupSuccess.jsp";
+	}
+	
 	
 	
 }
