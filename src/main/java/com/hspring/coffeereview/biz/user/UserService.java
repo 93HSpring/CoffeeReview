@@ -10,6 +10,8 @@ package com.hspring.coffeereview.biz.user;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.08.24        Goonoo Jang       최초 생성
+* 2020.09.03		Goonoo Jang		  getUser(String id) 추가
+* 
 */
 public interface UserService {
 

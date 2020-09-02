@@ -148,12 +148,6 @@ public class LoginController {
 			// phonenum, address 
 			
 			return "register.jsp";
-			
-			/*
-			 * private String id; private String name; private String nickname; // private
-			 * String age; // private String gender; private String phonenum; private String
-			 * email; private String address;
-			 */
 		}
 		
 	}

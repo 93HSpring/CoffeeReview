@@ -18,7 +18,8 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.08.24        Goonoo Jang       최초 생성
-* 2020.09.02		Goonoo Jang		  checkUser() param 변경
+* 2020.09.02		Goonoo Jang		  checkUser(name->id 변경)
+* 2020.09.03		Goonoo Jang		  getUser(String id) 추가
 */
 @Repository("userDAO")
 public class UserDAO {
@@ -73,6 +74,13 @@ public class UserDAO {
 	}
 	
 	// 회원 조회 (ID를 통해)
+	/**
+	 * @methodName	: getUser
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.09.03
+	 * @param id
+	 * @return
+	 */
 	public UserVO getUser(String id) {
 		System.out.println("===> JPA로 getUser() 처리 (id로)");
 		return em.find(UserVO.class, id);

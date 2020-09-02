@@ -27,6 +27,7 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * -----------------------------------------------------------
 * 2020.08.24        Goonoo Jang       최초 생성
 * 2020.09.02		Goonoo Jang		  signupUser수정 - redirect X
+* 2020.09.03		Goonoo Jang		  userInfo 구현
 */
 @Controller
 @SessionAttributes("user")
