@@ -37,26 +37,13 @@ import com.hspring.coffeereview.biz.common.Pagination;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.08.24        SeongPyo Jo       최초 생성
+* 2020.09.01        SeonpPyo Jo       getBoard 출력을 위한 기능 추가
 */
 
 @Controller
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
-	
-	/**
-	* @methodName  : searchConditionMap
-	* @author      : SeongPyo Jo
-	* @date        : 2020.08.24
-	* @return Map<String,String>
-	*/
-	@ModelAttribute("conditionMap")
-	public Map<String, String> searchConditionMap() {
-		Map<String, String> conditionMap = new HashMap<String, String>();
-		conditionMap.put("제목", "TITLE");
-		conditionMap.put("내용", "CONTENT");
-		return conditionMap;
-	}
 	
 	/**
 	* @methodName  : image
@@ -110,7 +97,7 @@ public class BoardController {
 	* @return String
 	*/
 	@RequestMapping("/getBoardList")
-	public String getBoardList(@RequestParam(value="cafe", defaultValue="STARBUCKS", required=false) String cname, 
+	public String getBoardList(@RequestParam(value="cafe", defaultValue="STARBUCKS") String cname, 
 							   @RequestParam(value="page", defaultValue="1") int page,
 							   @RequestParam(value="keyword", defaultValue="") String keyword,
 							   @RequestParam(value="sort", defaultValue="star") String sort,
@@ -152,6 +139,7 @@ public class BoardController {
 			vo.setCntPerPage(pagination.getPageSize());
 			
 			model.addAttribute("boardList", boardService.selectCafeListPaging(vo));
+			model.addAttribute("cname", cname);
 			model.addAttribute("listCnt", listCnt);
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("keyword", keyword);
@@ -171,11 +159,38 @@ public class BoardController {
 			List<BoardVO> boardList = boardService.selectMenuListPaging(vo);
 			
 			model.addAttribute("boardList", boardList);
+			model.addAttribute("cname", cname);
 			model.addAttribute("listCnt", listCnt);
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("keyword", keyword);
 			
 			return "getBoardList.jsp";
 		}
+	}
+	
+	/**
+	* @methodName    : getBoard
+	* @author        : SeongPyo Jo
+	* @date        : 2020.09.01
+	* @param cname
+	* @param name
+	* @param vo
+	* @param model
+	* @return String
+	*/
+	@RequestMapping("/getBoard")
+	public String getBoard(@RequestParam(value="cafe") String cname, 
+			   @RequestParam(value="menu") String name,
+			   BoardVO vo, Model model) {
+		System.out.println("메뉴 상세정보 처리");
+		
+		vo.setCname(cname);
+		vo.setName(name);
+		
+		BoardVO board = boardService.getBoard(vo);
+		
+		model.addAttribute("board", board);
+		
+		return "getBoard.jsp";
 	}
 }
