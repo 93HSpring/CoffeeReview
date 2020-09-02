@@ -171,7 +171,7 @@
 								<img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 							</div>
 							<div class="info">
-								<a href="userinfo" class="d-block">${sessionName }님</a>
+								<a href="userInfo" class="d-block">${sessionName }님</a>
 								<!-- 회원정보로 가는 곳 -->
 							</div>
 							<div class="info">

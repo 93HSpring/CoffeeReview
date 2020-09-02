@@ -89,6 +89,7 @@ public class LoginController {
 	 * @{tags}
 	 */
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
+	// @RequestMapping(value = "/callback", method = RequestMethod.POST) // 20200901 임시로 지움
 	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, RedirectAttributes redirect)
 			throws IOException, ParseException {
 		System.out.println("여기는 callback");
@@ -117,13 +118,15 @@ public class LoginController {
 		if(userService.checkUser(id)) {
 			// 4.파싱 닉네임 세션으로 저장
 			session.setAttribute("sessionId", id); // 세션 생성
-			session.setAttribute("sessionName", name);
+			session.setAttribute("sessionName", name); // 웹에 띄울 사용자 이름 저장
 			
 			//model.addAttribute("id", id);
 			//model.addAttribute("name", name);
 			return "index.jsp";
 		} else { // users DB에 회원정보가 없으면
 			// 회원가입 페이지로 넘어가기
+			 
+			/*
 			redirect.addFlashAttribute("name", name);
 			redirect.addFlashAttribute("id", id);
 			redirect.addFlashAttribute("nickname", (String) response_obj.get("nickname"));
@@ -133,6 +136,18 @@ public class LoginController {
 			// redirect는 HashMap<String, String>형식으로 전달
 			
 			return "redirect:signup";
+			*/
+			// 20200901 redirect로 UserController의 signup 메소드로 곧바로 넘기는게 아니라 register.jsp로 넘기도록
+			
+			model.addAttribute("id", id);
+			model.addAttribute("name", name);
+			model.addAttribute("nickname", (String) response_obj.get("nickname"));
+			model.addAttribute("age", (String) response_obj.get("age"));
+			model.addAttribute("gender", (String) response_obj.get("gender"));
+			model.addAttribute("email", (String) response_obj.get("email"));
+			// phonenum, address 
+			
+			return "register.jsp";
 		}
 		
 	}
