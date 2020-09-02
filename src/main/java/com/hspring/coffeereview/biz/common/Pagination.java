@@ -10,12 +10,13 @@ package com.hspring.coffeereview.biz.common;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.08.24        SeongPyo Jo       최초 생성
+* 2020.09.01        SeongPyo Jo       한 페이지당 게시글 수 수정
 */
 
 public class Pagination {
 
 	/** 한 페이지당 게시글 수 **/
-	private int pageSize = 12;
+	private int pageSize = 8;
 
 	/** 한 블럭(range)당 페이지 수 **/
 	private int rangeSize = 5;
@@ -81,6 +82,14 @@ public class Pagination {
 	public int getListCnt() {
 		return listCnt;
 	}
+	
+	public void setPageCnt(int listCnt) {
+		this.pageCnt = (int) Math.ceil(listCnt * 1.0 / pageSize);
+	}
+
+	public void setRangeCnt(int pageCnt) {
+		this.rangeCnt = (int) Math.ceil(pageCnt * 1.0 / rangeSize);
+	}
 
 	public void setListCnt(int listCnt) {
 		this.listCnt = listCnt;
@@ -129,6 +138,14 @@ public class Pagination {
 	public void setNextPage(int nextPage) {
 		this.nextPage = nextPage;
 	}
+	
+	public void setCurRange(int curPage) {
+		this.curRange = (int) ((curPage - 1) / rangeSize) + 1;
+	}
+
+	public void setStartIndex(int curPage) {
+		this.startIndex = (curPage - 1) * pageSize;
+	}
 
 	@Override
 	public String toString() {
@@ -137,8 +154,6 @@ public class Pagination {
 				+ startPage + ", endPage=" + endPage + ", startIndex=" + startIndex + ", prevPage=" + prevPage
 				+ ", nextPage=" + nextPage + "]";
 	}
-
-	
 	
 	/**
 	* @constructor : Pagination
@@ -170,15 +185,6 @@ public class Pagination {
 		setStartIndex(curPage);
 	}
 
-	public void setPageCnt(int listCnt) {
-		this.pageCnt = (int) Math.ceil(listCnt * 1.0 / pageSize);
-	}
-
-	public void setRangeCnt(int pageCnt) {
-		this.rangeCnt = (int) Math.ceil(pageCnt * 1.0 / rangeSize);
-	}
-
-	
 	/**
 	* @methodName  : rangeSetting
 	* @author      : SeongPyo Jo
@@ -199,13 +205,4 @@ public class Pagination {
 		this.prevPage = curPage - 1;
 		this.nextPage = curPage + 1;
 	}
-
-	public void setCurRange(int curPage) {
-		this.curRange = (int) ((curPage - 1) / rangeSize) + 1;
-	}
-
-	public void setStartIndex(int curPage) {
-		this.startIndex = (curPage - 1) * pageSize;
-	}
-
 }

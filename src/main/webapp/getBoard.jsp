@@ -240,7 +240,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0 text-dark">${cname}</h1>
+							<h1 class="m-0 text-dark">${board.cname}</h1>
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
@@ -248,7 +248,7 @@
 								<li class="breadcrumb-item">
 									<a href="index.jsp">Home</a>
 								</li>
-								<li class="breadcrumb-item active">${cname}</li>
+								<li class="breadcrumb-item active">${board.cname}</li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -263,132 +263,73 @@
 			<!-- 음료 리스트(카페 별) -->
 			<div class="content">
 				<div class="card card-solid">
-					<!-- 카페 음료 -->
-					<!-- 카페 헤더 부분 -->
-					<!-- 정렬 부분 -->
-					<div class="card-header text-muted boader-bottom-0">
-						<div class="input-group-prepend float-sm-right">
-							<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"">정렬</button>
-							<div class="dropdown-menu">
-								<c:choose>
-									<c:when test="${empty keyword}">
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}">별점 순</a>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&sort=caffeine">카페인 순</a>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&sort=kcal">칼로리 순</a>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&sort=sodium">나트륨 순</a>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&sort=sugars">당분 순</a>
-									</c:when>
-									<c:otherwise>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&keyword=${keyword}">별점 순</a>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&keyword=${keyword}&sort=caffeine">카페인 순</a>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&keyword=${keyword}&sort=kcal">칼로리 순</a>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&keyword=${keyword}&sort=sodium">나트륨 순</a>
-										<a class="dropdown-item" href="getBoardList?cafe=${cname}&keyword=${keyword}&sort=sugars">당분 순</a>
-									</c:otherwise>
-								</c:choose>
+					<div class="card-header boader-bottom-0">
+						<div class="row">
+							<div class="col-12 col-sm-6" style="padding-bottom:10px; margin-bottom:15px;">
+								<img class="card-img" src="data/image/${board.cname}/${board.name}.jpg" style="border-radius:.25rem;" alt="${board.name}">
 							</div>
+							<div class="col-12 col-sm-6">	
+								<h2 class="text-center" style="font-weight: bold; padding-top: 25px; padding-bottom: 15px; margin-bottom:45px; border-bottom:2px solid; border-top:1px solid rgba(0, 0, 0, .2);;" >						
+									${board.name}
+								</h2>								
+								<div class="row col-12 mx-auto text-muted" style="padding-bottom: 35px;">
+									<div class="col-12" style="">
+										<ul>
+											<li>
+												<dl>
+													<dt style="font-weight:normal; font-size:1.3em">칼로리 (kcal)</dt>
+													<dd style="font-size:1.1em;">${board.kcal}</dd>
+												</dl>
+											</li>
+											<li>
+												<dl>
+													<dt style="font-weight:normal; font-size:1.3em">카페인 (mg)</dt>
+													<dd style="font-size:1.1em;">${board.caffeine}</dd>
+												</dl>
+											</li>
+										</ul>
+										<ul>
+											<li>
+												<dl>
+													<dt style="font-weight:normal; font-size:1.3em">나트륨 (mg)</dt>
+													<dd style="font-size:1.1em;">${board.sodium}</dd>
+												</dl>
+											</li>
+											<li>
+												<dl>
+													<dt style="font-weight:normal; font-size:1.3em">당류 (g)</dt>
+													<dd style="font-size:1.1em;">${board.sugars}</dd>
+												</dl>
+											</li>											
+										</ul>
+									</div>
+								</div>								
+							</div>							
 						</div>
 					</div>
-					<!-- 정렬 부분 끝 -->
-					<!-- 카페 헤더 부분 끝 -->
-
-					<!-- 카페 바디 부분 -->
 					<div class="card-body pd-0">
-						<div class="row align-items-stretch">
-							<c:forEach items="${boardList }" var="board">
-								<div class="col-6 col-sm-3 col-md-3 align-items-stretch">
-									<a href="getBoard?cafe=${board.cname}&menu=${board.name}">
-										<div class="card bg-light" style="cursor: pointer; border-top-left-radius: 19px; border-top-right-radius: 19px;">
-										
-											<c:choose>
-												<c:when test="${not empty keyword}">
-													<div class="ribbon-wrapper ribbon-lg">
-														<div class="ribbon bg-warning test-xl">${board.cname}</div>
-													</div>
-													<img class="card-header img-fluid p-0" src="data/image/${board.cname}/${board.name}.jpg" alt="${board.name}" style="padding-bottom: 6px;">
-												</c:when>
-												<c:otherwise>
-													<img class="card-header img-fluid p-0" src="data/image/${board.cname}/${board.name}.jpg" alt="${board.name}" style="padding-bottom: 6px;">
-												</c:otherwise>
-											</c:choose>
-	
-											<div class="card-body p-0" style="height: 55px;">
-												<div style="height: 30%; font-size: 12px; font-weight: bold; color: red; align-items: center;" class="text-center">커피</div>
-												<div style="height: 70%; font-size: 15px; font-weight: bold; align-items: center;" class="text-center">${board.name }</div>
-											</div>
-											<div class="card-footer p-0" style="width=100%; height: 40px; display: table;">
-												<div class="text-center" style="height: 20px; font-size: 20px; display: table-cell; vertical-align: middel; padding-top: 5px;">
-													<i class="fas fa-star" style="color: #FFC31E;"></i> ${board.savg}
-												</div>
-											</div>																	
-										</div>	
-									</a>								
-								</div>
-							</c:forEach>
+						<div class="col-12 text-center" style="font-size:2em;">
+							<i class="fas fa-star" style="color: #FFC31E;"></i>
+							<i class="fas fa-star" style="color: #FFC31E;"></i>
+							<i class="fas fa-star" style="color: #FFC31E;"></i>
+							<i class="fas fa-star-half-alt" style="color: #FFC31E;"></i>
+							<i class="far fa-star" style="color: #FFC31E;"></i>
+							<br>		
+							<span style="font-size:0.7em">3.6</span>
 						</div>
 					</div>
-					<!-- 카페 바디 부분 끝 -->
-					<!-- 카페 음료 끝 -->
-
-					<!-- 페이징 부분 -->
 					<div class="card-footer">
-						<nav aria-label="Contancts Page Navigation">
-						<ul class="pagination justify-content-center m-0">
-							<c:if test="${pagination.curRange ne 1 }">
-								<li class="page-item">
-									<a href="javascript:void(0);" class="page-link d-flex shadow-none" style="height: 100%; align-items: center;" onClick="fn_paging(1); return false;">
-										<i class="fas fa-angle-double-left fa-sm"></i>
-									</a>
-								</li>
-							</c:if>
-							<c:if test="${pagination.curPage ne 1}">
-								<li class="page-item previous">
-									<a href="javascript:void(0);" class="page-link d-flex shadow-none" style="height: 100%; align-items: center;" onClick="fn_paging('${pagination.prevPage }'); return false;">
-										<i class="fas fa-angle-left fa-sm"></i>
-									</a>
-								</li>
-							</c:if>
-							<c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
-								<c:choose>
-									<c:when test="${pageNum eq  pagination.curPage}">
-										<li class="page-item active" style="pointer-events: none;">
-											<a href="javascript:void(0);" class="page-link d-flex shadow-none" onClick="fn_paging('${pageNum }'); return false;" style="height: 100%; align-items: center; font-weight: bold;"> ${pageNum } </a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item">
-											<a href="javascript:void(0);" class="page-link d-flex shadow-none" onClick="fn_paging('${pageNum }'); return false;" style="height: 100%; align-items: center; font-weight: bold;"> ${pageNum } </a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-								<li class="page-item">
-									<a href="javascript:void(0);" class="page-link d-flex shadow-none" onClick="fn_paging('${pagination.nextPage }'); return false;" style="height: 100%; align-items: center;">
-										<i class="fas fa-angle-right fa-sm"></i>
-									</a>
-								</li>
-							</c:if>
-							<c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
-								<li class="page-item">
-									<a href="javascript:void(0);" class="page-link d-flex shadow-none" onClick="fn_paging('${pagination.pageCnt }'); return false;" style="height: 100%; align-items: center;">
-										<i class="fas fa-angle-double-right fa-sm"></i>
-									</a>
-								</li>
-							</c:if>
-						</ul>
-						</nav>
+						<form class="form-horizontal">
+							<div class="input-group input-group-sm mb-0">
+								<input class="form-control form-control-sm" placeholder="리뷰를 작성해주세요.">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-danger">등록</button>
+								</div>
+							</div>
+						</form>
 					</div>
-					<!-- 페이징 부분 끝 -->
+					</div>
 				</div>
-			</div>
-
-			<!-- 페이징 정보 부분 -->
-			<!-- <div>
-				현재 페이지 : ${pagination.curPage } / 총 페이지 : ${pagination.pageCnt } / 총 게시글 : ${pagination.listCnt }
-				/ 현재 블럭 : ${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }
-			</div> -->
-			<!-- 페이징 정보 부분 끝 -->
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
@@ -404,7 +345,7 @@
 
 		<!-- Main Footer -->
 		<footer class="main-footer"> <!-- To the right -->
-			<div class="float-right d-none d-sm-inline">
+			<div class="float-right d-none d-sm-block">
 				<b>Version</b> 1.0.1
 			</div>
 		
@@ -448,19 +389,24 @@
 
 			if (!keyword_param) {
 				if (sort_param) {
-					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&sort=${param.sort}&page=" + curPage;
+					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&sort=${param.sort}&page="
+							+ curPage;
 				} else {
-					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&page=" + curPage;
+					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&page="
+							+ curPage;
 				}
 			} else if (!sort_param) {
 				if (keyword_param) {
-					location.href = "/coffeereview/getBoardList?cafe=All&keyword=${param.keyword}&page=" + curPage;
+					location.href = "/coffeereview/getBoardList?cafe=All&keyword=${param.keyword}&page="
+							+ curPage;
 				} else {
-					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&page=" + curPage;
+					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&page="
+							+ curPage;
 				}
 			} else if (sort_param) {
 				if (keyword_param) {
-					location.href = "/coffeereview/getBoardList?cafe=All&keyword=${param.keyword}&sort=${param.sort}&page=" + curPage;
+					location.href = "/coffeereview/getBoardList?cafe=All&keyword=${param.keyword}&sort=${param.sort}&page="
+							+ curPage;
 				}
 			}
 		}
