@@ -19,8 +19,11 @@ public interface UserService {
 	// 회원 탈퇴
 	void deleteUser(UserVO vo);
 	
-	// 회원 정보 확인
+	// 회원 정보 확인 (vo를 통해)
 	UserVO getUser(UserVO vo);
+	
+	// 회원 정보 확인 (ID를 통해)
+	UserVO getUser(String id);
 	
 	// 회원 가입여부 확인
 	boolean checkUser(String id);

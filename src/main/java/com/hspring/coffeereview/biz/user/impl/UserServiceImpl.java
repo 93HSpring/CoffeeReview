@@ -15,9 +15,14 @@ public class UserServiceImpl implements UserService{
 		this.userDAO = userDAO;
 	}
 	
-	// 회원 정보 확인
+	// 회원 정보 확인 (vo를 통해)
 	public UserVO getUser(UserVO vo) {
 		return userDAO.getUser(vo);
+	}
+	
+	// 회원 정보 확인 (ID를 통해)
+	public UserVO getUser(String id) {
+		return userDAO.getUser(id);
 	}
 	
 	// 회원 생성
