@@ -260,18 +260,21 @@
 			<!-- /.content-header -->
 
 			<!-- Main content -->
-			<!-- 음료 리스트(카페 별) -->
+			<!-- 메뉴 상세 정보 -->
 			<div class="content">
 				<div class="card card-solid">
 					<div class="card-header boader-bottom-0">
 						<div class="row">
+							<!-- 메뉴 이미지 -->
 							<div class="col-12 col-sm-6" style="padding-bottom:10px; margin-bottom:15px;">
 								<img class="card-img" src="data/image/${board.cname}/${board.name}.jpg" style="border-radius:.25rem;" alt="${board.name}">
 							</div>
+							<!-- 메뉴 이름 -->
 							<div class="col-12 col-sm-6">	
 								<h2 class="text-center" style="font-weight: bold; padding-top: 25px; padding-bottom: 15px; margin-bottom:45px; border-bottom:2px solid; border-top:1px solid rgba(0, 0, 0, .2);;" >						
 									${board.name}
-								</h2>								
+								</h2>				
+								<!-- 메뉴 상세 정보 -->				
 								<div class="row col-12 mx-auto text-muted" style="padding-bottom: 35px;">
 									<div class="col-12" style="">
 										<ul>
@@ -307,6 +310,7 @@
 							</div>							
 						</div>
 					</div>
+					<!-- 메뉴의 총 별점 -->
 					<div class="card-body pd-0">
 						<div class="col-12 text-center" style="font-size:2em;">
 							<i class="fas fa-star" style="color: #FFC31E;"></i>
@@ -318,18 +322,35 @@
 							<span style="font-size:0.7em">3.6</span>
 						</div>
 					</div>
+					<!-- Comment 등록  -->
 					<div class="card-footer">
-						<form class="form-horizontal">
-							<div class="input-group input-group-sm mb-0">
-								<input class="form-control form-control-sm" placeholder="리뷰를 작성해주세요.">
-								<div class="input-group-append">
-									<button type="submit" class="btn btn-danger">등록</button>
+						<form class="form-horizontal" action="">
+							<div class="row">
+								<!-- 별점 등록 -->
+								<div class="col-2 align-self-center">
+									<div class="make_star text-center" style="height: 100%; align-items: center;">
+										<input class="star" type="hidden" name="star" value="1">
+										<input type="hidden" name="cafe" value="${board.cname}">
+										<input type="hidden" name="menu" value="${board.name}">
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>	
+									</div>	
 								</div>
+								<!-- 리뷰 등록 -->
+								<div class="col-10 input-group input-group-sm mb-0">
+									<input class="form-control form-control-sm" type="text" name="comment" placeholder="리뷰와 별점을 작성해주세요.">
+									<div class="input-group-append">
+										<button type="submit" class="btn btn-danger">등록</button>
+									</div>
+								</div>						
 							</div>
 						</form>
 					</div>
-					</div>
 				</div>
+			</div>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
@@ -366,22 +387,20 @@
 	<script src="dist/js/adminlte.min.js"></script>
 	<!-- Sidebar active를 위한 js -->
 	<script type="text/javascript">
-		$(document).ready(
-				function() {
-					/** add active class and stay opened when selected */
-					var url = window.location;
+		$(document).ready(function() {
+			/** add active class and stay opened when selected */
+			var url = window.location;
 
-					// for sidebar menu entirely but not cover treeview
-					$('ul.nav-sidebar a').filter(function() {
-						return $(this).attr('id') == "${param.cafe}";
-					}).addClass('active');
+			// for sidebar menu entirely but not cover treeview
+			$('ul.nav-sidebar a').filter(function() {
+				return $(this).attr('id') == "${param.cafe}";
+			}).addClass('active');
 
-					// for treeview
-					$('ul.nav-treeview a').filter(function() {
-						return $(this).attr('id') == "${param.cafe}";
-					}).parentsUntil(".nav-sidebar > .nav-treeview").addClass(
-							'menu-open').prev('a').addClass('active');
-				})
+			// for treeview
+			$('ul.nav-treeview a').filter(function() {
+				return $(this).attr('id') == "${param.cafe}";
+			}).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+		});
 
 		function fn_paging(curPage) {
 			var keyword_param = getParam("keyword");
@@ -427,6 +446,7 @@
 
 			return sval;
 		}
+		
 	</script>
 	<!-- TEST를 위한 js -->
 	<script type="text/javascript">
@@ -437,6 +457,17 @@
 				console.log("아니야")
 			}
 		}
+	</script>
+	<script type="text/javascript">			
+		$(function() {
+			$('.make_star i').click(function() {
+				var targetNum = $(this).index() + 1;
+				console.log(targetNum - 1);
+				$('.make_star i').css({color: '#000'});
+				$('.make_star i:nth-child(-n+' + targetNum + ')').css({color: '#F00'});
+				$('.star').val(targetNum - 1);
+			});
+		});
 	</script>
 </body>
 </html>
