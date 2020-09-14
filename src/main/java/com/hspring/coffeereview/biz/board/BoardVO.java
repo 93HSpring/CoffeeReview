@@ -28,9 +28,9 @@ public class BoardVO {
 
 	@Id
 	@GeneratedValue
-	private String id;
-	private String name;
-	private String cname;
+	private String cid;
+	private String cafename;
+	private String menuname;
 	private String kcal;
 	private String sugars;
 	private String sodium;
@@ -50,28 +50,28 @@ public class BoardVO {
 	@Transient // JPA
 	private MultipartFile uploadFile;
 
-	public String getId() {
-		return id;
+	public String getCid() {
+		return cid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
 
-	public String getName() {
-		return name;
+	public String getCafename() {
+		return cafename;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCafename(String cafename) {
+		this.cafename = cafename;
 	}
 
-	public String getCname() {
-		return cname;
+	public String getMenuname() {
+		return menuname;
 	}
 
-	public void setCname(String cname) {
-		this.cname = cname;
+	public void setMenuname(String menuname) {
+		this.menuname = menuname;
 	}
 
 	public String getKcal() {
@@ -172,7 +172,7 @@ public class BoardVO {
 
 	@Override
 	public String toString() {
-		return "BoardVO [id=" + id + ", name=" + name + ", cname=" + cname + ", kcal=" + kcal + ", sugars=" + sugars
+		return "BoardVO [cid=" + cid + ", cafename=" + cafename + ", menuname=" + menuname + ", kcal=" + kcal + ", sugars=" + sugars
 				+ ", sodium=" + sodium + ", caffeine=" + caffeine + ", star=" + star + ", startIndex=" + startIndex
 				+ ", cntPerPage=" + cntPerPage + ", savg=" + savg + ", searchCondition=" + searchCondition
 				+ ", searchKeyword=" + searchKeyword + ", uploadFile=" + uploadFile + ", menuSort=" + menuSort + "]";

@@ -22,6 +22,7 @@ import com.hspring.coffeereview.biz.board.BoardVO;
 * -----------------------------------------------------------
 * 2020.08.24        SeongPyo Jo       최초 생성
 * 2020.09.01        SeongPyo Jo       getBoard를 위한 SQL 처리문 추가
+* 2020.09.01        SeongPyo Jo       url 방식 변경으로 인한 query 변경
 */
 
 @Repository
@@ -39,8 +40,8 @@ public class BoardDAO {
 	public BoardVO getBoard(BoardVO vo) {
 		System.out.println("===> JPA로 getBoard() 처리");
 		
-		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cname = :cafename AND b.name = '" + vo.getName() + "'", BoardVO.class);
-		query.setParameter("cafename", vo.getCname());
+		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cafename = :cname AND b.cid = " + vo.getCid(), BoardVO.class);
+		query.setParameter("cname", vo.getCafename());
 		return query.getSingleResult();
 	}
 
@@ -54,8 +55,8 @@ public class BoardDAO {
 	public List<BoardVO> getBoardList(BoardVO vo) {
 		System.out.println("===> JPA로 getBoardList() 처리");
 
-		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cname = :cafename order by b.savg desc",	BoardVO.class);
-		query.setParameter("cafename", vo.getCname());
+		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cafename = :cname order by b.savg desc",	BoardVO.class);
+		query.setParameter("cname", vo.getCafename());
 
 		return query.getResultList();
 	}
@@ -68,8 +69,8 @@ public class BoardDAO {
 	* @return int
 	*/
 	public int selectCafeBoardCnt(BoardVO vo) {
-		TypedQuery<Number> query = em.createQuery("select count(*) from BoardVO b where b.cname = :cafename", Number.class);
-		query.setParameter("cafename", vo.getCname());
+		TypedQuery<Number> query = em.createQuery("select count(*) from BoardVO b where b.cafename = :cname", Number.class);
+		query.setParameter("cname", vo.getCafename());
 		return (query.getSingleResult()).intValue();
 	}
 
@@ -81,8 +82,8 @@ public class BoardDAO {
 	* @return List<BoardVO>
 	*/
 	public List<BoardVO> selectCafeListPaging(BoardVO vo) {
-		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cname = :cafename order by b." + vo.getMenuSort() + "+0 desc", BoardVO.class);
-		query.setParameter("cafename", vo.getCname());
+		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cafename = :cname order by b." + vo.getMenuSort() + "+0 desc", BoardVO.class);
+		query.setParameter("cname", vo.getCafename());
 		return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
 	}
 
@@ -94,7 +95,7 @@ public class BoardDAO {
 	* @return int
 	*/
 	public int selectMenuBoardCnt(BoardVO vo) {
-		TypedQuery<Number> query = em.createQuery("select count(*) from BoardVO b where b.name LIKE '%'||:keyword||'%'", Number.class);
+		TypedQuery<Number> query = em.createQuery("select count(*) from BoardVO b where b.menuname LIKE '%'||:keyword||'%'", Number.class);
 		query.setParameter("keyword", vo.getSearchKeyword());
 		return (query.getSingleResult()).intValue();
 	}
@@ -107,7 +108,7 @@ public class BoardDAO {
 	* @return List<BoardVO>
 	*/
 	public List<BoardVO> selectMenuListPaging(BoardVO vo) {
-		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.name LIKE '%'||:keyword||'%' order by b." + vo.getMenuSort() + "+0 desc", BoardVO.class);
+		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.menuname LIKE '%'||:keyword||'%' order by b." + vo.getMenuSort() + "+0 desc", BoardVO.class);
 		query.setParameter("keyword", vo.getSearchKeyword());
 		return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
 	}

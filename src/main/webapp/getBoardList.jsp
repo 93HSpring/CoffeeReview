@@ -297,24 +297,24 @@
 						<div class="row align-items-stretch">
 							<c:forEach items="${boardList }" var="board">
 								<div class="col-6 col-sm-3 col-md-3 align-items-stretch">
-									<a href="getBoard?cafe=${board.cname}&menu=${board.name}">
+									<a href="getBoard?cafe=${board.cafename}&menu=${board.cid}">
 										<div class="card bg-light" style="cursor: pointer; border-top-left-radius: 19px; border-top-right-radius: 19px;">
 										
 											<c:choose>
 												<c:when test="${not empty keyword}">
 													<div class="ribbon-wrapper ribbon-lg">
-														<div class="ribbon bg-warning test-xl">${board.cname}</div>
+														<div class="ribbon bg-warning test-xl">${board.cafename}</div>
 													</div>
-													<img class="card-header img-fluid p-0" src="data/image/${board.cname}/${board.name}.jpg" alt="${board.name}" style="padding-bottom: 6px;">
+													<img class="card-header img-fluid p-0" src="data/image/${board.cafename}/${board.menuname}.jpg" alt="${board.menuname}" style="padding-bottom: 6px;">
 												</c:when>
 												<c:otherwise>
-													<img class="card-header img-fluid p-0" src="data/image/${board.cname}/${board.name}.jpg" alt="${board.name}" style="padding-bottom: 6px;">
+													<img class="card-header img-fluid p-0" src="data/image/${board.cafename}/${board.menuname}.jpg" alt="${board.menuname}" style="padding-bottom: 6px;">
 												</c:otherwise>
 											</c:choose>
 	
 											<div class="card-body p-0" style="height: 55px;">
 												<div style="height: 30%; font-size: 12px; font-weight: bold; color: red; align-items: center;" class="text-center">커피</div>
-												<div style="height: 70%; font-size: 15px; font-weight: bold; align-items: center;" class="text-center">${board.name }</div>
+												<div style="height: 70%; font-size: 15px; font-weight: bold; align-items: center;" class="text-center">${board.menuname }</div>
 											</div>
 											<div class="card-footer p-0" style="width=100%; height: 40px; display: table;">
 												<div class="text-center" style="height: 20px; font-size: 20px; display: table-cell; vertical-align: middel; padding-top: 5px;">
