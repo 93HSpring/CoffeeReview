@@ -14,7 +14,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 	function checkForm() {
-		var responseMessage = "";
 		if (document.signup.phonenum.value == "") {
 			alert("전화번호를 입력하세요.");
 			document.signup.phonenum.focus();

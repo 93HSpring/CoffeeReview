@@ -39,4 +39,8 @@ public class UserServiceImpl implements UserService{
 	public boolean checkUser(String id) {
 		return userDAO.checkUser(id);
 	}
+	
+	public void modifyProfile(UserVO vo) {
+		userDAO.modifyProfile(vo);
+	}
 }

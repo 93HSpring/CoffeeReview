@@ -29,6 +29,7 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * 2020.09.02		Goonoo Jang		  signupUser수정 - redirect X
 * 2020.09.03		Goonoo Jang		  userInfo 구현
 * 2020.09.15		Goonoo Jang		  signupUser수정 - index.jsp 반환
+* 2020.09.16		Goonoo Jang		  modifyProfile 구현
 */
 @Controller
 @SessionAttributes("user")
@@ -100,7 +101,25 @@ public class UserController {
 
 		return "userInfo.jsp";
 	}
+	
+	/**
+	 * @methodName	: modifyProfile
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.09.16
+	 * @param vo
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("/modifyProfile")
+	public String modifyProfile(UserVO vo) throws IOException{
+		System.out.println("JPA로 profile Modify");
+		userService.modifyProfile(vo);
+		return "index.jsp";
+	}
+	
+	// reviseProfile
+	
 	// 네이버 로그인 API쓰니까 보안 좀 신경써야할둣 로그인쪽 보안을 좀 더 생각해보자
 	// 쿼리문, 에러페이지 이런건 나중에.
-	// 20200915 수정시작
+	
 }

@@ -11,6 +11,7 @@ package com.hspring.coffeereview.biz.user;
 * -----------------------------------------------------------
 * 2020.08.24        Goonoo Jang       최초 생성
 * 2020.09.03		Goonoo Jang		  getUser(String id) 추가
+* 2020.09.16		Goonoo Jang		  modifyProfile(UserVO vo) 추가
 * 
 */
 public interface UserService {
@@ -29,5 +30,7 @@ public interface UserService {
 	
 	// 회원 가입여부 확인
 	boolean checkUser(String id);
+	
+	void modifyProfile(UserVO vo);
 
 }
