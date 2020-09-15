@@ -28,6 +28,7 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * 2020.08.24        Goonoo Jang       최초 생성
 * 2020.09.02		Goonoo Jang		  signupUser수정 - redirect X
 * 2020.09.03		Goonoo Jang		  userInfo 구현
+* 2020.09.15		Goonoo Jang		  signupUser수정 - index.jsp 반환
 */
 @Controller
 @SessionAttributes("user")
@@ -64,11 +65,11 @@ public class UserController {
 		userService.deleteUser(vo);
 		return "index.jsp";
 	}
-	
+
 	/**
 	 * @methodName	: signupUser
 	 * @author		: Goonoo Jang
-	 * @date		: 2020.09.02
+	 * @date		: 2020.09.15
 	 * @param vo
 	 * @return
 	 * @throws IOException
@@ -78,7 +79,7 @@ public class UserController {
 
 		userService.insertUser(vo);
 
-		return "signupSuccess.jsp";
+		return "index.jsp";
 	}
 
 	/**
