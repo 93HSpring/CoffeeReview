@@ -99,5 +99,7 @@ public class UserController {
 
 		return "userInfo.jsp";
 	}
-
+	// 네이버 로그인 API쓰니까 보안 좀 신경써야할둣 로그인쪽 보안을 좀 더 생각해보자
+	// 쿼리문, 에러페이지 이런건 나중에.
+	// 20200915 수정시작
 }

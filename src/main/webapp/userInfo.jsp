@@ -18,7 +18,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-mini layout-boxed">
 <div class="wrapper">
   		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light"> 
