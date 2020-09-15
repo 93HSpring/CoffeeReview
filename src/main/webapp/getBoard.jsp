@@ -312,14 +312,14 @@
 					</div>
 					<!-- 메뉴의 총 별점 -->
 					<div class="card-body pd-0">
-						<div class="col-12 text-center" style="font-size:2em;">
-							<i class="fas fa-star" style="color: #FFC31E;"></i>
-							<i class="fas fa-star" style="color: #FFC31E;"></i>
+						<div class="col-12 text-center" style="font-size:3em;">
+							<i class="fas fa-star" style="color: #FFC31E; padding-right:0.5em;"></i>
+							<!-- <i class="fas fa-star" style="color: #FFC31E;"></i>
 							<i class="fas fa-star" style="color: #FFC31E;"></i>
 							<i class="fas fa-star-half-alt" style="color: #FFC31E;"></i>
 							<i class="far fa-star" style="color: #FFC31E;"></i>
-							<br>		
-							<span style="font-size:0.7em">3.6</span>
+							<br>		 -->
+							<span>3.6</span>
 						</div>
 					</div>
 					<!-- Comment 등록  -->
@@ -340,7 +340,7 @@
 								<!-- 리뷰 등록 -->
 								<div class="col-12 input-group input-group-sm mb-0" style="padding:5px;">
 									<textarea id="newReplyText" class="form-control form-control-sm form-control-md col-11" rows="3" placeholder="리뷰와 별점을 작성해주세요." style="resize: none;"></textarea>
-									<div class="input-group-append col-1" style="padding-right:0;">
+									<div class="input-group-append col-2" style="padding-right:0;">
 										<button type="button" class="btn btn-danger replyAddBtn" style="width:100%;">등록</button>
 									</div>
 								</div>						
@@ -351,7 +351,7 @@
 				</div>
 				
 				<div class="card card-success card-outline">
-				    <%--댓글 유무 / 댓글 갯수 / 댓글 펼치기, 접기--%>
+				    <%--리뷰 유무 / 리뷰 갯수 / 리뷰 펼치기, 접기--%>
 				    <div class="card-header">	
 				    	<h3 class="card-title text-muted">
 				    		<i class="fas fa-comments replyCount"></i>
@@ -362,11 +362,11 @@
 				            </a>
 				        </div>
 				    </div>
-				    <%--댓글 목록--%>
+				    <%--리뷰 목록--%>
 				    <div class="card-body repliesDiv">
 						
 				    </div>
-				    <%--댓글 페이징--%>
+				    <%--리뷰 페이징--%>
 				    <div class="card-footer">
 				        <div class="text-center">
 				            <ul class="pagination justify-content-center m-0">
@@ -376,12 +376,12 @@
 				    </div>
 				</div>
 				
-				<%--댓글 수정 modal 영역--%>
+				<%--리뷰 수정 modal 영역--%>
 				<div class="modal fade" id="modModal">
 				    <div class="modal-dialog">
 				        <div class="modal-content">
 				            <div class="modal-header align-self-center">				                
-				                <h4 class="modal-title">댓글수정</h4>
+				                <h4 class="modal-title">리뷰 수정</h4>
 				            </div>
 				            <div class="modal-body">
 				                <input type="hidden" class="replyNo"/>
@@ -396,16 +396,16 @@
 				    </div>
 				</div>
 				
-				<%--댓글 삭제 modal 영역--%>
+				<%--리뷰 삭제 modal 영역--%>
 				<div class="modal fade" id="delModal">
 				    <div class="modal-dialog">
 				        <div class="modal-content">
 				            <div class="modal-header align-self-center">				                
-				                <h4 class="modal-title">댓글 삭제</h4>
+				                <h4 class="modal-title">리뷰 삭제</h4>
 				                <input type="hidden" class="rno"/>
 				            </div>
 				            <div class="modal-body align-self-center">
-				                <p>댓글을 삭제하시겠습니까?</p>
+				                <p>리뷰를 삭제하시겠습니까?</p>
 				                <input type="hidden" class="rno"/>
 				            </div>
 				            <div class="modal-footer align-self-center">
@@ -526,47 +526,38 @@
 			}
 		}
 	</script>
-	<!-- 별점 등록을 위한 js -->
-	<script type="text/javascript">			
-		$(function() {
-			$('.make_star i').click(function() {
-				var targetNum = $(this).index() + 1;
-				console.log(targetNum - 1);
-				$('.make_star i').css({color: '#000'});
-				$('.make_star i:nth-child(-n+' + targetNum + ')').css({color: '#F00'});
-				$('.star').val(targetNum - 1);
-			});
-		});
-	</script>
 	
-	<!-- 댓글 목록 처리를 위한 템플릿 코드 -->
+	<!-- 리뷰 목록 처리를 위한 템플릿 코드 -->
 	<!-- handlebars -->
 	<script id="replyTemplate" type="text/x-handlebars-template">
     {{#each.}}
     <div class="post replyDiv" data-replyNo={{rid}}>
         <div class="user-block">
-            <%--댓글 작성자 프로필사진--%>
+            <%--리뷰 작성자 프로필사진--%>
             <img class="img-circle img-bordered-sm" src="image/logo.png" alt="u">
-            <%--댓글 작성자--%>
+            <%--리뷰 작성자--%>
 			
             <span class="username">
                 <%--작성자 이름--%>
                 <a href="#">{{id}}</a>
-				<%--댓글 삭제 버튼--%>
+				<%--리뷰 삭제 버튼--%>
 				<div class="float-right">
 				<a href="#" class="btn-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
                 	<i class="fa fa-times"> 삭제</i>
             	</a>
-				<%--댓글 수정 버튼--%>
+				<%--리뷰 수정 버튼--%>
 				<a href="#" class="btn-tool replyModBtn" data-toggle="modal" data-target="#modModal">
                 	<i class="fa fa-edit"> 수정</i>
             	</a>
 				</div>
             </span>
-			<%--댓글 작성일자--%>
+			<%--리뷰 작성일자--%>
             <span class="description">{{prettifyDate regDate}}</span>
         </div>
-        <%--댓글 내용--%>
+        <%--리뷰 내용--%>
+		<div class="oldReplyStar">
+			{{{regStar starNum}}}
+		</div>
         <div class="oldReplyText">{{{escape replyText}}}</div>
         <br/>
     </div>
@@ -583,10 +574,41 @@
             return accum;
         });--%>
         
-        var cid = "${board.cid}";  // 현재 게시글의 cid
-        var replyPageNum = 1; // 댓글 페이지 번호 초기화
+        var starNum = 0;
         
-     	// 댓글 내용 : 줄바꿈/공백처리
+        $(function() {
+			$('.make_star i').click(function() {
+				var targetNum = $(this).index() + 1;
+				console.log(targetNum - 1);
+				starNum = targetNum;
+				$('.make_star i').css({color: '#000'});
+				$('.make_star i:nth-child(-n+' + targetNum + ')').css({color: '#F00'});
+			});
+		});
+        
+        var cid = "${board.cid}";  // 현재 게시글의 cid
+        var replyPageNum = 1; // 리뷰 페이지 번호 초기화
+        
+     	// 리뷰 별점 : 출력처리
+        Handlebars.registerHelper("regStar", function (starNum) {
+            var oldStarNum = Handlebars.Utils.escapeExpression(starNum);
+            console.log(oldStarNum);
+            var result = '';
+            var i;
+            for (i = 1; i <= 5; i++) {
+            	if (i <= oldStarNum) {
+            		result += `<i class='fas fa-star' style='color:#f00;'></i>`;
+            	}
+            	else {
+            		result += `<i class='fas fa-star'></i>`;
+            	}
+            }
+            result += "&nbsp;";
+            result += oldStarNum;
+            return new Handlebars.SafeString(result);
+        });
+        
+     	// 리뷰 내용 : 줄바꿈/공백처리
         Handlebars.registerHelper("escape", function (replyText) {
             var text = Handlebars.Utils.escapeExpression(replyText);
             text = text.replace(/(\r\n|\n|\r)/gm, "<br/>");
@@ -594,7 +616,7 @@
             return new Handlebars.SafeString(text);
         });
 
-        // 댓글 등록일자 : 날짜/시간 2자리로 맞추기
+        // 리뷰 등록일자 : 날짜/시간 2자리로 맞추기
         Handlebars.registerHelper("prettifyDate", function (timeValue) {
             var dateObj = new Date(timeValue);
             var year = dateObj.getFullYear();
@@ -610,10 +632,10 @@
             return year + "-" + month + "-" + date + " " + hours + ":" + minutes;
         });
         
-        // 댓글 목록 함수 호출
+        // 리뷰 목록 함수 호출
         getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum);
         
-     	// 댓글 목록 함수
+     	// 리뷰 목록 함수
         function getReplies(repliesUri) {
             $.getJSON(repliesUri, function (data) {
                 printReplyCount(data.pageMaker.totalCount);
@@ -622,22 +644,22 @@
             });
         }
 
-        // 댓글 갯수 출력 함수
+        // 리뷰 갯수 출력 함수
         function printReplyCount(totalCount) {
 
             var replyCount = $(".replyCount");
             var collapsedBox = $(".collapsed-box");
 
-            // 댓글이 없으면
+            // 리뷰가 없으면
             if (totalCount === 0) {
-                replyCount.html(" 댓글이 없습니다. 의견을 남겨주세요");
-                collapsedBox.find(".btn-box-tool").remove();
+                replyCount.html(" 리뷰가 없습니다. 리뷰를 남겨주세요");
+                collapsedBox.find(".btn-tool").remove();
                 return;
             }
 
-            // 댓글이 존재하면
-            replyCount.html(" 댓글목록 (" + totalCount + ")");
-            collapsedBox.find(".box-tools").html(
+            // 리뷰이 존재하면
+            replyCount.html(" 리뷰 목록 (" + totalCount + ")");
+            collapsedBox.find(".card-tools").html(
                 "<a href='#' class='btn-tool' data-card-widget='collapse'>"
                 + "<i class='fa fa-plus'></i>"
                 + "</a>"
@@ -645,7 +667,7 @@
 
         }
 
-        // 댓글 목록 출력 함수
+        // 리뷰 목록 출력 함수
         function printReplies(replyArr, targetArea, templateObj) {
             var replyTemplate = Handlebars.compile(templateObj.html());
             var html = replyTemplate(replyArr);
@@ -653,7 +675,7 @@
             targetArea.html(html);
         }
 
-        // 댓글 페이징 출력 함수
+        // 리뷰 페이징 출력 함수
         function printReplyPaging(pageMaker, targetArea) {
             var str = "";
             if (pageMaker.prev) {
@@ -670,14 +692,14 @@
         }
 
         
-        // 댓글 페이지 번호 클릭 이벤트
+        // 리뷰 페이지 번호 클릭 이벤트
         $(".pagination").on("click", "li a", function (event) {
             event.preventDefault();
             replyPageNum = $(this).attr("href");
             getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum);
         });
         
-        // 댓글 저장 버튼 클릭 이벤트
+        // 리뷰 저장 버튼 클릭 이벤트
         $(".replyAddBtn").on("click", function () {
         	
             // 입력 form 선택자
@@ -686,7 +708,7 @@
             var replyWriter = "관리자";
             var replyText = replyTextObj.val();
             
-            // 댓글 입력처리 수행
+            // 리뷰 입력처리 수행
             $.ajax({
                 type: "post",
                 url: "/coffeereview/replies/",
@@ -698,28 +720,37 @@
                 data: JSON.stringify({
                     cid: cid,
                     id: replyWriter,
+                    starNum: starNum,
                     replyText: replyText
                 }),
                 success: function (result) {
-                    console.log("result : " + result);
+                    //console.log("result : " + result);
+                    if (result === "textShortFail") {
+                    	alert("리뷰는 한 글자 이상 써주세요.")
+                    }
+                    if (result === "starNumFail") {
+                    	alert("별점 하나 이상 선택해주세요.")
+                    }
                     if (result === "regSuccess") {
-                        alert("댓글이 등록되었습니다.");
+                        alert("리뷰가 등록되었습니다.");
                         replyPageNum = 1;  // 페이지 1로 초기화
-                        getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 댓글 목록 호출
-                        replyTextObj.val("");   // 댓글 입력창 공백처리
+                        starNum = 0; // 별점을 0으로 초기화
+                        $('.make_star i').css({color: '#000'}); // 별점 입력창 공백처리
+                        getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
+                        replyTextObj.val("");   // 리뷰 입력창 공백처리
                     }
                 }
             });
         });
         
-        // 댓글 수정을 위해 modal창에 선택한 댓글의 값들을 세팅
+        // 리뷰 수정을 위해 modal창에 선택한 리뷰의 값들을 세팅
         $(".repliesDiv").on("click", ".replyDiv", function (event) {
             var reply = $(this);
             $(".replyNo").val(reply.attr("data-replyNo"));
             $("#replyText").val(reply.find(".oldReplyText").text());
         });
         
-        // modal 창의 댓글 수정버튼 클릭 이벤트
+        // modal 창의 리뷰 수정버튼 클릭 이벤트
         $(".modalModBtn").on("click", function () {
             var replyNo = $(".replyNo").val();
             var replyText = $("#replyText").val();
@@ -737,15 +768,15 @@
                 success: function (result) {
                     console.log("result : " + result);
                     if (result === "modSuccess") {
-                        alert("댓글이 수정되었습니다.");
-                        getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 댓글 목록 호출
+                        alert("리뷰가 수정되었습니다.");
+                        getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
                         $("#modModal").modal("hide"); // modal 창 닫기
                     }
                 }
             })
         });
         
-        // modal 창의 댓글 삭제버튼 클릭 이벤트
+        // modal 창의 리뷰 삭제버튼 클릭 이벤트
         $(".modalDelBtn").on("click", function () {
             var replyNo = $(".replyNo").val();
             $.ajax({
@@ -759,8 +790,8 @@
                 success: function (result) {
                     console.log("result : " + result);
                     if (result === "delSuccess") {
-                        alert("댓글이 삭제되었습니다.");
-                        getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 댓글 목록 호출
+                        alert("리뷰가 삭제되었습니다.");
+                        getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
                         $("#delModal").modal("hide"); // modal 창 닫기
                     }
                 }

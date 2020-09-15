@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.09.14        SeongPyo Jo       최초 생성
+* 2020.09.15        SeongPyo Jo       별점 관련 변수 추가
  */
 @Entity
 @Table(name = "REPLY")
@@ -33,6 +34,7 @@ public class ReplyVO {
 	private String cid;
 	private String id;
 	private String replyText;
+	private int starNum;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date regDate = new Date();
 	@Temporal(TemporalType.TIMESTAMP)
@@ -75,6 +77,14 @@ public class ReplyVO {
 		this.replyText = replyText;
 	}
 
+	public int getStarNum() {
+		return starNum;
+	}
+
+	public void setStarNum(int starNum) {
+		this.starNum = starNum;
+	}
+
 	public Date getRegDate() {
 		return regDate;
 	}
@@ -93,8 +103,10 @@ public class ReplyVO {
 
 	@Override
 	public String toString() {
-		return "ReplyVO [rid=" + rid + ", cid=" + cid + ", id=" + id + ", replyText=" + replyText + ", regDate="
-				+ regDate + ", updateDate=" + updateDate + "]";
+		return "ReplyVO [rid=" + rid + ", cid=" + cid + ", id=" + id + ", replyText=" + replyText + ", starNum="
+				+ starNum + ", regDate=" + regDate + ", updateDate=" + updateDate + "]";
 	}
+
+	
 	
 }

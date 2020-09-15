@@ -28,6 +28,8 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.09.03        SeongPyo Jo       최초 생성
+* 2020.09.15        SeongPyo Jo       별점 등록 및 출력 기능 추가
+* 2020.09.03        SeongPyo Jo       댓글, 별점 예외처리 기능 추가
 */
 
 @RestController
@@ -75,6 +77,16 @@ public class ReplyController {
 		ResponseEntity<String> entity = null;
 		
 		try {
+			if (replyVO.getReplyText().length() < 1)
+			{
+				entity = new ResponseEntity<>("textShortFail", HttpStatus.OK);
+				return entity;
+			}
+			if (replyVO.getStarNum() == 0)
+			{
+				entity = new ResponseEntity<>("starNumFail", HttpStatus.OK);
+				return entity;
+			}
 			replyService.create(replyVO);
 			entity = new ResponseEntity<>("regSuccess", HttpStatus.OK);
 		} catch (Exception e)
