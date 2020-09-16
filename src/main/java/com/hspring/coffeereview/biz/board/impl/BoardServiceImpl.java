@@ -18,6 +18,7 @@ import com.hspring.coffeereview.biz.board.BoardVO;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.08.24        SeongPyo Jo       최초 생성
+* 2020.09.16        SeongPyo Jo       별점 평균 갱신을 위한 메쏘드 추가 (updateStarAvg)
 */
 
 @Service("boardService")
@@ -48,5 +49,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	public List<BoardVO> selectMenuListPaging(BoardVO vo) {
 		return boardDAO.selectMenuListPaging(vo);
+	}
+	
+	public void updateStarAvg(String cid, double starAvg) throws Exception {
+		boardDAO.updateStarAvg(cid, starAvg);
 	}
 }

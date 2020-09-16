@@ -23,6 +23,7 @@ import com.hspring.coffeereview.biz.board.BoardVO;
 * 2020.08.24        SeongPyo Jo       최초 생성
 * 2020.09.01        SeongPyo Jo       getBoard를 위한 SQL 처리문 추가
 * 2020.09.01        SeongPyo Jo       url 방식 변경으로 인한 query 변경
+* 2020.09.16        SeongPyo Jo       별점 평균 갱신을 위한 메쏘드 추가 (updateStarAvg)
 */
 
 @Repository
@@ -82,7 +83,7 @@ public class BoardDAO {
 	* @return List<BoardVO>
 	*/
 	public List<BoardVO> selectCafeListPaging(BoardVO vo) {
-		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cafename = :cname order by b." + vo.getMenuSort() + "+0 desc", BoardVO.class);
+		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.cafename = :cname order by b." + vo.getMenuSort() + " desc", BoardVO.class);
 		query.setParameter("cname", vo.getCafename());
 		return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
 	}
@@ -108,8 +109,13 @@ public class BoardDAO {
 	* @return List<BoardVO>
 	*/
 	public List<BoardVO> selectMenuListPaging(BoardVO vo) {
-		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.menuname LIKE '%'||:keyword||'%' order by b." + vo.getMenuSort() + "+0 desc", BoardVO.class);
+		TypedQuery<BoardVO> query = em.createQuery("from BoardVO b where b.menuname LIKE '%'||:keyword||'%' order by b." + vo.getMenuSort() + " desc", BoardVO.class);
 		query.setParameter("keyword", vo.getSearchKeyword());
 		return query.setFirstResult(vo.getStartIndex()).setMaxResults(vo.getCntPerPage()).getResultList();
+	}
+	
+	public void updateStarAvg(String cid, double starAvg) throws Exception {
+		Query query = em.createQuery("update BoardVO b set b.starAvg = " + starAvg + " where b.cid = " + cid);
+		query.executeUpdate();
 	}
 }

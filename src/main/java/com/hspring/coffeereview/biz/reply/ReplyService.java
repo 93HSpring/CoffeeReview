@@ -16,4 +16,8 @@ public interface ReplyService {
 	List<ReplyVO> getReplyListPaging(String cid, Criteria criteria) throws Exception;
 	
 	int countReply(String cid) throws Exception;
+	
+	double getStarAvg(String cid) throws Exception;
+	
+	String getCid(int rid) throws Exception;
 }

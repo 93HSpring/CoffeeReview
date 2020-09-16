@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import com.hspring.coffeereview.biz.board.BoardVO;
 import com.hspring.coffeereview.biz.common.Criteria;
 import com.hspring.coffeereview.biz.reply.ReplyVO;
 
@@ -28,6 +29,8 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * 2020.09.14        SeongPyo Jo       최초 생성
 * 2020.09.14        SeongPyo Jo       댓글 기능 CRUD 기능 메쏘드 추가
 * 2020.09.14        SeongPyo Jo       댓글 페이징 기능 메쏘드 추가
+* 2020.09.16        SeongPyo Jo       별점 평균 계산을 위한 메쏘드 추가(getStarAvg)
+* 2020.09.16        SeongPyo Jo       cid를 얻어오기 위한 메쏘드 추가(getCid)
  */
 
 @Repository
@@ -113,5 +116,32 @@ public class ReplyDAO {
 	public int countReply(String cid) throws Exception {
 		TypedQuery<Number> query = em.createQuery("select COUNT(cid) from ReplyVO r WHERE r.cid = " + cid, Number.class);
 		return (query.getSingleResult()).intValue();
+	}
+	
+	/**
+	 * 
+	* @methodName  : getStarAvg
+	* @author      : SeongPyo Jo
+	* @date        : 2020.09.16
+	* @param cid
+	* @return
+	* @throws Exception
+	 */
+	public double getStarAvg(String cid) throws Exception {
+		int cnt = countReply(cid);
+		
+		// 만약 해당 cid에 별점이 한개도 없다면
+		if (cnt == 0)
+		{
+			return 0;
+		}
+		
+		TypedQuery<Number> query = em.createQuery("select AVG(starNum) from ReplyVO r WHERE r.cid = " + cid, Number.class);
+		return (query.getSingleResult()).doubleValue();
+	}
+	
+	public String getCid(int rid) throws Exception {
+		TypedQuery<Number> query = em.createNamedQuery("select r.cid from ReplyVO r where r.rid = " + rid, Number.class);
+		return (query.getSingleResult()).toString();
 	}
 }

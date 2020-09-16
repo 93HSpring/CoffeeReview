@@ -15,6 +15,13 @@
 	</properties>
 	<dependencies>
 	
+		<!-- 트랜잭션 처리를 위한 라이브러리 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>	
+	
 		<!-- naver -->
 		<dependency>
 			<groupId>com.github.scribejava</groupId>

@@ -248,7 +248,9 @@
 								<li class="breadcrumb-item">
 									<a href="index.jsp">Home</a>
 								</li>
-								<li class="breadcrumb-item active">${cname}</li>
+								<li class="breadcrumb-item active">
+									${cname}
+								</li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -296,7 +298,7 @@
 					<div class="card-body pd-0">
 						<div class="row align-items-stretch">
 							<c:forEach items="${boardList }" var="board">
-								<div class="col-6 col-sm-3 col-md-3 align-items-stretch">
+								<div class="col-6 col-md-3 align-items-stretch">
 									<a href="getBoard?cafe=${board.cafename}&menu=${board.cid}">
 										<div class="card bg-light" style="cursor: pointer; border-top-left-radius: 19px; border-top-right-radius: 19px;">
 										
@@ -312,13 +314,17 @@
 												</c:otherwise>
 											</c:choose>
 	
-											<div class="card-body p-0" style="height: 55px;">
-												<div style="height: 30%; font-size: 12px; font-weight: bold; color: red; align-items: center;" class="text-center">커피</div>
-												<div style="height: 70%; font-size: 15px; font-weight: bold; align-items: center;" class="text-center">${board.menuname }</div>
+											<div class="card-body row text-center p-0" style="display: table; height:3em;">
+												<div class="align-self-center" style="display: table-cell; vertical-align: middle;">
+													<span style="font-size:0.8em; font-weight: bold; color: red;">커피</span>
+													<br>
+													<span style="font-weight: bold;">${board.menuname}</span>
+												</div>
 											</div>
-											<div class="card-footer p-0" style="width=100%; height: 40px; display: table;">
-												<div class="text-center" style="height: 20px; font-size: 20px; display: table-cell; vertical-align: middel; padding-top: 5px;">
-													<i class="fas fa-star" style="color: #FFC31E;"></i> ${board.savg}
+											<div class="card-footer p-0" style="width=100%; height: 2.5em; display: table;">
+												<div class="text-center" style="font-size: 1.3em; display: table-cell; vertical-align: middle;">
+													<i class="fas fa-star" style="color: #FFC31E;"></i>
+													<span id="sAvg">${board.starAvg}</span>
 												</div>
 											</div>																	
 										</div>	
@@ -492,5 +498,6 @@
 			}
 		}
 	</script>
+
 </body>
 </html>

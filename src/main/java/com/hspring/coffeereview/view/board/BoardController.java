@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.hspring.coffeereview.biz.board.BoardService;
 import com.hspring.coffeereview.biz.board.BoardVO;
 import com.hspring.coffeereview.biz.common.Pagination;
+import com.hspring.coffeereview.biz.reply.ReplyService;
 
 /**
 * @packageName   : com.hspring.coffeereview.view.board
@@ -114,7 +115,7 @@ public class BoardController {
 		
 		// 정렬
 		if (sort.equals("star")) {
-			vo.setMenuSort("savg");
+			vo.setMenuSort("starAvg");
 		}
 		else if (sort.equals("caffeine")) {
 			vo.setMenuSort("caffeine");

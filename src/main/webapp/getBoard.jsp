@@ -248,7 +248,12 @@
 								<li class="breadcrumb-item">
 									<a href="index.jsp">Home</a>
 								</li>
-								<li class="breadcrumb-item active">${board.cafename}</li>
+								<li class="breadcrumb-item">
+									<a href="getBoardList?cafe=${board.cafename}">${board.cafename}</a>
+								</li>
+								<li class="breadcrumb-item active">
+									${board.menuname}
+								</li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -313,13 +318,13 @@
 					<!-- 메뉴의 총 별점 -->
 					<div class="card-body pd-0">
 						<div class="col-12 text-center" style="font-size:3em;">
-							<i class="fas fa-star" style="color: #FFC31E; padding-right:0.5em;"></i>
+							<i class="fas fa-star" style="color: #FFC31E; padding-right:0.2em;"></i>
 							<!-- <i class="fas fa-star" style="color: #FFC31E;"></i>
 							<i class="fas fa-star" style="color: #FFC31E;"></i>
 							<i class="fas fa-star-half-alt" style="color: #FFC31E;"></i>
 							<i class="far fa-star" style="color: #FFC31E;"></i>
 							<br>		 -->
-							<span>3.6</span>
+							<span id="sAvg"></span>
 						</div>
 					</div>
 					<!-- Comment 등록  -->
@@ -339,11 +344,14 @@
 								</div>
 								<!-- 리뷰 등록 -->
 								<div class="col-12 input-group input-group-sm mb-0" style="padding:5px;">
-									<textarea id="newReplyText" class="form-control form-control-sm form-control-md col-11" rows="3" placeholder="리뷰와 별점을 작성해주세요." style="resize: none;"></textarea>
+									<textarea id="newReplyText" class="form-control form-control-sm form-control-md col-11" rows="3" onKeyUp="checkByte(this.form);" placeholder="리뷰와 별점을 작성해주세요." style="resize: none;"></textarea>
 									<div class="input-group-append col-2" style="padding-right:0;">
 										<button type="button" class="btn btn-danger replyAddBtn" style="width:100%;">등록</button>
 									</div>
-								</div>						
+								</div>	
+									<p class="data_count col-12 m-0">
+										<em id="messagebyte">0</em> / 1000
+									</p>		
 							</div>
 						</form>
 					</div>
@@ -470,34 +478,6 @@
 			}).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 		});
 
-		function fn_paging(curPage) {
-			var keyword_param = getParam("keyword");
-			var sort_param = getParam("sort");
-
-			if (!keyword_param) {
-				if (sort_param) {
-					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&sort=${param.sort}&page="
-							+ curPage;
-				} else {
-					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&page="
-							+ curPage;
-				}
-			} else if (!sort_param) {
-				if (keyword_param) {
-					location.href = "/coffeereview/getBoardList?cafe=All&keyword=${param.keyword}&page="
-							+ curPage;
-				} else {
-					location.href = "/coffeereview/getBoardList?cafe=${param.cafe}&page="
-							+ curPage;
-				}
-			} else if (sort_param) {
-				if (keyword_param) {
-					location.href = "/coffeereview/getBoardList?cafe=All&keyword=${param.keyword}&sort=${param.sort}&page="
-							+ curPage;
-				}
-			}
-		}
-
 		function getParam(sname) {
 			var params = location.search
 					.substr(location.search.indexOf("?") + 1);
@@ -558,14 +538,16 @@
 		<div class="oldReplyStar">
 			{{{regStar starNum}}}
 		</div>
+		</br>
         <div class="oldReplyText">{{{escape replyText}}}</div>
         <br/>
     </div>
     {{/each}}
 	</script>
 
-	<script>
+	<script>	
     $(document).ready(function () {
+    	
     	<%--Handlebars.registerHelper("eqReplyWriter", function (replyWriter, block) {
             var accum = "";
             if (replyWriter === "${login.userId}") {
@@ -574,12 +556,12 @@
             return accum;
         });--%>
         
+        // 리뷰 별점 입력 함수
         var starNum = 0;
         
         $(function() {
 			$('.make_star i').click(function() {
 				var targetNum = $(this).index() + 1;
-				console.log(targetNum - 1);
 				starNum = targetNum;
 				$('.make_star i').css({color: '#000'});
 				$('.make_star i:nth-child(-n+' + targetNum + ')').css({color: '#F00'});
@@ -589,10 +571,20 @@
         var cid = "${board.cid}";  // 현재 게시글의 cid
         var replyPageNum = 1; // 리뷰 페이지 번호 초기화
         
+     	// 별점 평균 출력 처리 
+        getStarNum("/coffeereview/replies/"  + cid);
+        
+     	// 별점 평균 출력 함수
+        function getStarNum(getStarUri) {
+            $.getJSON(getStarUri, function (data) {
+            	// 소수점 한자리수까지 출력
+            	$('#sAvg').html(data.toFixed(1));
+            });
+        }
+        
      	// 리뷰 별점 : 출력처리
         Handlebars.registerHelper("regStar", function (starNum) {
             var oldStarNum = Handlebars.Utils.escapeExpression(starNum);
-            console.log(oldStarNum);
             var result = '';
             var i;
             for (i = 1; i <= 5; i++) {
@@ -603,8 +595,6 @@
             		result += `<i class='fas fa-star'></i>`;
             	}
             }
-            result += "&nbsp;";
-            result += oldStarNum;
             return new Handlebars.SafeString(result);
         });
         
@@ -697,8 +687,9 @@
             event.preventDefault();
             replyPageNum = $(this).attr("href");
             getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum);
+            getStarNum("/coffeereview/replies/"  + cid);
         });
-        
+
         // 리뷰 저장 버튼 클릭 이벤트
         $(".replyAddBtn").on("click", function () {
         	
@@ -725,19 +716,25 @@
                 }),
                 success: function (result) {
                     //console.log("result : " + result);
-                    if (result === "textShortFail") {
-                    	alert("리뷰는 한 글자 이상 써주세요.")
+                    if (result === "textLongFail") {
+                    	alert("1000 글자까지 작성 가능합니다.");
+                    	replyTextObj.val(replyText.substring(0, limitByte));
                     }
-                    if (result === "starNumFail") {
-                    	alert("별점 하나 이상 선택해주세요.")
+                    else if (result === "starNumFail") {
+                    	alert("별점 하나 이상 선택해주세요.");
                     }
-                    if (result === "regSuccess") {
+                    else if (result === "textSpaceFail") {
+                    	alert("리뷰는 공백을 제외하고 한 글자 이상 써주세요.");
+                    }
+                    else if (result === "regSuccess") {
                         alert("리뷰가 등록되었습니다.");
                         replyPageNum = 1;  // 페이지 1로 초기화
                         starNum = 0; // 별점을 0으로 초기화
                         $('.make_star i').css({color: '#000'}); // 별점 입력창 공백처리
                         getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
+                        getStarNum("/coffeereview/replies/"  + cid);
                         replyTextObj.val("");   // 리뷰 입력창 공백처리
+                        $('#messagebyte').text(0); // 리뷰 입력창 글자수 초기화
                     }
                 }
             });
@@ -770,6 +767,7 @@
                     if (result === "modSuccess") {
                         alert("리뷰가 수정되었습니다.");
                         getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
+                        getStarNum("/coffeereview/replies/"  + cid);                        
                         $("#modModal").modal("hide"); // modal 창 닫기
                     }
                 }
@@ -792,12 +790,39 @@
                     if (result === "delSuccess") {
                         alert("리뷰가 삭제되었습니다.");
                         getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
+                        getStarNum("/coffeereview/replies/"  + cid);
                         $("#delModal").modal("hide"); // modal 창 닫기
                     }
                 }
             });
         });
     });
+    
+ 	// 리뷰 글자수의 최대 크기
+	var limitByte = 1000;
+	
+	// textarea에 입력된 문자의 바이트 수를 체크
+	function checkByte(frm) {
+		var totalByte = 0;
+		var replyText = frm.newReplyText.value;
+		
+		for(var i =0; i < replyText.length; i++) {
+			var currentByte = replyText.charCodeAt(i);
+			if(currentByte > 128) 
+				totalByte += 1;
+			else totalByte++;
+		}
+		
+		// 현재 입력한 문자의 바이트 수를 체크하여 표시
+		$('#messagebyte').text(totalByte);
+		
+		// 입력된 바이트 수가 limitByet를 초과 할 경우 경고창 
+		if(totalByte > limitByte) {
+			alert( limitByte + "글자까지 작성 가능합니다.");
+			frm.newReplyText.value = replyText.substring(0,limitByte);
+			$('#messagebyte').text(limitByte);
+		}
+	}
 	</script>
 </body>
 </html>

@@ -29,7 +29,10 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * -----------------------------------------------------------
 * 2020.09.03        SeongPyo Jo       최초 생성
 * 2020.09.15        SeongPyo Jo       별점 등록 및 출력 기능 추가
-* 2020.09.03        SeongPyo Jo       댓글, 별점 예외처리 기능 추가
+* 2020.09.15        SeongPyo Jo       댓글, 별점 등록 예외처리 기능 추가
+* 2020.09.16        SeongPyo Jo       별점 평균을 구하는 메쏘드 추가(calcStarAvg)
+* 2020.09.16        SeongPyo Jo       댓글 등록 예외처리 기능 추가 (글자수가 특정 수 이상 될 시 리뷰 작성 불가)
+* 2020.09.16        SeongPyo Jo       댓글, 별점 등록 예외처리 기능 추가 (공백, 개행문자만 있을 시 리뷰 작성 불가)
 */
 
 @RestController
@@ -77,9 +80,18 @@ public class ReplyController {
 		ResponseEntity<String> entity = null;
 		
 		try {
-			if (replyVO.getReplyText().length() < 1)
+			// 최대 글자 수
+			int limitByte = 1000;
+			String replyText = replyVO.getReplyText();
+				
+			if (replyText.trim().length() == 0)
 			{
-				entity = new ResponseEntity<>("textShortFail", HttpStatus.OK);
+				entity = new ResponseEntity<>("textSpaceFail", HttpStatus.OK);
+				return entity;
+			}
+			if (replyText.length() > limitByte)
+			{
+				entity = new ResponseEntity<>("textLongFail", HttpStatus.OK);
 				return entity;
 			}
 			if (replyVO.getStarNum() == 0)
@@ -178,5 +190,27 @@ public class ReplyController {
             entity = new ResponseEntity<>(HttpStatus.OK);
         }
         return entity;
+    }
+	
+	/**
+	 * 
+	* @methodName  : calcStarAvg
+	* @author      : SeongPyo Jo
+	* @date        : 2020.09.16
+	* @param cid
+	* @return
+	 */
+	@RequestMapping(value = "/{cid}", method = RequestMethod.GET) //댓글 작성 
+    public ResponseEntity<Double> calcStarAvg(@PathVariable("cid") String cid) {
+		ResponseEntity<Double> entity = null;
+		
+		try {
+			double sAvg = replyService.getStarAvg(cid);
+			entity = new ResponseEntity<>(sAvg, HttpStatus.CREATED);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return entity;
     }
 }
