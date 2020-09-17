@@ -12,6 +12,7 @@ import java.util.List;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.08.24        SeongPyo Jo       최초 생성
+* 2020.09.16        SeongPyo Jo       별점 평균 갱신을 위한 메쏘드 추가 (updateStarAvg)
 */
 
 public interface BoardService {
@@ -68,4 +69,6 @@ public interface BoardService {
 	* @return List<BoardVO>
 	*/
 	List<BoardVO> selectMenuListPaging(BoardVO vo);
+	
+	void updateStarAvg(String cid, double starAvg) throws Exception;
 }
