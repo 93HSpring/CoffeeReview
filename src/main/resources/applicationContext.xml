@@ -71,5 +71,4 @@
 		<aop:pointcut id="allPointcut" expression="execution(* com.hspring.coffeereview.biz..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="allPointcut" advice-ref="txAdvice" />
 	</aop:config>
-
 </beans>
