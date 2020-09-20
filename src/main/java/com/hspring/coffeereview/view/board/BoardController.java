@@ -104,8 +104,15 @@ public class BoardController {
 							   @RequestParam(value="page", defaultValue="1") int page,
 							   @RequestParam(value="keyword", defaultValue="") String keyword,
 							   @RequestParam(value="sort", defaultValue="star") String sort,
-							   BoardVO vo, Model model) {
+							   BoardVO vo, Model model, HttpServletResponse response) {
 		System.out.println("카페 목록 처리");
+		
+		// 캐시를 만료시켜
+		// 뒤로가기를 하더라도 갱신된 별점을 다시 불러오도록 설정
+		response.setHeader("Expires", "Sat, 6 May 1995 12:00:00 GMT"); 
+		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+		response.addHeader("Cache-Control", "post-check=0, pre-check=0"); 
+		response.setHeader("Pragma", "no-cache");
 		
 		// 페이징
 		int listCnt;
