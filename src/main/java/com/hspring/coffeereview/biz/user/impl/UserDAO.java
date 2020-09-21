@@ -106,7 +106,18 @@ public class UserDAO {
 	 * @param vo
 	 */
 	void modifyProfile(UserVO vo) {
-		em.merge(vo);
+		UserVO temp = em.find(UserVO.class, vo.getId());
+		System.out.println("수정 시작띠");
+		temp.setAddress(vo.getAddress());
+		temp.setAge(vo.getAge());
+		temp.setName(vo.getName());
+		temp.setEmail(vo.getEmail());
+		temp.setGender(vo.getGender());
+		temp.setId(vo.getId());
+		temp.setNickname(vo.getNickname());
+		temp.setPhonenum(vo.getPhonenum());
+		em.merge(temp);
+
 		
 		// 가급적 find로 찾아와서 값을 수정하는 것이 낫다. (vo의 name만 변경하고자 member만 세팅하고 merge한다면 vo의 나머지 필드는 기존의 값을 잃고 null이 대입된다.)
 		// 하지만 우린 userInfo에서 완전한 형식의 vo를 받으므로 그대로 진행

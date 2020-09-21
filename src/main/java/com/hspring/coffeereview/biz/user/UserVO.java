@@ -28,6 +28,7 @@ public class UserVO {
 
 	
 	@Id
+	@GeneratedValue
 	private String id;
 	private String name;
 	private String nickname; // 

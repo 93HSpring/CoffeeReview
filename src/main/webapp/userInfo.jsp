@@ -3,62 +3,14 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko" style="height:auto;">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Coffee Review | 회원 정보</title>
-  <script>
-	function checkForm() {
-		if (document.modifyProfile.name.value == "") {
-			alert("이름을 입력하세요.");
-			document.modifyProfile.name.focus();
-			return false;
-		}
-		
-		if (document.modifyProfile.nickname.value == "") {
-			alert("닉네임을 입력하세요.");
-			document.modifyProfile.nickname.focus();
-			return false;
-		}
-		
-		if (document.modifyProfile.age.value == "") {
-			alert("나이를 입력하세요.");
-			document.modifyProfile.age.focus();
-			return false;
-		}
-		
-		if (document.modifyProfile.gender.value == "") {
-			alert("성별을 입력하세요.");
-			document.modifyProfile.gender.focus();
-			return false;
-		}
-		
-		if (document.modifyProfile.phonenum.value == "") {
-			alert("전화번호를 입력하세요.");
-			document.modifyProfile.phonenum.focus();
-			return false;
-		}
-		
-		if (document.modifyProfile.address.value == "") {
-			alert("주소를 입력하세요.");
-			document.modifyProfile.address.focus();
-			return false;
-		}
-		
-		if (document.modifyProfile.address.value == "") {
-			alert("주소를 입력하세요.");
-			document.signup.address.focus();
-			return false;
-		}
-		
-		alert("회원 정보가 수정되었습니다.");
-		document.modifyProfile.action = "modifyProfile";
-		return true;
-		
-	}
-</script>
+  
   
   
   <!-- Tell the browser to be responsive to screen width -->
@@ -338,43 +290,43 @@
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" placeholder="Name" value="${userInfo.name }">
+                          <input type="text" class="form-control" id="name" placeholder="Name" value="${userInfo.name }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputNickName" class="col-sm-2 col-form-label">NickName</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputNickname" placeholder="Nickname" value="${userInfo.nickname }">
+                          <input type="text" class="form-control" id="nickname" placeholder="Nickname" value="${userInfo.nickname }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputAge" class="col-sm-2 col-form-label">Age</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputAge" placeholder="Age" value="${userInfo.age }">
+                          <input type="text" class="form-control" id="age" placeholder="Age" value="${userInfo.age }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputGender" placeholder="Gender" value="${userInfo.gender }">
+                          <input type="text" class="form-control" id="gender" placeholder="Gender" value="${userInfo.gender }">
                         </div>
                       </div>
                        <div class="form-group row">
                         <label for="inputPhoneNum" class="col-sm-2 col-form-label">PhoneNum</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputPhoneNum" placeholder="PhoneNum" value="${userInfo.phonenum }">
+                          <input type="text" class="form-control" id="phonenum" placeholder="PhoneNum" value="${userInfo.phonenum }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputAddress" placeholder="Address" value="${userInfo.address }">
+                          <input type="text" class="form-control" id="address" placeholder="Address" value="${userInfo.address }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="${userInfo.email }">
+                          <input type="email" class="form-control" id="email" placeholder="Email" value="${userInfo.email }">
                         </div>
                       </div>
                       <div class="form-group row">
@@ -562,5 +514,58 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<!-- function -->
+<script>
+	function checkForm() {
+		console.log("성표쿤~~~~");
+		if (document.modifyProfile.name.value == "") {
+			alert("이름을 입력하세요.");
+			document.modifyProfile.name.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.nickname.value == "") {
+			alert("닉네임을 입력하세요.");
+			document.modifyProfile.nickname.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.age.value == "") {
+			alert("나이를 입력하세요.");
+			document.modifyProfile.age.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.gender.value == "") {
+			alert("성별을 입력하세요.");
+			document.modifyProfile.gender.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.phonenum.value == "") {
+			alert("전화번호를 입력하세요.");
+			document.modifyProfile.phonenum.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.address.value == "") {
+			alert("주소를 입력하세요.");
+			document.modifyProfile.address.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.email.value == "") {
+			alert("이메일주소를 입력하세요.");
+			document.modifyProfile.email.focus();
+			return false;
+		}
+		
+		alert("회원 정보가 수정되었습니다.");
+		document.modifyProfile.action = "modifyProfile";
+		return true;
+		
+	}
+</script>
+
 </body>
 </html>

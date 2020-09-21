@@ -1,7 +1,6 @@
 package com.hspring.coffeereview.view.user;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.hspring.coffeereview.biz.user.UserService;
 import com.hspring.coffeereview.biz.user.UserVO;
@@ -32,7 +30,6 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * 2020.09.16		Goonoo Jang		  modifyProfile 구현
 */
 @Controller
-@SessionAttributes("user")
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -110,11 +107,29 @@ public class UserController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/modifyProfile")
+	
+	// @ModelAttribute("board")
+	// String id, String nickname, String age, String gender, String phonenum, String address, String email
+	//@ModelAttribute("UserVO") UserVO vo, 
+	@RequestMapping(value = "/modifyProfile", method =  RequestMethod.POST)
 	public String modifyProfile(UserVO vo) throws IOException{
 		System.out.println("JPA로 profile Modify");
-		userService.modifyProfile(vo);
-		return "index.jsp";
+		System.out.println("아이디: "+vo.getId());
+		System.out.println("이메일: " + vo.getEmail());
+		System.out.println("투스트링"+vo.toString());
+		/*
+		UserVO vo = new UserVO();//userService.getUser(id);
+		// 이하는 메소드로 새로 만들어놓자
+		vo.setId(id);
+		vo.setNickname(nickname);
+		vo.setAge(age);
+		vo.setGender(gender);
+		vo.setPhonenum(phonenum);
+		vo.setAddress(address);
+		vo.setEmail(email);
+		*/
+		//userService.modifyProfile(vo);
+		return "redirect:/userInfo";
 	}
 	
 	// reviseProfile
