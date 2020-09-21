@@ -20,6 +20,7 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * 2020.08.24        Goonoo Jang       최초 생성
 * 2020.09.02		Goonoo Jang		  checkUser(name->id 변경)
 * 2020.09.03		Goonoo Jang		  getUser(String id) 추가
+* 2020.09.21		Goonoo Jang		  id -> uid 수정
 */
 @Repository("userDAO")
 public class UserDAO {
@@ -38,7 +39,7 @@ public class UserDAO {
 		
 		System.out.println("===> JPA로 insertUser() 처리");
 	 
-		if(em.find(UserVO.class, vo.getId()) == null) {
+		if(em.find(UserVO.class, vo.getUid()) == null) {
 			em.persist(vo);
 			System.out.println("===> JPA로 insertUser() 처리 완료");
 		} else {
@@ -56,7 +57,7 @@ public class UserDAO {
 	 */
 	void deleteUser(UserVO vo) {
 		System.out.println("===> JPA로 deleteUser() 처리 ");
-		em.remove(em.find(UserVO.class, vo.getId()));
+		em.remove(em.find(UserVO.class, vo.getUid()));
 		
 	}
 	
@@ -81,9 +82,9 @@ public class UserDAO {
 	 * @param id
 	 * @return
 	 */
-	public UserVO getUser(String id) {
-		System.out.println("===> JPA로 getUser() 처리 (id로)");
-		return em.find(UserVO.class, id);
+	public UserVO getUser(String uid) {
+		System.out.println("===> JPA로 getUser() 처리 (uid로)");
+		return em.find(UserVO.class, uid);
 	}
 	
 	// 이미 가입된 회원인지 확인
@@ -95,8 +96,8 @@ public class UserDAO {
 	 * @param id
 	 * @return
 	 */
-	public Boolean checkUser(String id) {
-		return em.find(UserVO.class, id) == null ? false : true;
+	public Boolean checkUser(String uid) {
+		return em.find(UserVO.class, uid) == null ? false : true;
 	}
 	
 	/**
@@ -106,14 +107,14 @@ public class UserDAO {
 	 * @param vo
 	 */
 	void modifyProfile(UserVO vo) {
-		UserVO temp = em.find(UserVO.class, vo.getId());
+		UserVO temp = em.find(UserVO.class, vo.getUid());
 		System.out.println("수정 시작띠");
 		temp.setAddress(vo.getAddress());
 		temp.setAge(vo.getAge());
 		temp.setName(vo.getName());
 		temp.setEmail(vo.getEmail());
 		temp.setGender(vo.getGender());
-		temp.setId(vo.getId());
+		temp.setUid(vo.getUid());
 		temp.setNickname(vo.getNickname());
 		temp.setPhonenum(vo.getPhonenum());
 		em.merge(temp);

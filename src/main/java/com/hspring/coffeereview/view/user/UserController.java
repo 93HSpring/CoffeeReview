@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.hspring.coffeereview.biz.user.UserService;
 import com.hspring.coffeereview.biz.user.UserVO;
@@ -28,8 +29,10 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * 2020.09.03		Goonoo Jang		  userInfo 구현
 * 2020.09.15		Goonoo Jang		  signupUser수정 - index.jsp 반환
 * 2020.09.16		Goonoo Jang		  modifyProfile 구현
+* 2020.09.21		Goonoo Jang	 	   매개변수명 수정 (id -> uid)
 */
 @Controller
+@SessionAttributes("users")
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -91,8 +94,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/userInfo", method = { RequestMethod.GET, RequestMethod.POST })
 	public String userInfo(Model model, HttpSession session) throws IOException {
-		String id = (String) session.getAttribute("sessionId");
-		UserVO vo = userService.getUser(id);
+		String uid = (String) session.getAttribute("sessionId");
+		UserVO vo = userService.getUser(uid);
 		System.out.println(vo.getName() + "의 정보를 조회합니다.");
 		model.addAttribute("userInfo", vo);
 
@@ -114,7 +117,7 @@ public class UserController {
 	@RequestMapping(value = "/modifyProfile", method =  RequestMethod.POST)
 	public String modifyProfile(UserVO vo) throws IOException{
 		System.out.println("JPA로 profile Modify");
-		System.out.println("아이디: "+vo.getId());
+		System.out.println("아이디: "+vo.getUid());
 		System.out.println("이메일: " + vo.getEmail());
 		System.out.println("투스트링"+vo.toString());
 		/*
