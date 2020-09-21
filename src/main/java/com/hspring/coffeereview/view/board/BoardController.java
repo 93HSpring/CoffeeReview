@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.hspring.coffeereview.biz.board.BoardService;
 import com.hspring.coffeereview.biz.board.BoardVO;
 import com.hspring.coffeereview.biz.common.Pagination;
+import com.hspring.coffeereview.biz.reply.ReplyService;
 
 /**
 * @packageName   : com.hspring.coffeereview.view.board
@@ -38,6 +40,7 @@ import com.hspring.coffeereview.biz.common.Pagination;
 * -----------------------------------------------------------
 * 2020.08.24        SeongPyo Jo       최초 생성
 * 2020.09.01        SeonpPyo Jo       getBoard 출력을 위한 기능 추가
+* 2020.09.01        SeonpPyo Jo       url 방식 변경으로 getBoardList 메쏘드 변경
 */
 
 @Controller
@@ -49,7 +52,7 @@ public class BoardController {
 	* @methodName  : image
 	* @author      : SeongPyo Jo
 	* @date        : 2020.08.24
-	* @param cname
+	* @param cafename
 	* @param type
 	* @param id
 	* @param suffix
@@ -58,7 +61,7 @@ public class BoardController {
 	* @throws Exception
 	*/
 	@RequestMapping(value = "/data/{type}/{cname}/{id}.{suffix}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> image(@PathVariable("cname") String cname,
+	public ResponseEntity<byte[]> image(@PathVariable("cname") String cafename,
 										@PathVariable("type") String type,
 										@PathVariable("id") String id,
 										@PathVariable("suffix") String suffix, HttpServletRequest request) throws Exception {
@@ -68,7 +71,7 @@ public class BoardController {
 	    ResponseEntity<byte[]> retEntity = null;
 	    
 	    try {
-	        String filePath = basePath + "/" + type + "/" + cname + "/" + id + "." + suffix;
+	        String filePath = basePath + "/" + type + "/" + cafename + "/" + id + "." + suffix;
 	        //System.out.println("filePath : " + filePath);
 	        in = new FileInputStream(new File(filePath));
 	        final HttpHeaders headers = new HttpHeaders();
@@ -88,7 +91,7 @@ public class BoardController {
 	* @methodName  : getBoardList
 	* @author      : SeongPyo Jo
 	* @date        : 2020.08.24
-	* @param cname
+	* @param cafename
 	* @param page
 	* @param keyword
 	* @param sort
@@ -97,23 +100,30 @@ public class BoardController {
 	* @return String
 	*/
 	@RequestMapping("/getBoardList")
-	public String getBoardList(@RequestParam(value="cafe", defaultValue="STARBUCKS") String cname, 
+	public String getBoardList(@RequestParam(value="cafe", defaultValue="STARBUCKS") String cafename, 
 							   @RequestParam(value="page", defaultValue="1") int page,
 							   @RequestParam(value="keyword", defaultValue="") String keyword,
 							   @RequestParam(value="sort", defaultValue="star") String sort,
-							   BoardVO vo, Model model) {
+							   BoardVO vo, Model model, HttpServletResponse response) {
 		System.out.println("카페 목록 처리");
+		
+		// 캐시를 만료시켜
+		// 뒤로가기를 하더라도 갱신된 별점을 다시 불러오도록 설정
+		response.setHeader("Expires", "Sat, 6 May 1995 12:00:00 GMT"); 
+		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+		response.addHeader("Cache-Control", "post-check=0, pre-check=0"); 
+		response.setHeader("Pragma", "no-cache");
 		
 		// 페이징
 		int listCnt;
 		Pagination pagination;
 		
 		// 카페 이름
-		vo.setCname(cname);
+		vo.setCafename(cafename);
 		
 		// 정렬
 		if (sort.equals("star")) {
-			vo.setMenuSort("savg");
+			vo.setMenuSort("starAvg");
 		}
 		else if (sort.equals("caffeine")) {
 			vo.setMenuSort("caffeine");
@@ -139,7 +149,7 @@ public class BoardController {
 			vo.setCntPerPage(pagination.getPageSize());
 			
 			model.addAttribute("boardList", boardService.selectCafeListPaging(vo));
-			model.addAttribute("cname", cname);
+			model.addAttribute("cname", cafename);
 			model.addAttribute("listCnt", listCnt);
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("keyword", keyword);
@@ -159,7 +169,7 @@ public class BoardController {
 			List<BoardVO> boardList = boardService.selectMenuListPaging(vo);
 			
 			model.addAttribute("boardList", boardList);
-			model.addAttribute("cname", cname);
+			model.addAttribute("cname", cafename);
 			model.addAttribute("listCnt", listCnt);
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("keyword", keyword);
@@ -172,20 +182,20 @@ public class BoardController {
 	* @methodName    : getBoard
 	* @author        : SeongPyo Jo
 	* @date        : 2020.09.01
-	* @param cname
+	* @param cafename
 	* @param name
 	* @param vo
 	* @param model
 	* @return String
 	*/
 	@RequestMapping("/getBoard")
-	public String getBoard(@RequestParam(value="cafe") String cname, 
-			   @RequestParam(value="menu") String name,
+	public String getBoard(@RequestParam(value="cafe") String cafename, 
+			   @RequestParam(value="menu") String cid,
 			   BoardVO vo, Model model) {
 		System.out.println("메뉴 상세정보 처리");
 		
-		vo.setCname(cname);
-		vo.setName(name);
+		vo.setCafename(cafename);
+		vo.setCid(cid);
 		
 		BoardVO board = boardService.getBoard(vo);
 		

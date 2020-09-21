@@ -19,6 +19,11 @@
 	<!-- AOP 관련 어노테이션들을 인식하고 용도에 맞게 처리 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
+	<!-- 트랜잭션 매니저 설정 -->
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource"/>
+	</bean> 
+	<tx:annotation-driven/>-->
 	
 	
 	<!-- DataSource 설정 -->
@@ -48,6 +53,7 @@
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
 		<!-- <property name="entityManagerFactoryUser" ref="entityManagerFactory"></property> -->
+		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
 	<bean id="txManagerUser" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -65,5 +71,4 @@
 		<aop:pointcut id="allPointcut" expression="execution(* com.hspring.coffeereview.biz..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="allPointcut" advice-ref="txAdvice" />
 	</aop:config>
-
 </beans>
