@@ -2,12 +2,15 @@ package com.hspring.coffeereview.view.user;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +54,7 @@ public class LoginController {
 	 * @{tags}
 	 */
 	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-	public String login(Model model, HttpSession session) {
+	public String login(Model model, HttpSession session, HttpServletRequest request) {
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		// https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
@@ -59,6 +62,7 @@ public class LoginController {
 		System.out.println("네이버:" + naverAuthUrl);
 		// 네이버
 		model.addAttribute("url", naverAuthUrl);
+
 		return "login.jsp";
 	}
 	
@@ -90,7 +94,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
 	// @RequestMapping(value = "/callback", method = RequestMethod.POST) // 20200901 임시로 지움
-	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, RedirectAttributes redirect)
+	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
 			throws IOException, ParseException {
 		System.out.println("여기는 callback");
 		OAuth2AccessToken oauthToken;
@@ -120,25 +124,10 @@ public class LoginController {
 			session.setAttribute("sessionId", id); // 세션 생성
 			session.setAttribute("sessionName", name); // 웹에 띄울 사용자 이름 저장
 			
-			//model.addAttribute("id", id);
-			//model.addAttribute("name", name);
+			
 			return "index.jsp";
 		} else { // users DB에 회원정보가 없으면
 			// 회원가입 페이지로 넘어가기
-			 
-			/*
-			redirect.addFlashAttribute("name", name);
-			redirect.addFlashAttribute("id", id);
-			redirect.addFlashAttribute("nickname", (String) response_obj.get("nickname"));
-			redirect.addFlashAttribute("age", (String) response_obj.get("age"));
-			redirect.addFlashAttribute("gender", (String) response_obj.get("gender"));
-			redirect.addFlashAttribute("email", (String) response_obj.get("email"));
-			// redirect는 HashMap<String, String>형식으로 전달
-			
-			return "redirect:signup";
-			*/
-			// 20200901 redirect로 UserController의 signup 메소드로 곧바로 넘기는게 아니라 register.jsp로 넘기도록
-			
 			model.addAttribute("id", id);
 			model.addAttribute("name", name);
 			model.addAttribute("nickname", (String) response_obj.get("nickname"));

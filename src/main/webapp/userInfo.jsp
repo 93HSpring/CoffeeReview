@@ -1,11 +1,18 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko" style="height:auto;">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Coffee Review | 회원 정보</title>
+  
+  
+  
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,7 +25,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-mini layout-boxed">
 <div class="wrapper">
   		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light"> 
@@ -30,9 +37,6 @@
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
 					<a href="index.jsp" class="nav-link">Home</a>
-				</li>
-				<li class="nav-item d-none d-sm-inline-block">
-					<a href="#" class="nav-link">임시</a>
 				</li>
 			</ul>
 	
@@ -157,7 +161,7 @@
 							<img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 						</div>
 						<div class="info">
-							<a href="profile.jsp" class="d-block">${sessionName }님</a>
+							<a href="userInfo" class="d-block">${sessionName }님</a>
 							<!-- 회원정보로 가는 곳 -->
 						</div>
 						<div class="info">
@@ -255,187 +259,124 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
+                    <b>작성한 리뷰 수</b> <a class="float-right">500,000</a>
                   </li>
                 </ul>
-
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
 
-            <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">About Me</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
           </div>
           <!-- /.col -->
           <div class="col-md-9">
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">내가 쓴 리뷰</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#review" data-toggle="tab">Review</a></li>
                   <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                  
                 </ul>
-              </div><!-- /.card-header -->
+              </div>
+              <!-- /.card-header -->
               <div class="card-body">
-                <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
+                <div class="tab-content">                
+                <div class="active tab-pane" id="profile">
+                    <form class="form-horizontal" name="modifyProfile" onsubmit="return checkForm()" method="post">
+                      <div class="input-group mb-3">
+						<input type="hidden" class="form-control" name="id" value="${userInfo.id }">
+				      </div>
+                      <div class="form-group row">
+                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="name" placeholder="Name" value="${userInfo.name }">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputNickName" class="col-sm-2 col-form-label">NickName</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nickname" placeholder="Nickname" value="${userInfo.nickname }">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputAge" class="col-sm-2 col-form-label">Age</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="age" placeholder="Age" value="${userInfo.age }">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="gender" placeholder="Gender" value="${userInfo.gender }">
+                        </div>
+                      </div>
+                       <div class="form-group row">
+                        <label for="inputPhoneNum" class="col-sm-2 col-form-label">PhoneNum</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="phonenum" placeholder="PhoneNum" value="${userInfo.phonenum }">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="address" placeholder="Address" value="${userInfo.address }">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                          <input type="email" class="form-control" id="email" placeholder="Email" value="${userInfo.email }">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="review">
                     <!-- Post -->
                     <div class="post">
                       <div class="user-block">
                         <img class="img-circle img-bordered-sm" src="dist/img/user1-128x128.jpg" alt="user image">
                         <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
+                          <a href="#">${userInfo.nickname}</a>
                           <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
                         </span>
-                        <span class="description">Shared publicly - 7:30 PM today</span>
+                        <span class="description">2020년 9월 16일</span> <!-- 입력한 리뷰를 VO로 받아와서 띄우기 -->
                       </div>
                       <!-- /.user-block -->
                       <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
+                        	아옹 배고팡~~~~ 지금 시간은 12시 34분
                       </p>
 
                       <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> 수정</a>
+                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> 삭제</a>
                         <span class="float-right">
                           <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
+                            <i class="far fa-comments mr-1"></i> 작성글 바로가기
                           </a>
                         </span>
                       </p>
 
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+
                     </div>
                     <!-- /.post -->
 
-                    <!-- Post -->
-                    <div class="post clearfix">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="User Image">
-                        <span class="username">
-                          <a href="#">Sarah Ross</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Sent you a message - 3 days ago</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p>
-
-                      <form class="form-horizontal">
-                        <div class="input-group input-group-sm mb-0">
-                          <input class="form-control form-control-sm" placeholder="Response">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-danger">Send</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <!-- /.post -->
-
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="dist/img/user6-128x128.jpg" alt="User Image">
-                        <span class="username">
-                          <a href="#">Adam Jones</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Posted 5 photos - 5 days ago</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <div class="row mb-3">
-                        <div class="col-sm-6">
-                          <img class="img-fluid" src="dist/img/photo1.png" alt="Photo">
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                          <div class="row">
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="dist/img/photo2.png" alt="Photo">
-                              <img class="img-fluid" src="dist/img/photo3.jpg" alt="Photo">
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="dist/img/photo4.jpg" alt="Photo">
-                              <img class="img-fluid" src="dist/img/photo1.png" alt="Photo">
-                            </div>
-                            <!-- /.col -->
-                          </div>
-                          <!-- /.row -->
-                        </div>
-                        <!-- /.col -->
-                      </div>
-                      <!-- /.row -->
-
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
-                      </p>
-
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    <!-- /.post -->
+                   
                   </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="timeline">
@@ -534,55 +475,7 @@
                   </div>
                   <!-- /.tab-pane -->
 
-                  <div class="tab-pane" id="settings">
-                    <form class="form-horizontal">
-                      <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.tab-pane -->
+                  
                 </div>
                 <!-- /.tab-content -->
               </div><!-- /.card-body -->
@@ -621,5 +514,58 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<!-- function -->
+<script>
+	function checkForm() {
+		console.log("성표쿤~~~~");
+		if (document.modifyProfile.name.value == "") {
+			alert("이름을 입력하세요.");
+			document.modifyProfile.name.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.nickname.value == "") {
+			alert("닉네임을 입력하세요.");
+			document.modifyProfile.nickname.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.age.value == "") {
+			alert("나이를 입력하세요.");
+			document.modifyProfile.age.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.gender.value == "") {
+			alert("성별을 입력하세요.");
+			document.modifyProfile.gender.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.phonenum.value == "") {
+			alert("전화번호를 입력하세요.");
+			document.modifyProfile.phonenum.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.address.value == "") {
+			alert("주소를 입력하세요.");
+			document.modifyProfile.address.focus();
+			return false;
+		}
+		
+		if (document.modifyProfile.email.value == "") {
+			alert("이메일주소를 입력하세요.");
+			document.modifyProfile.email.focus();
+			return false;
+		}
+		
+		alert("회원 정보가 수정되었습니다.");
+		document.modifyProfile.action = "modifyProfile";
+		return true;
+		
+	}
+</script>
+
 </body>
 </html>
