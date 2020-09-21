@@ -16,6 +16,7 @@ import javax.persistence.Table;
 * DATE              AUTHOR             NOTE
 * -----------------------------------------------------------
 * 2020.08.24        Goonoo Jang       최초 생성
+* 2020.09.21		Goonoo Jang		  id -> uid 수정
 */
 @Entity
 @Table(name="USERS")
@@ -28,8 +29,8 @@ public class UserVO {
 
 	
 	@Id
-	@GeneratedValue
-	private String id;
+	//@GeneratedValue
+	private String uid;
 	private String name;
 	private String nickname; // 
 	private String age; //
@@ -38,11 +39,11 @@ public class UserVO {
 	private String email;
 	private String address;
 	
-	public String getId() {
-		return id;
+	public String getUid() {
+		return uid;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	public String getName() {
 		return name;
@@ -86,11 +87,13 @@ public class UserVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", name=" + name + ", nickname=" + nickname + ", age=" + age + ", gender=" + gender
-				+ ", phonenum=" + phonenum + ", email=" + email + ", address=" + address + "]";
+		return "UserVO [uid=" + uid + ", name=" + name + ", nickname=" + nickname + ", age=" + age + ", gender="
+				+ gender + ", phonenum=" + phonenum + ", email=" + email + ", address=" + address + "]";
 	}
+	
+	
 	
 }

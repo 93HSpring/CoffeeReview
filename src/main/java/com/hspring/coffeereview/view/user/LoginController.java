@@ -114,21 +114,21 @@ public class LoginController {
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 		// response의 nickname값 파싱
 		String name = (String) response_obj.get("name");
-		String id = (String) response_obj.get("id");
+		String uid = (String) response_obj.get("id");
 		model.addAttribute("result", apiResult);
 		System.out.println(name);
 		
 		// users DB에 현재 로그인된 회원이 존재하면 
-		if(userService.checkUser(id)) {
+		if(userService.checkUser(uid)) {
 			// 4.파싱 닉네임 세션으로 저장
-			session.setAttribute("sessionId", id); // 세션 생성
+			session.setAttribute("sessionId", uid); // 세션 생성
 			session.setAttribute("sessionName", name); // 웹에 띄울 사용자 이름 저장
 			
 			
 			return "index.jsp";
 		} else { // users DB에 회원정보가 없으면
 			// 회원가입 페이지로 넘어가기
-			model.addAttribute("id", id);
+			model.addAttribute("uid", uid);
 			model.addAttribute("name", name);
 			model.addAttribute("nickname", (String) response_obj.get("nickname"));
 			model.addAttribute("age", (String) response_obj.get("age"));

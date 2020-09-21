@@ -62,7 +62,7 @@
 
 				<form name="signup" onsubmit="return checkForm()" method="post">
 					<div class="input-group mb-3">
-						<input type="hidden" class="form-control" name="id" value="${id }">
+						<input type="hidden" class="form-control" name="uid" value="${uid }">
 					</div>
 
 					<div class="input-group mb-3">

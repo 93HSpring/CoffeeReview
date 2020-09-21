@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	// 회원 정보 확인 (ID를 통해)
-	public UserVO getUser(String id) {
-		return userDAO.getUser(id);
+	public UserVO getUser(String uid) {
+		return userDAO.getUser(uid);
 	}
 	
 	// 회원 생성
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	// 회원 가입여부 확인
-	public boolean checkUser(String id) {
-		return userDAO.checkUser(id);
+	public boolean checkUser(String uid) {
+		return userDAO.checkUser(uid);
 	}
 	
 	public void modifyProfile(UserVO vo) {
