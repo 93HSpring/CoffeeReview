@@ -31,6 +31,7 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * 2020.09.14        SeongPyo Jo       댓글 페이징 기능 메쏘드 추가
 * 2020.09.16        SeongPyo Jo       별점 평균 계산을 위한 메쏘드 추가(getStarAvg)
 * 2020.09.16        SeongPyo Jo       cid를 얻어오기 위한 메쏘드 추가(getCid)
+* 2020.10.12        SeongPyo Jo       리뷰 출력 updateDate 내림차순으로 변경(getReplyListPaging)
  */
 
 @Repository
@@ -75,6 +76,7 @@ public class ReplyDAO {
 		ReplyVO replyVO = em.find(ReplyVO.class, vo.getRid());
 		
 		replyVO.setReplyText(vo.getReplyText());
+		replyVO.setStarNum(vo.getStarNum());
 		
 		em.merge(replyVO);
 	}
@@ -100,7 +102,7 @@ public class ReplyDAO {
 	* @return
 	 */
 	public List<ReplyVO> getReplyListPaging(String cid, Criteria criteria) throws Exception {
-		TypedQuery<ReplyVO> query = em.createQuery("from ReplyVO r WHERE r.cid = " + cid + " order by r.regDate", ReplyVO.class);
+		TypedQuery<ReplyVO> query = em.createQuery("from ReplyVO r WHERE r.cid = " + cid + " order by r.updateDate desc", ReplyVO.class);
 		return query.setFirstResult(criteria.getPageStart()).setMaxResults(criteria.getPerPageNum()).getResultList();
 	};
 	

@@ -34,7 +34,7 @@
 	<!-- handlebars -->
 	<script id="replyTemplate" type="text/x-handlebars-template">
     {{#each.}}
-    <div class="post replyDiv" data-replyNo={{rid}}>
+    <div class="post replyDiv" data-replyNo={{rid}} data-starNum={{starNum}}>
         <div class="user-block">
             <%--리뷰 작성자 프로필사진--%>
             <img class="img-circle img-bordered-sm" src="image/logo.png" alt="u">
@@ -55,7 +55,7 @@
 				</div>
             </span>
 			<%--리뷰 작성일자--%>
-            <span class="description">{{prettifyDate regDate}}</span>
+			<span class="description">{{prettifyDate updateDate}}</span>
         </div>
         <%--리뷰 내용--%>
 		<div class="oldReplyStar">
@@ -263,17 +263,73 @@
             });
         });
         
+     	// 리뷰 별점 입력 함수
+        var modalStarNum = 0;
         // 리뷰 수정을 위해 modal창에 선택한 리뷰의 값들을 세팅
         $(".repliesDiv").on("click", ".replyDiv", function (event) {
             var reply = $(this);
             $(".replyNo").val(reply.attr("data-replyNo"));
-            $("#replyText").val(reply.find(".oldReplyText").text());
+            $("#modalReplyText").val(reply.find(".oldReplyText").text());
+            
+            // 별점 값 세팅
+            modalStarNum = reply.attr("data-starNum");
+            $('.make_modal_star i').css({color: '#000'});
+			$('.make_modal_star i:nth-child(-n+' + modalStarNum + ')').css({color: '#F00'});
+            
+			// 기존 글자 수 세팅
+            var totalByte = 0;
+            var replyText = $("#modalReplyText").val();
+            
+            for(var i =0; i < replyText.length; i++) {
+    			var currentByte = replyText.charCodeAt(i);
+    			if(currentByte > 128) 
+    				totalByte += 1;
+    			else totalByte++;
+    		}
+    		
+    		// 현재 입력한 문자의 바이트 수를 체크하여 표시
+    		$('#modalMessagebyte').text(totalByte);
         });
+        
+        // Modal의 TextArea 글자수 검사
+     	// 리뷰 글자수의 최대 크기
+    	var limitByte = 1000;
+        $("#modalReplyText").keyup(function() {
+        	var totalByte = 0;
+    		var replyText = $("#modalReplyText").val();
+    		
+    		for(var i =0; i < replyText.length; i++) {
+    			var currentByte = replyText.charCodeAt(i);
+    			if(currentByte > 128) 
+    				totalByte += 1;
+    			else totalByte++;
+    		}
+    		
+    		// 현재 입력한 문자의 바이트 수를 체크하여 표시
+    		$('#modalMessagebyte').text(totalByte);
+    		
+    		// 입력된 바이트 수가 limitByet를 초과 할 경우 경고창 
+    		if(totalByte > limitByte) {
+    			alert( limitByte + "글자까지 작성 가능합니다.");
+    			$("#modalReplyText").val(replyText.substring(0,limitByte));
+    			$('#modalMessagebyte').text(limitByte);
+    		}
+        });
+        
+     	// 모달의 별점 값 클릭 이벤트
+        $(function() {
+			$('.make_modal_star i').click(function() {
+				var targetNum = $(this).index() + 1;
+				modalStarNum = targetNum;
+				$('.make_modal_star i').css({color: '#000'});
+				$('.make_modal_star i:nth-child(-n+' + targetNum + ')').css({color: '#F00'});
+			});
+		});
         
         // modal 창의 리뷰 수정버튼 클릭 이벤트
         $(".modalModBtn").on("click", function () {
             var replyNo = $(".replyNo").val();
-            var replyText = $("#replyText").val();
+            var replyText = $("#modalReplyText").val();
             $.ajax({
                 type: "put",
                 url: "/coffeereview/replies/" + replyNo,
@@ -283,7 +339,8 @@
                 },
                 dataType: "text",
                 data: JSON.stringify({
-                    replyText: replyText
+                    replyText: replyText,
+                    starNum: modalStarNum
                 }),
                 success: function (result) {
                     console.log("result : " + result);
@@ -324,8 +381,8 @@
  	// 리뷰 글자수의 최대 크기
 	var limitByte = 1000;
 	
-	// textarea에 입력된 문자의 바이트 수를 체크
-	function checkByte(frm) {
+	// 리뷰 등록 textarea에 입력된 문자의 바이트 수를 체크
+	function checkRegByte(frm) {
 		var totalByte = 0;
 		var replyText = frm.newReplyText.value;
 		
@@ -346,4 +403,5 @@
 			$('#messagebyte').text(limitByte);
 		}
 	}
+	
 	</script>

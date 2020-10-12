@@ -33,6 +33,7 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * 2020.09.16        SeongPyo Jo       별점 평균을 구하는 메쏘드 추가(calcStarAvg)
 * 2020.09.16        SeongPyo Jo       댓글 등록 예외처리 기능 추가 (글자수가 특정 수 이상 될 시 리뷰 작성 불가)
 * 2020.09.16        SeongPyo Jo       댓글, 별점 등록 예외처리 기능 추가 (공백, 개행문자만 있을 시 리뷰 작성 불가)
+* 2020.10.12        SeongPyo Jo       주석 잘못된 methodName 수정
 */
 
 @RestController
@@ -44,7 +45,7 @@ public class ReplyController {
 	
 	/**
 	 * 
-	* @methodName  : list
+	* @methodName  : getReplyList
 	* @author      : SeongPyo Jo
 	* @date        : 2020.09.14
 	* @param cid
@@ -63,7 +64,7 @@ public class ReplyController {
 	}
 	
 	/**
-	* @methodName   : commentInsert
+	* @methodName   : create
 	* @author       : SeongPyo Jo
 	* @date         : 2020.09.03
 	* @param star

@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 * -----------------------------------------------------------
 * 2020.09.14        SeongPyo Jo       최초 생성
 * 2020.09.15        SeongPyo Jo       별점 관련 변수 추가
+* 2020.10.12        SeongPyo Jo       updateDate 최초 생성시 regDate와 동일하게 적용되도록 수정
  */
 @Entity
 @Table(name = "REPLY")
@@ -38,7 +39,7 @@ public class ReplyVO {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date regDate = new Date();
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date updateDate;
+	private Date updateDate = new Date();
 	
 	@PreUpdate
 	public void preUpdate() {
