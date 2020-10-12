@@ -31,6 +31,7 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * 2020.09.14        SeongPyo Jo       댓글 페이징 기능 메쏘드 추가
 * 2020.09.16        SeongPyo Jo       별점 평균 계산을 위한 메쏘드 추가(getStarAvg)
 * 2020.09.16        SeongPyo Jo       cid를 얻어오기 위한 메쏘드 추가(getCid)
+* 2020.10.12        SeongPyo Jo       리뷰 출력 updateDate 내림차순으로 변경(getReplyListPaging)
  */
 
 @Repository
