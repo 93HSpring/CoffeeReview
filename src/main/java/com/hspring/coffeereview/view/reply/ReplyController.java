@@ -44,7 +44,7 @@ public class ReplyController {
 	
 	/**
 	 * 
-	* @methodName  : list
+	* @methodName  : getReplyList
 	* @author      : SeongPyo Jo
 	* @date        : 2020.09.14
 	* @param cid
@@ -63,7 +63,7 @@ public class ReplyController {
 	}
 	
 	/**
-	* @methodName   : commentInsert
+	* @methodName   : create
 	* @author       : SeongPyo Jo
 	* @date         : 2020.09.03
 	* @param star

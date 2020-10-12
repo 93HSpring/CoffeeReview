@@ -38,7 +38,7 @@ public class ReplyVO {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date regDate = new Date();
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date updateDate;
+	private Date updateDate = new Date();
 	
 	@PreUpdate
 	public void preUpdate() {

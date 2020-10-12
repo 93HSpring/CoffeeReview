@@ -75,6 +75,7 @@ public class ReplyDAO {
 		ReplyVO replyVO = em.find(ReplyVO.class, vo.getRid());
 		
 		replyVO.setReplyText(vo.getReplyText());
+		replyVO.setStarNum(vo.getStarNum());
 		
 		em.merge(replyVO);
 	}
@@ -100,7 +101,7 @@ public class ReplyDAO {
 	* @return
 	 */
 	public List<ReplyVO> getReplyListPaging(String cid, Criteria criteria) throws Exception {
-		TypedQuery<ReplyVO> query = em.createQuery("from ReplyVO r WHERE r.cid = " + cid + " order by r.regDate", ReplyVO.class);
+		TypedQuery<ReplyVO> query = em.createQuery("from ReplyVO r WHERE r.cid = " + cid + " order by r.updateDate desc", ReplyVO.class);
 		return query.setFirstResult(criteria.getPageStart()).setMaxResults(criteria.getPerPageNum()).getResultList();
 	};
 	

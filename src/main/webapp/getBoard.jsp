@@ -132,14 +132,14 @@
 								</div>
 								<!-- 리뷰 등록 -->
 								<div class="col-12 input-group input-group-sm mb-0" style="padding:5px;">
-									<textarea id="newReplyText" class="form-control form-control-sm form-control-md col-11" rows="3" onKeyUp="checkByte(this.form);" placeholder="리뷰와 별점을 작성해주세요." style="resize: none;"></textarea>
+									<textarea id="newReplyText" class="form-control form-control-sm form-control-md col-11" rows="3" onKeyUp="checkRegByte(this.form);" placeholder="리뷰와 별점을 작성해주세요." style="resize: none;"></textarea>
 									<div class="input-group-append col-2" style="padding-right:0;">
 										<button type="button" class="btn btn-danger replyAddBtn" style="width:100%;">등록</button>
 									</div>
 								</div>	
-									<p class="data_count col-12 m-0">
-										<em id="messagebyte">0</em> / 1000
-									</p>		
+								<p class="data_count col-12 m-0">
+									<em id="messagebyte">0</em> / 1000
+								</p>		
 							</div>
 						</form>
 					</div>
@@ -180,9 +180,22 @@
 				                <h4 class="modal-title">리뷰 수정</h4>
 				            </div>
 				            <div class="modal-body">
+				            	<div class="col-12 align-self-center" style="padding-bottom:5px; padding-top:5px;">
+									<div class="make_modal_star text-center" style="height: 100%; align-items: center; font-size: 2em;">
+										<!-- <input class="star" type="hidden" name="star" value="1"> -->
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>	
+									</div>	
+								</div>
 				                <input type="hidden" class="replyNo"/>
 				                <%--<input type="text" id="replytext" class="form-control"/>--%>
-				                <textarea class="form-control" id="replyText" rows="3" style="resize: none"></textarea>
+				                <textarea class="form-control" id="modalReplyText" rows="3" placeholder="리뷰와 별점을 작성해주세요." style="resize: none;"></textarea>
+				                <p class="data_count col-12 m-0">
+									<em id="modalMessagebyte">0</em> / 1000
+								</p>
 				            </div>
 				            <div class="modal-footer align-self-center">
 				                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
