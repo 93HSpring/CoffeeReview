@@ -284,9 +284,9 @@
                 <div class="tab-content">                
                 <div class="active tab-pane" id="profile">
                     <form class="form-horizontal" name="modifyProfile" onsubmit="return checkForm()" method="post">
-                      <div class="input-group mb-3">
+                      <!-- <div class="input-group mb-3">
 						<input type="hidden" class="form-control" name="uid" value="${userInfo.uid }">
-				      </div>
+				      </div>  --> <!-- 1020수정 -->
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">

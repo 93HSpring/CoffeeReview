@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.hspring.coffeereview.biz.user.UserService;
@@ -115,7 +117,7 @@ public class UserController {
 	// String id, String nickname, String age, String gender, String phonenum, String address, String email
 	//@ModelAttribute("UserVO") UserVO vo, 
 	@RequestMapping(value = "/modifyProfile", method =  RequestMethod.POST)
-	public String modifyProfile(UserVO vo) throws IOException{
+	public String modifyProfile(UserVO vo, HttpSession session) throws IOException{ // 1020 session추가
 		System.out.println("JPA로 profile Modify");
 		System.out.println("아이디: "+vo.getUid());
 		System.out.println("이메일: " + vo.getEmail());
