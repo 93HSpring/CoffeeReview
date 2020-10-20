@@ -124,6 +124,18 @@ public class UserDAO {
 		// 하지만 우린 userInfo에서 완전한 형식의 vo를 받으므로 그대로 진행
 		// https://ecsimsw.tistory.com/entry/JPA-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A0%95-%EB%B3%80%EA%B2%BD-%EA%B0%90%EC%A7%80%EC%99%80-%EB%B3%91%ED%95%A9
 	}
+	
+	/**
+	 * @methodName	: getUserName
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.10.20
+	 * @param uid
+	 * @return
+	 */
+	public String getUserName(String uid) {
+		UserVO vo = em.find(UserVO.class, uid);
+		return vo.getName();
+	}
 
 
 }
