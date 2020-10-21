@@ -20,4 +20,6 @@ public interface ReplyService {
 	double getStarAvg(String cid) throws Exception;
 	
 	String getCid(int rid) throws Exception;
+	
+	String getUserName(String uid) throws Exception;
 }

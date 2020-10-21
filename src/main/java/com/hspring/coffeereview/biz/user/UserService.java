@@ -12,7 +12,8 @@ package com.hspring.coffeereview.biz.user;
 * 2020.08.24        Goonoo Jang       최초 생성
 * 2020.09.03		Goonoo Jang		  getUser(String id) 추가
 * 2020.09.16		Goonoo Jang		  modifyProfile(UserVO vo) 추가
-* 2020.09.21		Goonoo Jang		   매개변수명 수정 (id -> uid)       		  
+* 2020.09.21		Goonoo Jang		   매개변수명 수정 (id -> uid)
+* 2020.10.20        Goonoo Jang       uid를 통해 name을 얻기위한 메쏘드 추가(getUserName)  
 */
 public interface UserService {
 
@@ -32,5 +33,7 @@ public interface UserService {
 	boolean checkUser(String uid);
 	
 	void modifyProfile(UserVO vo);
+	
+	String getUserName(String uid);
 
 }

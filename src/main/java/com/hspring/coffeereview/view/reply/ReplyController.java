@@ -33,7 +33,8 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * 2020.09.16        SeongPyo Jo       별점 평균을 구하는 메쏘드 추가(calcStarAvg)
 * 2020.09.16        SeongPyo Jo       댓글 등록 예외처리 기능 추가 (글자수가 특정 수 이상 될 시 리뷰 작성 불가)
 * 2020.09.16        SeongPyo Jo       댓글, 별점 등록 예외처리 기능 추가 (공백, 개행문자만 있을 시 리뷰 작성 불가)
-* 2020.10.12        SeongPyo Jo       주석 잘못된 methodName 수정
+* 2020.10.12        SeongPyo Jo       주석 및 메쏘드 이름 오타 수정
+* 2020.10.20        SeongPyo Jo       uid를 통해 username을 구하는 메쏘드 추가(getUserName)
 */
 
 @RestController
@@ -122,7 +123,7 @@ public class ReplyController {
 	@RequestMapping(value = "/{rid}", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> update(@PathVariable("rid") int rid, @RequestBody ReplyVO replyVO) {
 	    ResponseEntity<String> entity = null;
-	    System.out.println(">> " + replyVO.getReplyText());
+	    
 	    try {
 	        replyVO.setRid(rid);
 	        replyService.update(replyVO);
@@ -201,7 +202,7 @@ public class ReplyController {
 	* @param cid
 	* @return
 	 */
-	@RequestMapping(value = "/{cid}", method = RequestMethod.GET) //댓글 작성 
+	@RequestMapping(value = "/{cid}", method = RequestMethod.GET) //별점 갱신 
     public ResponseEntity<Double> calcStarAvg(@PathVariable("cid") String cid) {
 		ResponseEntity<Double> entity = null;
 		
@@ -214,4 +215,19 @@ public class ReplyController {
 		}
 		return entity;
     }
+	
+	@RequestMapping(value = "/getUserName/{uid}", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public ResponseEntity<String> getUserName(@PathVariable("uid") String uid) {
+	    ResponseEntity<String> entity = null;
+	    
+	    try {
+	        String userName = replyService.getUserName(uid);
+	        System.out.println(userName);
+	        entity = new ResponseEntity<>(userName, HttpStatus.CREATED);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	    }
+	    return entity;
+	}
 }

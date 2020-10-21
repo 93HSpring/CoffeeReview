@@ -12,6 +12,7 @@ import com.hspring.coffeereview.biz.board.impl.BoardDAO;
 import com.hspring.coffeereview.biz.common.Criteria;
 import com.hspring.coffeereview.biz.reply.ReplyService;
 import com.hspring.coffeereview.biz.reply.ReplyVO;
+import com.hspring.coffeereview.biz.user.impl.UserDAO;
 
 /**
  * 
@@ -26,7 +27,8 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * 2020.09.14        SeongPyo Jo       최초 생성
 * 2020.09.16        SeongPyo Jo       별점 평균 계산을 위한 메쏘드 추가(getStarAvg)
 * 2020.09.16        SeongPyo Jo       별점 평균 갱신을 위한 BoardDAO 객체 추가
-* 2020.09.16        SeongPyo Jo       cid를 얻어오기 위한 메쏘기 추가(getCid)
+* 2020.09.16        SeongPyo Jo       cid를 얻어오기 위한 메쏘드 추가(getCid)
+* 2020.10.20        SeongPyo Jo       uid를 통해 name을 얻어오기 위한 메쏘드 추가(getUserName)
  */
 
 @Service("replyService")
@@ -35,6 +37,8 @@ public class ReplyServiceImpl implements ReplyService {
 	private ReplyDAO replyDAO;
 	@Autowired
 	private BoardDAO boardDAO;
+	@Autowired
+	private UserDAO userDAO;
 	
 	public List<ReplyVO> getReplyList(String cid) {
 		return replyDAO.getReplyList(cid);
@@ -70,5 +74,9 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	public String getCid(int rid) throws Exception {		
 		return replyDAO.getCid(rid);
+	}
+	
+	public String getUserName(String uid) throws Exception {
+		return userDAO.getUserName(uid);
 	}
 }

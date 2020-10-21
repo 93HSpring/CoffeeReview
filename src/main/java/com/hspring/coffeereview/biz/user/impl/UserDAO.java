@@ -21,6 +21,7 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * 2020.09.02		Goonoo Jang		  checkUser(name->id 변경)
 * 2020.09.03		Goonoo Jang		  getUser(String id) 추가
 * 2020.09.21		Goonoo Jang		  id -> uid 수정
+* 2020.10.20        Goonoo Jang       uid를 통해 name을 얻기위한 메쏘드 추가(getUserName)
 */
 @Repository("userDAO")
 public class UserDAO {
@@ -118,12 +119,21 @@ public class UserDAO {
 		temp.setNickname(vo.getNickname());
 		temp.setPhonenum(vo.getPhonenum());
 		em.merge(temp);
-
 		
 		// 가급적 find로 찾아와서 값을 수정하는 것이 낫다. (vo의 name만 변경하고자 member만 세팅하고 merge한다면 vo의 나머지 필드는 기존의 값을 잃고 null이 대입된다.)
 		// 하지만 우린 userInfo에서 완전한 형식의 vo를 받으므로 그대로 진행
 		// https://ecsimsw.tistory.com/entry/JPA-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A0%95-%EB%B3%80%EA%B2%BD-%EA%B0%90%EC%A7%80%EC%99%80-%EB%B3%91%ED%95%A9
 	}
 
-
+   /**
+    * @methodName   : getUserName
+    * @author      : Goonoo Jang
+    * @date      : 2020.10.20
+    * @param uid
+    * @return
+    */
+   public String getUserName(String uid) {
+      UserVO vo = em.find(UserVO.class, uid);
+      return vo.getName();
+   }
 }

@@ -42,7 +42,8 @@
 			
             <span class="username">
                 <%--작성자 이름--%>
-                <a href="#">{{id}}</a>
+                <a href="#">{{{regName uid}}}</a>
+				{{#eqReplyUid uid}}
 				<%--리뷰 삭제 버튼--%>
 				<div class="float-right">
 				<a href="#" class="btn-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
@@ -53,6 +54,7 @@
                 	<i class="fa fa-edit"> 수정</i>
             	</a>
 				</div>
+				{{/eqReplyUid}}
             </span>
 			<%--리뷰 작성일자--%>
 			<span class="description">{{prettifyDate updateDate}}</span>
@@ -70,14 +72,15 @@
 
 	<script>	
     $(document).ready(function () {
-    	
-    	<%--Handlebars.registerHelper("eqReplyWriter", function (replyWriter, block) {
+    	// 세션아이디가 다를 경우 수정 삭제를 못하게 막아주는 함수
+    	Handlebars.registerHelper("eqReplyUid", function (replyUid, block) {
             var accum = "";
-            if (replyWriter === "${login.userId}") {
+            
+            if (replyUid === "${sessionId}") {
                 accum += block.fn();
             }
             return accum;
-        });--%>
+        });
         
         // 리뷰 별점 입력 함수
         var starNum = 0;
@@ -119,6 +122,30 @@
             	}
             }
             return new Handlebars.SafeString(result);
+        });
+        
+        // 유저의 id를 통해 유저이름을 출력시켜주는 함수
+        Handlebars.registerHelper("regName", function (uid) {
+        	var uid = Handlebars.Utils.escapeExpression(uid);
+      
+        	var userName;
+        	
+        	$.ajax({
+                type: "get",
+                url: "/coffeereview/replies/getUserName/" + uid,
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "GET"
+                },
+                dataType: "text",
+                async: false,
+                success: function (result) {
+                    //console.log("result : " + result);
+                    userName = result;
+                }
+            });        	
+        	
+        	return new Handlebars.SafeString(userName); 
         });
         
      	// 리뷰 내용 : 줄바꿈/공백처리
@@ -219,7 +246,7 @@
             // 입력 form 선택자
             <%--var replyWriterObj = $("#newReplyWriter");--%>
             var replyTextObj = $("#newReplyText");
-            var replyWriter = "관리자";
+            var replyUid = "${sessionId}";
             var replyText = replyTextObj.val();
             
             // 리뷰 입력처리 수행
@@ -233,7 +260,7 @@
                 dataType: "text",
                 data: JSON.stringify({
                     cid: cid,
-                    id: replyWriter,
+                    uid: replyUid,
                     starNum: starNum,
                     replyText: replyText
                 }),
@@ -255,7 +282,7 @@
                         starNum = 0; // 별점을 0으로 초기화
                         $('.make_star i').css({color: '#000'}); // 별점 입력창 공백처리
                         getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
-                        getStarNum("/coffeereview/replies/"  + cid);
+                        getStarNum("/coffeereview/replies/" + cid);
                         replyTextObj.val("");   // 리뷰 입력창 공백처리
                         $('#messagebyte').text(0); // 리뷰 입력창 글자수 초기화
                     }
