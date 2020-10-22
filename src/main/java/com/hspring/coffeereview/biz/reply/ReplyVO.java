@@ -25,6 +25,7 @@ import javax.persistence.TemporalType;
 * 2020.09.14        SeongPyo Jo       최초 생성
 * 2020.09.15        SeongPyo Jo       별점 관련 변수 추가
 * 2020.10.12        SeongPyo Jo       updateDate 최초 생성시 regDate와 동일하게 적용되도록 수정
+* 2020.10.20        SeongPyo Jo       id -> uid 변경
  */
 @Entity
 @Table(name = "REPLY")
@@ -33,7 +34,7 @@ public class ReplyVO {
 	@GeneratedValue
 	private int rid;
 	private String cid;
-	private String id;
+	private String uid;
 	private String replyText;
 	private int starNum;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -62,12 +63,12 @@ public class ReplyVO {
 		this.cid = cid;
 	}
 
-	public String getId() {
-		return id;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	public String getReplyText() {
@@ -104,7 +105,7 @@ public class ReplyVO {
 
 	@Override
 	public String toString() {
-		return "ReplyVO [rid=" + rid + ", cid=" + cid + ", id=" + id + ", replyText=" + replyText + ", starNum="
+		return "ReplyVO [rid=" + rid + ", cid=" + cid + ", uid=" + uid + ", replyText=" + replyText + ", starNum="
 				+ starNum + ", regDate=" + regDate + ", updateDate=" + updateDate + "]";
 	}
 

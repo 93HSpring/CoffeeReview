@@ -42,7 +42,8 @@
 			
             <span class="username">
                 <%--작성자 이름--%>
-                <a href="#">{{id}}</a>
+				<a href="#">{{{regName uid}}}</a>
+				{{#eqReplyUid uid}}
 				<%--리뷰 삭제 버튼--%>
 				<div class="float-right">
 				<a href="#" class="btn-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
@@ -53,6 +54,7 @@
                 	<i class="fa fa-edit"> 수정</i>
             	</a>
 				</div>
+				{{/eqReplyUid}}
             </span>
 			<%--리뷰 작성일자--%>
 			<span class="description">{{prettifyDate updateDate}}</span>
@@ -70,14 +72,15 @@
 
 	<script>	
     $(document).ready(function () {
-    	
-    	<%--Handlebars.registerHelper("eqReplyWriter", function (replyWriter, block) {
+    	// 세션아이디가 다를 경우 수정 삭제를 못하게 막아주는 함수
+    	Handlebars.registerHelper("eqReplyUid", function (replyUid, block) {
             var accum = "";
-            if (replyWriter === "${login.userId}") {
+            
+            if (replyUid === "${sessionId}") {
                 accum += block.fn();
             }
             return accum;
-        });--%>
+        });
         
         // 리뷰 별점 입력 함수
         var starNum = 0;
@@ -119,6 +122,30 @@
             	}
             }
             return new Handlebars.SafeString(result);
+        });
+        
+        // 유저의 id를 통해 유저닉네임을 출력시켜주는 함수
+        Handlebars.registerHelper("regName", function (uid) {
+        	var uid = Handlebars.Utils.escapeExpression(uid);
+      
+        	var userName;
+        	
+        	$.ajax({
+                type: "get",
+                url: "/coffeereview/replies/getUserName/" + uid,
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "GET"
+                },
+                dataType: "text",
+                // 비동기에서 동기식으로 바꾸어 유저 닉네임을 출력시키기 위함
+                async: false,
+                success: function (result) {
+                    userName = result;
+                }
+            });        	
+        	
+        	return new Handlebars.SafeString(userName); 
         });
         
      	// 리뷰 내용 : 줄바꿈/공백처리
@@ -216,11 +243,24 @@
         // 리뷰 저장 버튼 클릭 이벤트
         $(".replyAddBtn").on("click", function () {
         	
-            // 입력 form 선택자
+        	// 입력 form 선택자
             <%--var replyWriterObj = $("#newReplyWriter");--%>
             var replyTextObj = $("#newReplyText");
-            var replyWriter = "관리자";
+            var replyUid = "${sessionId}";
             var replyText = replyTextObj.val();
+            
+        	// 세션 아이디가 없다면 로그인을 안한상태이므로
+        	if ("${sessionId}" === "")
+        	{
+        		alert("로그인을 해주세요.");
+        		starNum = 0; // 별점을 0으로 초기화
+                $('.make_star i').css({color: '#000'}); // 별점 입력창 공백처리
+                getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
+                getStarNum("/coffeereview/replies/" + cid);
+                replyTextObj.val("");   // 리뷰 입력창 공백처리
+                $('#messagebyte').text(0); // 리뷰 입력창 글자수 초기화
+        		return;
+        	}            
             
             // 리뷰 입력처리 수행
             $.ajax({
@@ -233,12 +273,11 @@
                 dataType: "text",
                 data: JSON.stringify({
                     cid: cid,
-                    id: replyWriter,
+                    uid: replyUid,
                     starNum: starNum,
                     replyText: replyText
                 }),
                 success: function (result) {
-                    //console.log("result : " + result);
                     if (result === "textLongFail") {
                     	alert("1000 글자까지 작성 가능합니다.");
                     	replyTextObj.val(replyText.substring(0, limitByte));
@@ -255,7 +294,7 @@
                         starNum = 0; // 별점을 0으로 초기화
                         $('.make_star i').css({color: '#000'}); // 별점 입력창 공백처리
                         getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
-                        getStarNum("/coffeereview/replies/"  + cid);
+                        getStarNum("/coffeereview/replies/" + cid);
                         replyTextObj.val("");   // 리뷰 입력창 공백처리
                         $('#messagebyte').text(0); // 리뷰 입력창 글자수 초기화
                     }
@@ -343,7 +382,6 @@
                     starNum: modalStarNum
                 }),
                 success: function (result) {
-                    console.log("result : " + result);
                     if (result === "modSuccess") {
                         alert("리뷰가 수정되었습니다.");
                         getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
@@ -366,7 +404,6 @@
                 },
                 dataType: "text",
                 success: function (result) {
-                    console.log("result : " + result);
                     if (result === "delSuccess") {
                         alert("리뷰가 삭제되었습니다.");
                         getReplies("/coffeereview/replies/" + cid + "/" + replyPageNum); // 리뷰 목록 호출
