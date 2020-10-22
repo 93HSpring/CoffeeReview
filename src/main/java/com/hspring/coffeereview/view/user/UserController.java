@@ -30,6 +30,7 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * 2020.09.15		Goonoo Jang		  signupUser수정 - index.jsp 반환
 * 2020.09.16		Goonoo Jang		  modifyProfile 구현
 * 2020.09.21		Goonoo Jang	 	   매개변수명 수정 (id -> uid)
+* 2020.10.20		Goonoo Jang		  modifyProfile 오류 해결 (@ModelAttribute)
 */
 @Controller
 @SessionAttributes("users")
@@ -105,38 +106,17 @@ public class UserController {
 	/**
 	 * @methodName	: modifyProfile
 	 * @author		: Goonoo Jang
-	 * @date		: 2020.09.16
+	 * @date		: 2020.10.20
 	 * @param vo
 	 * @return
 	 * @throws IOException
 	 */
-	
-	// @ModelAttribute("board")
-	// String id, String nickname, String age, String gender, String phonenum, String address, String email
-	//@ModelAttribute("UserVO") UserVO vo, 
 	@RequestMapping(value = "/modifyProfile", method =  RequestMethod.POST)
-	public String modifyProfile(UserVO vo) throws IOException{
+	public String modifyProfile(@ModelAttribute UserVO vo) throws IOException{ // 1020 session추가
 		System.out.println("JPA로 profile Modify");
-		System.out.println("아이디: "+vo.getUid());
-		System.out.println("이메일: " + vo.getEmail());
-		System.out.println("투스트링"+vo.toString());
-		/*
-		UserVO vo = new UserVO();//userService.getUser(id);
-		// 이하는 메소드로 새로 만들어놓자
-		vo.setId(id);
-		vo.setNickname(nickname);
-		vo.setAge(age);
-		vo.setGender(gender);
-		vo.setPhonenum(phonenum);
-		vo.setAddress(address);
-		vo.setEmail(email);
-		*/
-		//userService.modifyProfile(vo);
+		userService.modifyProfile(vo);
 		return "redirect:/userInfo";
 	}
-	
-	// reviseProfile
-	
 	// 네이버 로그인 API쓰니까 보안 좀 신경써야할둣 로그인쪽 보안을 좀 더 생각해보자
 	// 쿼리문, 에러페이지 이런건 나중에.
 	

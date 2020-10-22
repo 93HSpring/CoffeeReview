@@ -36,5 +36,4 @@ public interface UserService {
 	void modifyProfile(UserVO vo);
 	
 	String getUserNickname(String uid);
-
 }

@@ -284,49 +284,49 @@
                 <div class="tab-content">                
                 <div class="active tab-pane" id="profile">
                     <form class="form-horizontal" name="modifyProfile" onsubmit="return checkForm()" method="post">
-                      <div class="input-group mb-3">
+                       <div class="input-group mb-3">
 						<input type="hidden" class="form-control" name="uid" value="${userInfo.uid }">
-				      </div>
+				      </div>  
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="name" placeholder="Name" value="${userInfo.name }">
+                          <input type="text" class="form-control" name="name" placeholder="Name" value="${userInfo.name }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputNickName" class="col-sm-2 col-form-label">NickName</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nickname" placeholder="Nickname" value="${userInfo.nickname }">
+                          <input type="text" class="form-control" name="nickname" placeholder="Nickname" value="${userInfo.nickname }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputAge" class="col-sm-2 col-form-label">Age</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="age" placeholder="Age" value="${userInfo.age }">
+                          <input type="text" class="form-control" name="age" placeholder="Age" value="${userInfo.age }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="gender" placeholder="Gender" value="${userInfo.gender }">
+                          <input type="text" class="form-control" name="gender" placeholder="Gender" value="${userInfo.gender }">
                         </div>
                       </div>
                        <div class="form-group row">
                         <label for="inputPhoneNum" class="col-sm-2 col-form-label">PhoneNum</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="phonenum" placeholder="PhoneNum" value="${userInfo.phonenum }">
+                          <input type="text" class="form-control" name="phonenum" placeholder="PhoneNum" value="${userInfo.phonenum }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="address" placeholder="Address" value="${userInfo.address }">
+                          <input type="text" class="form-control" name="address" placeholder="Address" value="${userInfo.address }">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="email" placeholder="Email" value="${userInfo.email }">
+                          <input type="email" class="form-control" name="email" placeholder="Email" value="${userInfo.email }">
                         </div>
                       </div>
                       <div class="form-group row">

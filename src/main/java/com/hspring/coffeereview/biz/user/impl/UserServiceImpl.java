@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService{
 	public void modifyProfile(UserVO vo) {
 		userDAO.modifyProfile(vo);
 	}
-	
+  
 	public String getUserNickname(String uid) {
 	      return userDAO.getUserNickname(uid);
 	}
