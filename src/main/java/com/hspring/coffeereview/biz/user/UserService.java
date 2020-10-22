@@ -13,7 +13,8 @@ package com.hspring.coffeereview.biz.user;
 * 2020.09.03		Goonoo Jang		  getUser(String id) 추가
 * 2020.09.16		Goonoo Jang		  modifyProfile(UserVO vo) 추가
 * 2020.09.21		Goonoo Jang		   매개변수명 수정 (id -> uid)
-* 2020.10.20        Goonoo Jang       uid를 통해 name을 얻기위한 메쏘드 추가(getUserName)  
+* 2020.10.20        Goonoo Jang       uid를 통해 name을 얻기위한 메쏘드 추가(getUserName)
+* 2020.10.21        Seongpyo Jo       getUserName -> getUserNickname 변경
 */
 public interface UserService {
 
@@ -34,6 +35,6 @@ public interface UserService {
 	
 	void modifyProfile(UserVO vo);
 	
-	String getUserName(String uid);
+	String getUserNickname(String uid);
 
 }

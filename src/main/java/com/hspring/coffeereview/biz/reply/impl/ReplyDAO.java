@@ -142,6 +142,14 @@ public class ReplyDAO {
 		return (query.getSingleResult()).doubleValue();
 	}
 	
+	/**
+	* @methodName  : getCid
+	* @author      : SeongPyo Jo
+	* @date        : 2020.10.21
+	* @param rid
+	* @return
+	* @throws Exception
+	*/
 	public String getCid(int rid) throws Exception {
 		TypedQuery<Number> query = em.createNamedQuery("select r.cid from ReplyVO r where r.rid = " + rid, Number.class);
 		return (query.getSingleResult()).toString();

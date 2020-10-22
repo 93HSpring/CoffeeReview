@@ -22,6 +22,7 @@ import com.hspring.coffeereview.biz.user.UserVO;
 * 2020.09.03		Goonoo Jang		  getUser(String id) 추가
 * 2020.09.21		Goonoo Jang		  id -> uid 수정
 * 2020.10.20        Goonoo Jang       uid를 통해 name을 얻기위한 메쏘드 추가(getUserName)
+* 2020.10.21        Seongpyo Jo       getUserName -> getUserNickname 변경
 */
 @Repository("userDAO")
 public class UserDAO {
@@ -125,15 +126,16 @@ public class UserDAO {
 		// https://ecsimsw.tistory.com/entry/JPA-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A0%95-%EB%B3%80%EA%B2%BD-%EA%B0%90%EC%A7%80%EC%99%80-%EB%B3%91%ED%95%A9
 	}
 
+   
    /**
-    * @methodName   : getUserName
-    * @author      : Goonoo Jang
-    * @date      : 2020.10.20
-    * @param uid
-    * @return
-    */
-   public String getUserName(String uid) {
+	* @methodName  : getUserNickname
+	* @author      : SeongPyo Jo
+	* @date        : 2020.10.21
+	* @param uid
+	* @return
+	*/
+	public String getUserNickname(String uid) {
       UserVO vo = em.find(UserVO.class, uid);
-      return vo.getName();
+      return vo.getNickname();
    }
 }

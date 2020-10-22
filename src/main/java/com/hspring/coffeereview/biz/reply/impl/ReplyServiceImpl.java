@@ -29,6 +29,7 @@ import com.hspring.coffeereview.biz.user.impl.UserDAO;
 * 2020.09.16        SeongPyo Jo       별점 평균 갱신을 위한 BoardDAO 객체 추가
 * 2020.09.16        SeongPyo Jo       cid를 얻어오기 위한 메쏘드 추가(getCid)
 * 2020.10.20        SeongPyo Jo       uid를 통해 name을 얻어오기 위한 메쏘드 추가(getUserName)
+* 2020.10.21        Seongpyo Jo       getUserName -> getUserNickname 변경
  */
 
 @Service("replyService")
@@ -76,7 +77,7 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyDAO.getCid(rid);
 	}
 	
-	public String getUserName(String uid) throws Exception {
-		return userDAO.getUserName(uid);
+	public String getUserNickname(String uid) throws Exception {
+		return userDAO.getUserNickname(uid);
 	}
 }

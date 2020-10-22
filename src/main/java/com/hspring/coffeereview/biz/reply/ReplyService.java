@@ -21,5 +21,5 @@ public interface ReplyService {
 	
 	String getCid(int rid) throws Exception;
 	
-	String getUserName(String uid) throws Exception;
+	String getUserNickname(String uid) throws Exception;
 }

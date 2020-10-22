@@ -35,6 +35,7 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * 2020.09.16        SeongPyo Jo       댓글, 별점 등록 예외처리 기능 추가 (공백, 개행문자만 있을 시 리뷰 작성 불가)
 * 2020.10.12        SeongPyo Jo       주석 및 메쏘드 이름 오타 수정
 * 2020.10.20        SeongPyo Jo       uid를 통해 username을 구하는 메쏘드 추가(getUserName)
+* 2020.10.21        Seongpyo Jo       getUserName -> getUserNickname 변경
 */
 
 @RestController
@@ -216,12 +217,19 @@ public class ReplyController {
 		return entity;
     }
 	
+	/**
+	* @methodName  : getUserNickname
+	* @author      : SeongPyo Jo
+	* @date        : 2020.10.21
+	* @param uid
+	* @return
+	*/
 	@RequestMapping(value = "/getUserName/{uid}", method = RequestMethod.GET, produces = "application/text; charset=utf8")
-	public ResponseEntity<String> getUserName(@PathVariable("uid") String uid) {
+	public ResponseEntity<String> getUserNickname(@PathVariable("uid") String uid) {
 	    ResponseEntity<String> entity = null;
 	    
 	    try {
-	        String userName = replyService.getUserName(uid);
+	        String userName = replyService.getUserNickname(uid);
 	        System.out.println(userName);
 	        entity = new ResponseEntity<>(userName, HttpStatus.CREATED);
 	    } catch (Exception e) {
