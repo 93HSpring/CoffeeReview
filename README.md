@@ -31,9 +31,14 @@
 
 ## 상세보기
 
-### 로그인
+### 회원가입 및 로그인
 
-![로그인](https://user-images.githubusercontent.com/52192543/97356665-f0b17c00-18db-11eb-80f6-6d777fd0cc3c.png)
+![회원가입및로그인](https://user-images.githubusercontent.com/52192543/97363326-bfd64480-18e5-11eb-9a8f-79b7632e8030.gif)
+
+
+### 로그아웃
+
+![로그아웃](https://user-images.githubusercontent.com/52192543/97363358-ce246080-18e5-11eb-8aae-e007da3ea5ef.gif)
 
 
 ### 유저 정보 조회
@@ -43,27 +48,43 @@
 
 ### 카페 메뉴 목록
 
-![메뉴 목록](https://user-images.githubusercontent.com/52192543/97356235-4fc2c100-18db-11eb-9658-5ae7940e376a.png)
+![리뷰목록](https://user-images.githubusercontent.com/52192543/97363408-e0060380-18e5-11eb-9479-903382a7e5d0.gif)
 
 
 ### 카페 메뉴 검색
 
-![검색](https://user-images.githubusercontent.com/52192543/97356675-f27b3f80-18db-11eb-85d0-edb54d510169.png)
+![검색](https://user-images.githubusercontent.com/52192543/97363283-b056fb80-18e5-11eb-9a35-84ae9909005b.gif)
 
 
-### 카페 메뉴 조회 및 리뷰 작성
+### 카페 메뉴 조회 및 리뷰 조회
 
-![카페 메뉴 조회](https://user-images.githubusercontent.com/52192543/97356917-4f76f580-18dc-11eb-9cb4-5dd7f9d66de1.png)
+![조회](https://user-images.githubusercontent.com/52192543/97363495-05930d00-18e6-11eb-9c7d-f4b757b28988.gif)
 
 
-### 리뷰 조회
+### 리뷰 작성
 
-![리뷰 작성 및 조회](https://user-images.githubusercontent.com/52192543/97356679-f313d600-18db-11eb-9808-2ecdf6373195.png)
+![리뷰등록및조회](https://user-images.githubusercontent.com/52192543/97363536-15125600-18e6-11eb-9262-ccc3d852ce4c.gif)
 
 
 ### 리뷰 수정 및 삭제
 
-![수정](https://user-images.githubusercontent.com/52192543/97359770-9ff05200-18e0-11eb-87b9-385d4165001b.png)
+![수정](https://user-images.githubusercontent.com/52192543/97363586-265b6280-18e6-11eb-9975-498a03156f79.gif)
 
-![삭제](https://user-images.githubusercontent.com/52192543/97356686-f4450300-18db-11eb-8e69-6ebb094d6281.png)
+![삭제](https://user-images.githubusercontent.com/52192543/97363589-28252600-18e6-11eb-80d1-009e70555b5d.gif)
+
+
+### 기타 기능
+
+> 별점 혹은 리뷰 미작성
+
+![예외1](https://user-images.githubusercontent.com/52192543/97363673-4a1ea880-18e6-11eb-899b-a8892be59b07.gif)
+
+> 로그인 여부 리뷰 작성
+
+![예외2](https://user-images.githubusercontent.com/52192543/97363751-628ec300-18e6-11eb-97d7-8790d7edf7ef.gif)
+
+> 본인이 쓴 리뷰만 수정 및 삭제 가능
+
+![예외3](https://user-images.githubusercontent.com/52192543/97363790-6fabb200-18e6-11eb-9234-46923fd82645.gif)
+
 
