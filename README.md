@@ -57,7 +57,7 @@
 
 
 ### 카페 메뉴 목록 정렬
--  별점 기준 정렬
+- 기본 별점 기준 정렬
 
 ![정렬](https://user-images.githubusercontent.com/52192543/97364337-3d4e8480-18e7-11eb-8149-5b65e33250a7.gif)
 
