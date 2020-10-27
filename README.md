@@ -1,10 +1,32 @@
 # CoffeeReview
 CoffeeReview 입니다.
 
-# CoffeeReview의 기능  진행중...
+## CoffeeReview의 개선 진행중...
 > CoffeeReview-v2.0
 > https://github.com/93HSpring/CoffeeReview-v2.0
 
+## 사용 기술 및 도구
+### Tool
+- Eclipse
+
+### 백엔드
+- Java
+- Spring framework
+- JPA
+
+### 프론트
+- HTML, CSS, Javascript, Jquery
+- bootstrap
+- AdminLTE
+
+### DB
+- MariaDB
+
+### 서버
+- Tomcat
+
+
+## 상세보기
 
 로그인
 ======
