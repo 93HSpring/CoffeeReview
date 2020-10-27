@@ -31,14 +31,9 @@
 
 ## 상세보기
 
-### 회원가입
+### 회원가입 및 로그인
 
-![회원가입및로그인](https://user-images.githubusercontent.com/52192543/97363326-bfd64480-18e5-11eb-9a8f-79b7632e8030.gif)
-
-
-### 로그인
-
-![로그인111](https://user-images.githubusercontent.com/52192543/97363974-b3062080-18e6-11eb-9aba-0e9bab75a9f2.gif)
+![회원가입및로그인2](https://user-images.githubusercontent.com/52192543/97366108-19d90900-18ea-11eb-8391-5296f94c96b4.gif)
 
 
 ### 로그아웃
