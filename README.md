@@ -43,6 +43,6 @@ CoffeeReview 입니다.
 리뷰 수정 및 삭제
 =================
 <div>
-  <img width="200" src="https://user-images.githubusercontent.com/52192543/97356690-f4dd9980-18db-11eb-8912-89feb8ec0ef4.png">
-  <img width="200" src="https://user-images.githubusercontent.com/52192543/97356686-f4450300-18db-11eb-8e69-6ebb094d6281.png">
+  <img width="50%" src="https://user-images.githubusercontent.com/52192543/97356690-f4dd9980-18db-11eb-8912-89feb8ec0ef4.png">
+  <img width="50%" src="https://user-images.githubusercontent.com/52192543/97356686-f4450300-18db-11eb-8e69-6ebb094d6281.png">
 </div>
