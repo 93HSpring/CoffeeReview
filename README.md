@@ -63,7 +63,7 @@
 
 ### 리뷰 수정 및 삭제
 
-![수정](https://user-images.githubusercontent.com/52192543/97356690-f4dd9980-18db-11eb-8912-89feb8ec0ef4.png)
+![수정](https://user-images.githubusercontent.com/52192543/97359770-9ff05200-18e0-11eb-87b9-385d4165001b.png)
 
 ![삭제](https://user-images.githubusercontent.com/52192543/97356686-f4450300-18db-11eb-8e69-6ebb094d6281.png)
 
