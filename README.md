@@ -56,6 +56,12 @@
 ![리뷰목록](https://user-images.githubusercontent.com/52192543/97363408-e0060380-18e5-11eb-9479-903382a7e5d0.gif)
 
 
+### 카페 메뉴 목록 정렬
+-  별점 기준 정렬
+
+![정렬](https://user-images.githubusercontent.com/52192543/97364337-3d4e8480-18e7-11eb-8149-5b65e33250a7.gif)
+
+
 ### 카페 메뉴 검색
 
 ![검색](https://user-images.githubusercontent.com/52192543/97363283-b056fb80-18e5-11eb-9a35-84ae9909005b.gif)
@@ -80,11 +86,11 @@
 
 ### 기타 기능
 
-> 별점 혹은 리뷰 미작성
+> 별점 혹은 리뷰 미작성 시 예외처리
 
 ![예외1](https://user-images.githubusercontent.com/52192543/97363673-4a1ea880-18e6-11eb-899b-a8892be59b07.gif)
 
-> 로그인 여부 리뷰 작성
+> 로그인이 안되있을 시 예외처리
 
 ![예외2](https://user-images.githubusercontent.com/52192543/97363751-628ec300-18e6-11eb-97d7-8790d7edf7ef.gif)
 
