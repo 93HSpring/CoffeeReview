@@ -14,6 +14,7 @@ CoffeeReview 입니다.
 
 유저 정보 조회
 ==============
+> 준비중...
 
 
 카페 메뉴 목록
@@ -42,7 +43,8 @@ CoffeeReview 입니다.
 
 리뷰 수정 및 삭제
 =================
-<div>
-  <img width="50%" src="https://user-images.githubusercontent.com/52192543/97356690-f4dd9980-18db-11eb-8912-89feb8ec0ef4.png">
-  <img width="50%" src="https://user-images.githubusercontent.com/52192543/97356686-f4450300-18db-11eb-8e69-6ebb094d6281.png">
-</div>
+
+![수정](https://user-images.githubusercontent.com/52192543/97356690-f4dd9980-18db-11eb-8912-89feb8ec0ef4.png)
+
+![삭제](https://user-images.githubusercontent.com/52192543/97356686-f4450300-18db-11eb-8e69-6ebb094d6281.png)
+
