@@ -5,6 +5,8 @@
 > CoffeeReview-v2.0 <br>
 > https://github.com/93HSpring/CoffeeReview-v2.0
 
+******************************
+
 ## 사용 기술 및 도구
 ### Tool
 - Eclipse
@@ -25,6 +27,7 @@
 ### 서버
 - Tomcat
 
+******************************
 
 ## 상세보기
 
