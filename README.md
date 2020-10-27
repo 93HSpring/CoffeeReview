@@ -96,6 +96,6 @@
 
 > 본인이 쓴 리뷰만 수정 및 삭제 가능
 
-![예외3](https://user-images.githubusercontent.com/52192543/97363790-6fabb200-18e6-11eb-9234-46923fd82645.gif)
+![예외4](https://user-images.githubusercontent.com/52192543/97364978-3d02b900-18e8-11eb-82df-ffb087c72cd6.gif)
 
 
