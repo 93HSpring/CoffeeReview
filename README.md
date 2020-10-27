@@ -62,7 +62,7 @@
 ![검색](https://user-images.githubusercontent.com/52192543/97363283-b056fb80-18e5-11eb-9a35-84ae9909005b.gif)
 
 
-### 카페 메뉴 조회 및 리뷰 조회
+### 메뉴 상세정보 및 리뷰 조회
 
 ![조회](https://user-images.githubusercontent.com/52192543/97363495-05930d00-18e6-11eb-9c7d-f4b757b28988.gif)
 
