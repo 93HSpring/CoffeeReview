@@ -1,6 +1,7 @@
 package com.hspring.coffeereview.view.user;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.hspring.coffeereview.biz.reply.ReplyService;
+import com.hspring.coffeereview.biz.reply.ReplyVO;
 import com.hspring.coffeereview.biz.user.UserService;
 import com.hspring.coffeereview.biz.user.UserVO;
 
@@ -37,6 +40,8 @@ import com.hspring.coffeereview.biz.user.UserVO;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ReplyService replyService;
 	
 	/**
 	 * @methodName	: insertUser
@@ -91,14 +96,18 @@ public class UserController {
 	 * @param model
 	 * @param session
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/userInfo", method = { RequestMethod.GET, RequestMethod.POST })
-	public String userInfo(Model model, HttpSession session) throws IOException {
+	public String userInfo(Model model, HttpSession session) throws Exception {
 		String uid = (String) session.getAttribute("sessionId");
 		UserVO vo = userService.getUser(uid);
 		System.out.println(vo.getName() + "의 정보를 조회합니다.");
-		model.addAttribute("userInfo", vo);
+		model.addAttribute("userInfo", vo); // userVO를 model에 담는다.
+		
+		// vo가 작성한 리뷰들을 담는다. 
+		List<ReplyVO> replyList = replyService.getUserReplyList(vo.getUid());
+		model.addAttribute("userReply", replyList);
 
 		return "userInfo.jsp";
 	}

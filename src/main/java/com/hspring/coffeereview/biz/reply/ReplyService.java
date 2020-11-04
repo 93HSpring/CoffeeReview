@@ -7,6 +7,8 @@ import com.hspring.coffeereview.biz.common.Criteria;
 public interface ReplyService {
 	List<ReplyVO> getReplyList(String cid) throws Exception;
 	
+	List<ReplyVO> getUserReplyList(String uid) throws Exception;
+	
 	void create(ReplyVO vo) throws Exception;
 	
 	void update(ReplyVO vo) throws Exception;

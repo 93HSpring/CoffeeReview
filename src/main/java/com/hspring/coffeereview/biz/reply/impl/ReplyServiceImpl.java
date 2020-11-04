@@ -30,6 +30,7 @@ import com.hspring.coffeereview.biz.user.impl.UserDAO;
 * 2020.09.16        SeongPyo Jo       cid를 얻어오기 위한 메쏘드 추가(getCid)
 * 2020.10.20        SeongPyo Jo       uid를 통해 name을 얻어오기 위한 메쏘드 추가(getUserName)
 * 2020.10.21        Seongpyo Jo       getUserName -> getUserNickname 변경
+* 2020.10.27		Goonoo Jang		   특정 user가 작성한 리뷰들을 얻어오기 위한 메소드 추가 (getUserReplyList)
  */
 
 @Service("replyService")
@@ -43,6 +44,10 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	public List<ReplyVO> getReplyList(String cid) {
 		return replyDAO.getReplyList(cid);
+	}
+	
+	public List<ReplyVO> getUserReplyList(String uid) throws Exception {
+		return replyDAO.getReplyList(uid);
 	}
 	
 	public void create(ReplyVO vo) {

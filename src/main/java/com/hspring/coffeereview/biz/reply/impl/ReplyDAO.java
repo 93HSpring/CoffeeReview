@@ -32,6 +32,7 @@ import com.hspring.coffeereview.biz.reply.ReplyVO;
 * 2020.09.16        SeongPyo Jo       별점 평균 계산을 위한 메쏘드 추가(getStarAvg)
 * 2020.09.16        SeongPyo Jo       cid를 얻어오기 위한 메쏘드 추가(getCid)
 * 2020.10.12        SeongPyo Jo       리뷰 출력 updateDate 내림차순으로 변경(getReplyListPaging)
+* 2020.10.27		Goonoo Jang		  uid에 해당하는 리뷰들을 List형식으로 받아오는 메쏘드 추가 (getUserReplyList)
  */
 
 @Repository
@@ -51,6 +52,20 @@ public class ReplyDAO {
 		TypedQuery<ReplyVO> query = em.createQuery("from ReplyVO r where cid = " + cid + "order by r.rid", ReplyVO.class);
 		return query.getResultList();
 	}
+	
+	
+	/**
+	 * @methodName	: getUserReplyList
+	 * @author		: Goonoo Jang
+	 * @date		: 2020.10.27
+	 * @param cid
+	 * @return
+	 */
+	public List<ReplyVO> getUserReplyList(String uid) {
+		TypedQuery<ReplyVO> query = em.createQuery("from ReplyVO r where uid = " + uid + "order by r.updatedate desc", ReplyVO.class);
+		return query.getResultList();
+	}
+	
 	
 	/**
 	 * 
